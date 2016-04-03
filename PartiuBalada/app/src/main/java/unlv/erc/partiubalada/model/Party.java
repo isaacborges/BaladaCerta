@@ -14,8 +14,16 @@ public class Party {
     private String endTime;
     private float amountOfStars;
 
-   public void party() {
-
+    public Party(String partyName, int idParty, float latitude, float longitude, String type, float price, String startTime, String endTime, float amountOfStars) {
+        this.partyName = partyName;
+        this.idParty = idParty;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.type = type;
+        this.price = price;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.amountOfStars = amountOfStars;
     }
 
     public float getAmountOfStars() {
