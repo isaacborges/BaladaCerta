@@ -2,8 +2,8 @@ package unlv.erc.partiubalada.model;
 
 public class Promotion {
 
-    int promotionCode;
-    String type;
+    private int promotionCode;
+    private String type;
 
     void promotion(){}
     int getPromotionCode(){}
