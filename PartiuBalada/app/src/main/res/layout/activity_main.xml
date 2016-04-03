@@ -12,7 +12,7 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/eventListView"
+        android:id="@+id/partyListView"
         android:layout_alignParentTop="true"/>
 
 

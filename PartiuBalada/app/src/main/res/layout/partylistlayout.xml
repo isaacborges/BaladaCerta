@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:id="@+id/eventlistlayout"
+                android:maxHeight="100dp"
+                android:minWidth="385dp"
+                android:background="#c1706565">
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/partyRatingBar"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:numStars="5"
+        android:rating="3"
+        android:clickable="true"
+        android:progressTint="#e4ef43"
+        android:progressBackgroundTint="#5075704f"
+        android:secondaryProgressTint="#43521c"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Roda do Chopp"
+        android:id="@+id/partyLocality"
+        android:layout_above="@+id/partyRatingBar"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="#ffffff"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Pode ou Não Pode"
+        android:id="@+id/partyName"
+        android:layout_above="@+id/partyLocality"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="30dp"
+        android:textColor="#FFFFFF"/>
+</RelativeLayout>

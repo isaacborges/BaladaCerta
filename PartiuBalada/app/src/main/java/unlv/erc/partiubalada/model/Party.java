@@ -5,6 +5,7 @@ import java.lang.String;
 public class Party {
 
     private String partyName;
+    private String partyImage;
     private int idParty;
     private float latitude;
     private float longitude;
@@ -14,8 +15,11 @@ public class Party {
     private String endTime;
     private float amountOfStars;
 
-    public Party(String partyName, int idParty, float latitude, float longitude, String type, float price, String startTime, String endTime, float amountOfStars) {
+    public Party(String partyName, String partyImage, int idParty, float latitude,
+                 float longitude, String type, float price, String startTime, String endTime,
+                 float amountOfStars) {
         this.partyName = partyName;
+        this.partyImage = partyImage;
         this.idParty = idParty;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -32,6 +36,10 @@ public class Party {
 
     public String getPartyName() {
         return partyName;
+    }
+
+    public String getPartyImage() {
+        return partyImage;
     }
 
     public int getIdParty() {
