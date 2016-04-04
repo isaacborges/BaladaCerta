@@ -45,13 +45,14 @@ public class MainActivity extends AppCompatActivity {
         String startTimeTest = "10h";
         String endTimeTest = "1h";
 
-        parties.add(new Party("Pode ou Não Pode", "PartyImage", idTest, latitudeTest, longitudeTest,
+        parties.add(new Party("Pode ou Não Pode", "podeounaopode", idTest, latitudeTest,
+                longitudeTest,
                 "Sertanejo", priceTest, startTimeTest, endTimeTest, (float) 5));
 
-        parties.add(new Party("Zeze di Camargo e Luciano", "PartyImage", idTest,latitudeTest,
+        parties.add(new Party("Zeze di Camargo e Luciano", "zezedicamargo", idTest,latitudeTest,
                 longitudeTest, "Sertanejo", priceTest, startTimeTest, endTimeTest, (float)4));
 
-        parties.add(new Party("Bloco do Primeiro Beijo", "PartyImage", idTest, latitudeTest,
+        parties.add(new Party("Bloco do Primeiro Beijo", "ensaioprimeirobj", idTest, latitudeTest,
                 longitudeTest, "Sertanejo", priceTest, startTimeTest, endTimeTest, (float) 3));
     }
 
@@ -67,17 +68,16 @@ public class MainActivity extends AppCompatActivity {
                 itemView = getLayoutInflater().inflate(R.layout.partylistlayout, parent, false);
             }
 
-            //reversing the order of the list and setting it on the Actvity
-            Party currentParty = parties.get(parties.size() - (position + 1));
+            Party currentParty = parties.get(position);
 
             Log.i("party name", currentParty.getPartyName());
 
             TextView partyName = (TextView) itemView.findViewById(R.id.partyName);
-            partyName.setText(currentParty.getPartyName());
+            partyName.setText("Teste");
 
-//            String background = currentParty.getPartyImage();
-//            int drawableID = getResources().getIdentifier(background, "drawable", getPackageName());
-//            itemView.setBackgroundResource(drawableID);
+            String background = currentParty.getPartyImage();
+            int drawableID = getResources().getIdentifier(background, "drawable", getPackageName());
+            itemView.setBackgroundResource(drawableID);
 
             RatingBar makeRate = (RatingBar) itemView.findViewById(R.id.partyRatingBar);
             makeRate.setRating(currentParty.getAmountOfStars());
