@@ -47,13 +47,17 @@ public class MainActivity extends AppCompatActivity {
 
         parties.add(new Party("Pode ou Não Pode", "podeounaopode", idTest, latitudeTest,
                 longitudeTest,
-                "Sertanejo", priceTest, startTimeTest, endTimeTest, (float) 5));
+                "Sertanejo", priceTest, startTimeTest, endTimeTest, "Roda do Chopp(Agora)",
+                (float) 5));
 
-        parties.add(new Party("Zeze di Camargo e Luciano", "zezedicamargo", idTest,latitudeTest,
-                longitudeTest, "Sertanejo", priceTest, startTimeTest, endTimeTest, (float)4));
+        parties.add(new Party("Zeze di Camargo e Luciano", "zezedicamargo", idTest, latitudeTest,
+                longitudeTest, "Sertanejo", priceTest, startTimeTest, endTimeTest, "Espaço Villa " +
+                "Mix(Agora)",(float) 4));
 
         parties.add(new Party("Bloco do Primeiro Beijo", "ensaioprimeirobj", idTest, latitudeTest,
-                longitudeTest, "Sertanejo", priceTest, startTimeTest, endTimeTest, (float) 3));
+                longitudeTest, "Sertanejo", priceTest, startTimeTest, endTimeTest, "Clube do " +
+                "Congresso(Agora)",(float) 3));
+
     }
 
     private class myListAdapter extends ArrayAdapter<Party> {
@@ -70,17 +74,18 @@ public class MainActivity extends AppCompatActivity {
 
             Party currentParty = parties.get(position);
 
-            Log.i("party name", currentParty.getPartyName());
+            TextView partyName = (TextView) itemView.findViewById(R.id.list_eventName);
+            partyName.setText(currentParty.getPartyName());
 
-            TextView partyName = (TextView) itemView.findViewById(R.id.partyName);
-            partyName.setText("Teste");
+            TextView partyLocality = (TextView) itemView.findViewById(R.id.list_eventTime);
+            partyLocality.setText(currentParty.getLocality());
 
             String background = currentParty.getPartyImage();
             int drawableID = getResources().getIdentifier(background, "drawable", getPackageName());
             itemView.setBackgroundResource(drawableID);
 
-            RatingBar makeRate = (RatingBar) itemView.findViewById(R.id.partyRatingBar);
-            makeRate.setRating(currentParty.getAmountOfStars());
+            RatingBar ratingBar = (RatingBar) itemView.findViewById(R.id.list_eventRating);
+            ratingBar.setRating(currentParty.getAmountOfStars());
 
             return itemView;
         }

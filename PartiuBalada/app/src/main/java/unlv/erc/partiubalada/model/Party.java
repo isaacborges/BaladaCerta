@@ -14,10 +14,11 @@ public class Party {
     private String startTime;
     private String endTime;
     private float amountOfStars;
+    private String locality;
 
     public Party(String partyName, String partyImage, int idParty, float latitude,
                  float longitude, String type, float price, String startTime, String endTime,
-                 float amountOfStars) {
+                 String locality, float amountOfStars) {
         this.partyName = partyName;
         this.partyImage = partyImage;
         this.idParty = idParty;
@@ -27,6 +28,7 @@ public class Party {
         this.price = price;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.locality = locality;
         this.amountOfStars = amountOfStars;
     }
 
@@ -68,5 +70,13 @@ public class Party {
 
     public String getEndTime() {
         return endTime;
+    }
+
+    public String getLocality() {
+        return locality;
+    }
+
+    public void setLocality(String locality){
+        this.locality = locality;
     }
 }
