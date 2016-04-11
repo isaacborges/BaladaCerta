@@ -74,17 +74,17 @@ public class MainActivity extends AppCompatActivity {
 
             Party currentParty = parties.get(position);
 
-            TextView partyName = (TextView) itemView.findViewById(R.id.list_eventName);
+            TextView partyName = (TextView) itemView.findViewById(R.id.partyName);
             partyName.setText(currentParty.getPartyName());
 
-            TextView partyLocality = (TextView) itemView.findViewById(R.id.list_eventTime);
+            TextView partyLocality = (TextView) itemView.findViewById(R.id.partyLocation);
             partyLocality.setText(currentParty.getLocality());
 
             String background = currentParty.getPartyImage();
             int drawableID = getResources().getIdentifier(background, "drawable", getPackageName());
             itemView.setBackgroundResource(drawableID);
 
-            RatingBar ratingBar = (RatingBar) itemView.findViewById(R.id.list_eventRating);
+            RatingBar ratingBar = (RatingBar) itemView.findViewById(R.id.partyRating);
             ratingBar.setRating(currentParty.getAmountOfStars());
 
             return itemView;
