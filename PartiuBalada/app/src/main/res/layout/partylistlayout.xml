@@ -49,7 +49,7 @@
 
         <RatingBar
             android:id="@+id/partyRating"
-            style="?android:attr/ratingBarStyleSmall"
+            style="?android:attr/ratingBarStyleIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|bottom|right"
@@ -57,7 +57,7 @@
             android:nestedScrollingEnabled="true"
             android:numStars="5"
             android:progressTint="#e1c23d"
-            android:rating="5"/>
+            android:rating="5" />
 
     </LinearLayout>
 
