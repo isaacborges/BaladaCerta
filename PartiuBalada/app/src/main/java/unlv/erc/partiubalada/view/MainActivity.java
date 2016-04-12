@@ -1,5 +1,7 @@
 package unlv.erc.partiubalada.view;
 
+import android.app.Activity;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         createList();
     }
+
 
     private void createList() {
         ArrayAdapter<Party> adapter = new myListAdapter();
@@ -69,17 +72,24 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View itemView = convertView;
+
+            Typeface openSans;
+
             if (itemView == null) {
                 itemView = getLayoutInflater().inflate(R.layout.partylistlayout, parent, false);
             }
 
             Party currentParty = parties.get(position);
 
+            openSans = Typeface.createFromAsset(getAssets(),"OpenSans-CondLight.ttf");
+
             TextView partyName = (TextView) itemView.findViewById(R.id.partyName);
             partyName.setText(currentParty.getPartyName());
+            partyName.setTypeface(openSans);
 
             TextView partyLocality = (TextView) itemView.findViewById(R.id.partyLocation);
             partyLocality.setText(currentParty.getLocality());
+            partyLocality.setTypeface(openSans);
 
             String background = currentParty.getPartyImage();
             int drawableID = getResources().getIdentifier(background, "drawable", getPackageName());
