@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -82,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
             String background = currentParty.getPartyImage();
             int drawableID = getResources().getIdentifier(background, "drawable", getPackageName());
-            itemView.setBackgroundResource(drawableID);
+            ImageView partyImage = (ImageView) itemView.findViewById(R.id.partyImage);
+            partyImage.setBackgroundResource(drawableID);
 
             RatingBar ratingBar = (RatingBar) itemView.findViewById(R.id.partyRating);
             ratingBar.setRating(currentParty.getAmountOfStars());
