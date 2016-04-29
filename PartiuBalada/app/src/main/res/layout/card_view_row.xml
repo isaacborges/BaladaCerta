@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:card_view="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/card_root"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="199dp"
+        android:layout_margin="5dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="10dp">
+        <FrameLayout
+            android:id="@+id/eventlistlayout"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/partyImage"
+                android:background="@drawable/zezedicamargo"/>
+
+            <View
+                android:background="@drawable/shadow"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:weightSum="1"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/linearLayout"
+                android:layout_gravity="right|bottom">
+
+                <TextView
+                    android:id="@+id/partyName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:text="Event Name"
+                    android:textColor="#F0F8FF"
+                    android:textSize="30sp"/>
+
+
+                <TextView
+                    android:id="@+id/partyLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:focusableInTouchMode="false"
+                    android:text="Locality"
+                    android:textColor="#F0F8FF"
+                    android:textSize="20sp"/>
+
+                <RatingBar
+                    android:id="@+id/partyRating"
+                    style="?android:attr/ratingBarStyleIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom|right"
+                    android:focusableInTouchMode="false"
+                    android:nestedScrollingEnabled="true"
+                    android:numStars="5"
+                    android:progressTint="#e1c23d"
+                    android:rating="5" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
