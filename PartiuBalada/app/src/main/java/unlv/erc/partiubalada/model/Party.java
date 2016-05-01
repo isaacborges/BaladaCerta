@@ -16,6 +16,8 @@ public class Party {
     private float amountOfStars;
     private String locality;
 
+    public Party() {}
+
     public Party(String partyName, String partyImage, int idParty, float latitude,
                  float longitude, String type, float price, String startTime, String endTime,
                  String locality, float amountOfStars) {

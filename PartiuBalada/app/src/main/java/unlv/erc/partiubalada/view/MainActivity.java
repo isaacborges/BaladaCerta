@@ -19,6 +19,11 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_main);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
@@ -46,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new MyRecyclerViewAdapter(getDataFromFB(), MainActivity.this);
         mRecyclerView.setAdapter(mAdapter);
+
     }
 
     public ArrayList<Party> getDataFromFB() {
@@ -74,6 +81,37 @@ public class MainActivity extends AppCompatActivity {
 
         return parties;
     }
+// Esse é o codigo que coleta os dados do firebase, estes dados devem ser coletados em outra
+// tela, esta tela ja deve receber uma lista com todas as festas
+//    public ArrayList<Party> getDataFromFB() {
+//        Firebase partiesReference = new Firebase("https://baladacerta.firebaseio.com/Parties");
+//
+//        partiesReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot snapshot) {
+//                System.out.println("There are " + snapshot.getChildrenCount() + " parties");
+//                int amountOfParties = 0;
+//
+//                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+//                    Party party = postSnapshot.getValue(Party.class);
+//                    parties.add(party);
+//                    Log.i("Adding party", "number " + amountOfParties);
+//                    ((MyRecyclerViewAdapter) mAdapter).addItem(party, amountOfParties);
+//                    amountOfParties++;
+//                }
+//
+//                Log.i("creating list with", "this amount of parties = " + amountOfParties);
+//                mAdapter = new MyRecyclerViewAdapter(parties, MainActivity.this);
+//            }
+//
+//            @Override
+//            public void onCancelled(FirebaseError firebaseError) {
+//                System.out.println("The read failed: " + firebaseError.getMessage());
+//            }
+//        });
+//
+//        return parties;
+//    }
 
     @Override
     protected void onResume() {

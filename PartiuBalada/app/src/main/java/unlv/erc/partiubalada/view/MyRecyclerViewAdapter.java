@@ -94,6 +94,7 @@ public class MyRecyclerViewAdapter extends RecyclerView
         String background = mDataset.get(position).getPartyImage();
         int imageID = holder.itemView.getResources().getIdentifier(background, "drawable", "unlv.erc.partiubalada");
         holder.partyImage.setImageResource(imageID);
+        holder.partyImage.setScaleType(ImageView.ScaleType.FIT_XY);
 
         setAnimation(view, position);
     }
@@ -122,7 +123,7 @@ public class MyRecyclerViewAdapter extends RecyclerView
     {
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > lastPosition) {
-            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
