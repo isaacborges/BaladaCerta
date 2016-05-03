@@ -2,9 +2,6 @@ package unlv.erc.partiubalada.model;
 
 import java.util.ArrayList;
 
-/**
- * Created by Dandara on 03/04/2016.
- */
 public class Administrator extends  Promoter {
 
    private ArrayList<String> listOfPrmoters;

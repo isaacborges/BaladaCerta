@@ -15,6 +15,7 @@ public class Party {
     private String endTime;
     private float amountOfStars;
     private String locality;
+    private Promotion promotions[];
 
     public Party() {}
 

@@ -4,6 +4,7 @@ public class Promotion {
 
     private int promotionCode;
     private String type;
+    private Party party;
 
     public Promotion(int promotionCode, String type) {
         this.promotionCode = promotionCode;
