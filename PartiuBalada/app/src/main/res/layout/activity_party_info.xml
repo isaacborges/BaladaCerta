@@ -8,6 +8,37 @@
     android:fitsSystemWindows="true"
     tools:context="unlv.erc.partiubalada.view.PartyInfo">
 
+    <FrameLayout
+        android:id="@+id/eventlistlayout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="220dp">
 
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/partyImage"
+            />
+
+        <View
+            android:background="@drawable/shadow"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"/>
+
+        <RatingBar
+            android:id="@+id/partyRating"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom|right"
+            android:focusableInTouchMode="false"
+            android:nestedScrollingEnabled="true"
+            android:numStars="5"
+            android:progressTint="#e1c23d"
+            android:rating="5"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="9dp"/>
+
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

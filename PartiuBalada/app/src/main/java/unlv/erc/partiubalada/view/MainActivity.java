@@ -1,7 +1,9 @@
 package unlv.erc.partiubalada.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,9 +34,7 @@ import unlv.erc.partiubalada.model.Party;
 import unlv.erc.partiubalada.model.User;
 
 public class MainActivity extends AppCompatActivity {
-
     private ArrayList<Party> parties = new ArrayList<Party>();
-
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -121,6 +121,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position, View v) {
                 Log.i(LOG_TAG, " Clicked on Item " + position);
+                Party party = parties.get(position);
+
+                Intent intent = new Intent(MainActivity.this, PartyInfo.class);
+                Bundle mBundle = new Bundle();
+                mBundle.putSerializable(Party.PARTY_SERIALIZABLE_KEY, party);
+                intent.putExtras(mBundle);
+
+                startActivity(intent);
             }
         });
     }

@@ -1,9 +1,10 @@
 package unlv.erc.partiubalada.model;
 
+import java.io.Serializable;
 import java.lang.String;
 
-public class Party {
-
+public class Party implements Serializable{
+    public  final static String PARTY_SERIALIZABLE_KEY = "party_key";
     private String partyName;
     private String partyImage;
     private int idParty;
