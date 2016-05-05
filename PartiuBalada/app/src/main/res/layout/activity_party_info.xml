@@ -1,44 +1,233 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="unlv.erc.partiubalada.view.PartyInfo">
 
-    <FrameLayout
-        android:id="@+id/eventlistlayout"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="220dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/partyImage"
-            />
+        <FrameLayout
+            android:id="@+id/eventlistlayout"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="224dp">
 
-        <View
-            android:background="@drawable/shadow"
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"/>
+            <ImageView
+                android:id="@+id/partyImage"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
 
-        <RatingBar
-            android:id="@+id/partyRating"
-            style="?android:attr/ratingBarStyleIndicator"
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shadow"/>
+
+            <RatingBar
+                android:id="@+id/partyRating"
+                style="?android:attr/ratingBarStyleIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom|right"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="9dp"
+                android:focusableInTouchMode="false"
+                android:nestedScrollingEnabled="true"
+                android:numStars="5"
+                android:progressTint="#e1c23d"
+                android:rating="5"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/partyName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|bottom|right"
-            android:focusableInTouchMode="false"
-            android:nestedScrollingEnabled="true"
-            android:numStars="5"
-            android:progressTint="#e1c23d"
-            android:rating="5"
-            android:layout_marginBottom="15dp"
-            android:layout_marginRight="9dp"/>
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/eventlistlayout"
+            android:layout_marginRight="9dp"
+            android:text="Party Name"
+            android:textColor="#0b0b0b"
+            android:textSize="32dp"/>
 
-    </FrameLayout>
+        <TextView
+            android:id="@+id/partyLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/partyName"
+            android:layout_alignRight="@+id/partyName"
+            android:layout_below="@+id/partyName"
+            android:text="Party Location"
+            android:textColor="#171616"
+            android:textSize="28dp"
+            />
 
-</android.support.design.widget.CoordinatorLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/partyLocation"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:id="@+id/partyLocationTittle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/partyLocation"
+                android:text="Local:"
+                android:textSize="24dp"/>
+
+            <TextView
+                android:id="@+id/partyLocationDesciption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/partyLocationTittle"
+                android:layout_marginTop="5dp"
+                android:singleLine="true"
+                android:text="Location description"
+                android:textColor="#000000"
+                android:textSize="24dp"/>
+
+            <TextView
+                android:id="@+id/partyLineUpTittle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/partyLocationTittle"
+                android:layout_marginTop="25dp"
+                android:singleLine="true"
+                android:text="Atrações:"
+                android:textSize="24dp"/>
+
+            <TextView
+                android:id="@+id/partyLineUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/partyLocationTittle"
+                android:layout_marginTop="5dp"
+                android:singleLine="true"
+                android:text="Atração 1\nAtração 2\nAtração 3"
+                android:textColor="#000000"
+                android:textSize="24dp"/>
+
+            <TextView
+                android:id="@+id/partyTicketsTittle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/partyLocationTittle"
+                android:layout_marginTop="25dp"
+                android:singleLine="true"
+                android:text="Ingressos:"
+                android:textSize="24dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/partyTicketFemaleTittle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Feminino: "
+                    android:textColor="#000000"
+                    android:textSize="24dp"/>
+
+                <TextView
+                    android:id="@+id/partyTicketFemalePrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="R$ 40,00"
+                    android:textColor="#000000"
+                    android:textSize="24dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/partyTicketMaleTittle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Masculino: "
+                    android:textColor="#000000"
+                    android:textSize="24dp"/>
+
+                <TextView
+                    android:id="@+id/partyTicketMalePrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="R$ 60,00"
+                    android:textColor="#000000"
+                    android:textSize="24dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:id="@+id/sybomFemale"
+                    android:src="@drawable/symbolfemale"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="546"
+                    android:id="@+id/textView"
+                    android:layout_gravity="center"
+                    android:textSize="25dp"
+                    android:background="@drawable/round_rect_shape"
+                    android:singleLine="false"
+                    android:layout_marginLeft="5dp"/>
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:id="@+id/sybomMale"
+                    android:src="@drawable/symbolmale"
+                    android:layout_marginLeft="100dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="200"
+                    android:id="@+id/textView2"
+                    android:textSize="25dp"
+                    android:background="@drawable/round_rect_shape"
+                    android:singleLine="false"
+                    android:layout_marginLeft="5dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
