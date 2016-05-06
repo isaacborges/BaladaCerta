@@ -63,19 +63,29 @@ public class MainActivity extends AppCompatActivity {
         String startTimeTest = "10h";
         String endTimeTest = "1h";
 
+        parties.add(new Party("Black Rutz", "racionais", idTest, latitudeTest,
+                longitudeTest,
+                "Rap", priceTest, startTimeTest, endTimeTest, "Estadio Serejão(Agora)",
+                (float) 5));
+
+        parties.add(new Party("Vem pro meu Lounge", "wesleysafadao", idTest, latitudeTest,
+                longitudeTest,
+                "Forro", priceTest, startTimeTest, endTimeTest, "Estadio Mane Garrincha(Agora)",
+                (float) 5));
+
         parties.add(new Party("Pode ou Não Pode", "podeounaopode", idTest, latitudeTest,
                 longitudeTest,
                 "Sertanejo", priceTest, startTimeTest, endTimeTest, "Roda do Chopp(Agora)",
-                (float) 5));
+                (float) 4));
 
         parties.add(new Party("Zeze di Camargo e Luciano", "zezedicamargo", idTest, latitudeTest,
                 longitudeTest, "Sertanejo", priceTest, startTimeTest, endTimeTest, "Espaço Villa " +
-                "Mix(Agora)", (float) 4));
+                "Mix(Agora)", (float) 3));
 
 
         Party p1 = new Party("Bloco do Primeiro Beijo", "ensaioprimeirobj", idTest, latitudeTest,
                 longitudeTest, "Sertanejo", priceTest, startTimeTest, endTimeTest, "Clube do " +
-                "Congresso(Agora)", (float) 3);
+                "Congresso(Agora)", (float) 2.5);
 
         parties.add(p1);
 
