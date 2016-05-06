@@ -34,7 +34,8 @@
             android:layout_gravity="center_vertical|right"
             android:text="Event Name"
             android:textColor="#F0F8FF"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:onClick="abreLista"/>
 
 
         <TextView

@@ -1,13 +1,11 @@
 package unlv.erc.partiubalada.view;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -22,7 +20,7 @@ import unlv.erc.partiubalada.model.Party;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<Party> parties = new ArrayList<Party>();
+    private List<Party> parties = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +37,13 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<Party> adapter = new myListAdapter();
         ListView list = (ListView) findViewById(R.id.partyListView);
         list.setAdapter(adapter);
+    }
+
+    public void abreLista(View view){
+
+        Intent intent = new Intent(this,PromotionActivity.class);
+        startActivity(intent);
+
     }
 
     public void getDataFromFB() {
