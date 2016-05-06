@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PartiuBalada</string>
+    <string name="title_activity_party_info">PartyInfo</string>
 </resources>

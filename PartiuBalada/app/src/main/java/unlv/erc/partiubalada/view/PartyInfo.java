@@ -1,0 +1,91 @@
+package unlv.erc.partiubalada.view;
+
+import android.content.Intent;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
+
+import unlv.erc.partiubalada.R;
+import unlv.erc.partiubalada.model.Party;
+
+public class PartyInfo extends AppCompatActivity {
+
+
+    private ImageView partyImage;
+    private RatingBar partyRating;
+    private TextView partyName;
+    private TextView partyLocation;
+    private TextView partyLocationTittle;
+    private TextView partyLocationDescription;
+    private TextView partyLineUpTittle;
+    private TextView partyLineUp;
+    private TextView partyTicketsTittle;
+    private TextView partyTicketFemaleTittle;
+    private TextView partyTicketFemalePrice;
+    private TextView partyTicketMaleTittle;
+    private TextView partyTicketMalePrice;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_party_info);
+
+        Intent intent = getIntent();
+        Party party = (Party) intent.getSerializableExtra(Party.PARTY_SERIALIZABLE_KEY);
+
+        setPartyFlyer(party);
+
+        Typeface openSans = Typeface.createFromAsset(getAssets(), "OpenSans-CondLight.ttf");
+        Typeface openSansBold = Typeface.createFromAsset(getAssets(), "OpenSans-CondBold.ttf");
+
+        partyName = (TextView) findViewById(R.id.partyName);
+        partyName.setText(party.getPartyName());
+        partyName.setTypeface(openSansBold);
+
+        partyLocation = (TextView) findViewById(R.id.partyLocation);
+        partyLocation.setText(party.getLocality());
+        partyLocation.setTypeface(openSans);
+
+        partyLocationTittle = (TextView) findViewById(R.id.partyLocationTittle);
+        partyLocationTittle.setTypeface(openSansBold);
+
+        partyLocationDescription = (TextView) findViewById(R.id.partyLocationDesciption);
+        partyLocationDescription.setTypeface(openSans);
+
+        partyLineUpTittle = (TextView) findViewById(R.id.partyLineUpTittle);
+        partyLineUpTittle.setTypeface(openSansBold);
+
+        partyLineUp = (TextView) findViewById(R.id.partyLineUp);
+        partyLineUp.setTypeface(openSans);
+
+        partyTicketsTittle = (TextView) findViewById(R.id.partyTicketsTittle);
+        partyTicketsTittle.setTypeface(openSansBold);
+
+        partyTicketFemaleTittle = (TextView) findViewById(R.id.partyTicketFemaleTittle);
+        partyTicketFemaleTittle.setTypeface(openSans);
+
+        partyTicketFemalePrice = (TextView) findViewById(R.id.partyTicketFemalePrice);
+        partyTicketFemalePrice.setTypeface(openSans);
+
+        partyTicketMaleTittle = (TextView) findViewById(R.id.partyTicketMaleTittle);
+        partyTicketMaleTittle.setTypeface(openSans);
+
+        partyTicketMalePrice = (TextView) findViewById(R.id.partyTicketMalePrice);
+        partyTicketMalePrice.setTypeface(openSans);
+    }
+
+    private void setPartyFlyer(Party party) {
+        partyImage = (ImageView) findViewById(R.id.partyImage);
+        partyRating = (RatingBar) findViewById(R.id.partyRating);
+
+        partyRating.setRating(party.getAmountOfStars());
+
+        String background = party.getPartyImage();
+        int imageID = getResources().getIdentifier(background, "drawable", "unlv.erc.partiubalada");
+        partyImage.setImageResource(imageID);
+        partyImage.setScaleType(ImageView.ScaleType.FIT_XY);
+    }
+}
