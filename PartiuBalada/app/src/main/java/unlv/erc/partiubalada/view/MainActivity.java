@@ -50,82 +50,36 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new MyRecyclerViewAdapter(getDataFromFB(), MainActivity.this);
-        mRecyclerView.setAdapter(mAdapter);
+        getDataFromFB();
 
     }
 
-    public ArrayList<Party> getDataFromFB() {
-        float latitudeTest = (float) 123.5;
-        float longitudeTest = 456;
-        float priceTest = 50;
-        int idTest = 1;
-        String startTimeTest = "10h";
-        String endTimeTest = "1h";
+    public void getDataFromFB() {
+        Firebase partiesReference = new Firebase("https://baladacerta.firebaseio.com/Parties");
 
-        parties.add(new Party("Black Rutz", "racionais", idTest, latitudeTest,
-                longitudeTest,
-                "Rap", priceTest, startTimeTest, endTimeTest, "Estadio Serejão(Agora)",
-                (float) 5));
+        partiesReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                System.out.println("There are " + snapshot.getChildrenCount() + " parties");
 
-        parties.add(new Party("Vem pro meu Lounge", "wesleysafadao", idTest, latitudeTest,
-                longitudeTest,
-                "Forro", priceTest, startTimeTest, endTimeTest, "Estadio Mane Garrincha(Agora)",
-                (float) 5));
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Party party = postSnapshot.getValue(Party.class);
+                    parties.add(party);
+                }
 
-        parties.add(new Party("Pode ou Não Pode", "podeounaopode", idTest, latitudeTest,
-                longitudeTest,
-                "Sertanejo", priceTest, startTimeTest, endTimeTest, "Roda do Chopp(Agora)",
-                (float) 4));
+                setPartiesOnView();
 
-        parties.add(new Party("Zeze di Camargo e Luciano", "zezedicamargo", idTest, latitudeTest,
-                longitudeTest, "Sertanejo", priceTest, startTimeTest, endTimeTest, "Espaço Villa " +
-                "Mix(Agora)", (float) 3));
+                setOnPartyClickAction();
+            }
 
-
-        Party p1 = new Party("Bloco do Primeiro Beijo", "ensaioprimeirobj", idTest, latitudeTest,
-                longitudeTest, "Sertanejo", priceTest, startTimeTest, endTimeTest, "Clube do " +
-                "Congresso(Agora)", (float) 2.5);
-
-        parties.add(p1);
-
-        return parties;
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                System.out.println("The read failed: " + firebaseError.getMessage());
+            }
+        });
     }
-// Esse é o codigo que coleta os dados do firebase, estes dados devem ser coletados em outra
-// tela, esta tela ja deve receber uma lista com todas as festas
-//    public ArrayList<Party> getDataFromFB() {
-//        Firebase partiesReference = new Firebase("https://baladacerta.firebaseio.com/Parties");
-//
-//        partiesReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot snapshot) {
-//                System.out.println("There are " + snapshot.getChildrenCount() + " parties");
-//                int amountOfParties = 0;
-//
-//                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-//                    Party party = postSnapshot.getValue(Party.class);
-//                    parties.add(party);
-//                    Log.i("Adding party", "number " + amountOfParties);
-//                    ((MyRecyclerViewAdapter) mAdapter).addItem(party, amountOfParties);
-//                    amountOfParties++;
-//                }
-//
-//                Log.i("creating list with", "this amount of parties = " + amountOfParties);
-//                mAdapter = new MyRecyclerViewAdapter(parties, MainActivity.this);
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//                System.out.println("The read failed: " + firebaseError.getMessage());
-//            }
-//        });
-//
-//        return parties;
-//    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void setOnPartyClickAction() {
         ((MyRecyclerViewAdapter) mAdapter).setOnItemClickListener(new MyRecyclerViewAdapter
                 .MyClickListener() {
             @Override
@@ -143,5 +97,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    private void setPartiesOnView() {
+        mAdapter = new MyRecyclerViewAdapter(parties, MainActivity.this);
+        mRecyclerView.setAdapter(mAdapter);
+    }
 }
