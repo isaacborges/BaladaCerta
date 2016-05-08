@@ -50,11 +50,12 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        getDataFromFB();
 
+        getDataFromFB();
     }
 
     public void getDataFromFB() {
+        Log.i("Getting data", "From firebase");
         Firebase partiesReference = new Firebase("https://baladacerta.firebaseio.com/Parties");
 
         partiesReference.addValueEventListener(new ValueEventListener() {

@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.beardedhen.androidbootstrap.TypefaceProvider;
 
 import unlv.erc.partiubalada.R;
 import unlv.erc.partiubalada.model.Party;
@@ -27,11 +30,13 @@ public class PartyInfo extends AppCompatActivity {
     private TextView partyTicketFemalePrice;
     private TextView partyTicketMaleTittle;
     private TextView partyTicketMalePrice;
+    private Button evaluateParty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_info);
+        TypefaceProvider.registerDefaultIconSets();
 
         Intent intent = getIntent();
         Party party = (Party) intent.getSerializableExtra(Party.PARTY_SERIALIZABLE_KEY);
@@ -75,6 +80,9 @@ public class PartyInfo extends AppCompatActivity {
 
         partyTicketMalePrice = (TextView) findViewById(R.id.partyTicketMalePrice);
         partyTicketMalePrice.setTypeface(openSans);
+
+        evaluateParty = (Button) findViewById(R.id.evaluateParty);
+        evaluateParty.setTypeface(openSans);
     }
 
     private void setPartyFlyer(Party party) {
