@@ -9,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.beardedhen.androidbootstrap.TypefaceProvider;
-
 import unlv.erc.partiubalada.R;
 import unlv.erc.partiubalada.model.Party;
 
@@ -36,7 +34,6 @@ public class PartyInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_info);
-        TypefaceProvider.registerDefaultIconSets();
 
         Intent intent = getIntent();
         Party party = (Party) intent.getSerializableExtra(Party.PARTY_SERIALIZABLE_KEY);
