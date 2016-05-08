@@ -1,9 +1,12 @@
 package unlv.erc.partiubalada.view;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -40,6 +43,42 @@ public class PartyInfo extends AppCompatActivity {
 
         setPartyFlyer(party);
 
+        setTypefaceOnViewTexts(party);
+
+        evaluateParty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog rankDialog = new Dialog(PartyInfo.this, R.style.FullHeightDialog);
+                RatingBar ratingBar = new RatingBar(getApplicationContext());
+
+                rankDialog = new Dialog(PartyInfo.this, R.style.FullHeightDialog);
+                rankDialog.setContentView(R.layout.rank_dialog);
+                rankDialog.setCancelable(true);
+                ratingBar = (RatingBar) rankDialog.findViewById(R.id.dialog_ratingbar);
+
+                TextView text = (TextView) rankDialog.findViewById(R.id.rank_dialog_text1);
+
+                Button updateButton = (Button) rankDialog.findViewById(R.id.rank_dialog_button);
+                final Dialog finalRankDialog = rankDialog;
+                final RatingBar finalRatingBar = ratingBar;
+                updateButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        finalRankDialog.dismiss();
+
+                        Log.i("Amount of stars", finalRatingBar.getRating() + "");
+
+                    }
+                });
+                //now that the dialog is set up, it's time to show it
+                rankDialog.show();
+
+            }
+        });
+    }
+
+    private void setTypefaceOnViewTexts(Party party) {
         Typeface openSans = Typeface.createFromAsset(getAssets(), "OpenSans-CondLight.ttf");
         Typeface openSansBold = Typeface.createFromAsset(getAssets(), "OpenSans-CondBold.ttf");
 
