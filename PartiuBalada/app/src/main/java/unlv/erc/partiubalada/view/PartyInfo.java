@@ -30,6 +30,8 @@ public class PartyInfo extends AppCompatActivity {
     private TextView partyTicketMaleTittle;
     private TextView partyTicketMalePrice;
     private Button evaluateParty;
+    private Typeface openSans;
+    private Typeface openSansBold;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +58,13 @@ public class PartyInfo extends AppCompatActivity {
                 rankDialog = new Dialog(PartyInfo.this, R.style.FullHeightDialog);
                 rankDialog.setContentView(R.layout.rank_dialog);
                 rankDialog.setCancelable(true);
-                ratingBar = (RatingBar) rankDialog.findViewById(R.id.dialog_ratingbar);
+                ratingBar = (RatingBar) rankDialog.findViewById(R.id.dialogRatingbar);
 
-                TextView text = (TextView) rankDialog.findViewById(R.id.rank_dialog_text1);
+                TextView text = (TextView) rankDialog.findViewById(R.id.rankDialogText1);
+                text.setTypeface(openSansBold);
 
-                Button updateButton = (Button) rankDialog.findViewById(R.id.rank_dialog_button);
+                Button updateButton = (Button) rankDialog.findViewById(R.id.rankDialogButton);
+                updateButton.setTypeface(openSans);
                 final Dialog finalRankDialog = rankDialog;
                 final RatingBar finalRatingBar = ratingBar;
                 updateButton.setOnClickListener(new View.OnClickListener() {
@@ -83,8 +87,8 @@ public class PartyInfo extends AppCompatActivity {
     }
 
     private void setTypefaceOnViewTexts(Party party) {
-        Typeface openSans = Typeface.createFromAsset(getAssets(), "OpenSans-CondLight.ttf");
-        Typeface openSansBold = Typeface.createFromAsset(getAssets(), "OpenSans-CondBold.ttf");
+        openSans = Typeface.createFromAsset(getAssets(), "OpenSans-CondLight.ttf");
+        openSansBold = Typeface.createFromAsset(getAssets(), "OpenSans-CondBold.ttf");
 
         partyName = (TextView) findViewById(R.id.partyName);
         partyName.setText(party.getPartyName());

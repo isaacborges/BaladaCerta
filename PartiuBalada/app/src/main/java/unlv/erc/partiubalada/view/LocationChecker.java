@@ -13,7 +13,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import unlv.erc.partiubalada.R;
 
 public class LocationChecker extends FragmentActivity implements OnMapReadyCallback {
-
     private GoogleMap mMap;
 
     @Override
