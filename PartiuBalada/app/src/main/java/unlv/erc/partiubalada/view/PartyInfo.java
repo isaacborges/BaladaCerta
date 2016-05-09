@@ -16,8 +16,6 @@ import unlv.erc.partiubalada.R;
 import unlv.erc.partiubalada.model.Party;
 
 public class PartyInfo extends AppCompatActivity {
-
-
     private ImageView partyImage;
     private RatingBar partyRating;
     private TextView partyName;
@@ -45,6 +43,10 @@ public class PartyInfo extends AppCompatActivity {
 
         setTypefaceOnViewTexts(party);
 
+        createRatingDilag();
+    }
+
+    private void createRatingDilag() {
         evaluateParty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,16 +66,18 @@ public class PartyInfo extends AppCompatActivity {
                 updateButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         finalRankDialog.dismiss();
 
                         Log.i("Amount of stars", finalRatingBar.getRating() + "");
 
+                        Intent intent = new Intent(PartyInfo.this, LocationChecker.class);
+                        startActivity(intent);
                     }
-                });
-                //now that the dialog is set up, it's time to show it
-                rankDialog.show();
 
+
+                });
+
+                rankDialog.show();
             }
         });
     }
