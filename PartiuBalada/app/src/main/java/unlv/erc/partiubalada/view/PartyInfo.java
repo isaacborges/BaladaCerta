@@ -45,10 +45,10 @@ public class PartyInfo extends AppCompatActivity {
 
         setTypefaceOnViewTexts(party);
 
-        createRatingDilag();
+        createRatingDilag(party);
     }
 
-    private void createRatingDilag() {
+    private void createRatingDilag(final Party party) {
         evaluateParty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +75,10 @@ public class PartyInfo extends AppCompatActivity {
                         Log.i("Amount of stars", finalRatingBar.getRating() + "");
 
                         Intent intent = new Intent(PartyInfo.this, LocationChecker.class);
+                        Bundle mBundle = new Bundle();
+                        mBundle.putSerializable(Party.PARTY_SERIALIZABLE_KEY, party);
+                        intent.putExtras(mBundle);
+
                         startActivity(intent);
                     }
 
