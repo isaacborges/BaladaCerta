@@ -2,5 +2,6 @@
     <string name="app_name">PartiuBalada</string>
     <string name="title_activity_party_info">PartyInfo</string>
     <string name="title_activity_location_checker">LocationChecker</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
