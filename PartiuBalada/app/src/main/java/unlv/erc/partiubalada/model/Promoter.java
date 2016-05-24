@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by Dandara on 03/04/2016.
  */
-public class Promoter extends User {
+public class Promoter  {
 
 
     private ArrayList<String> listOfParty;
