@@ -3,7 +3,7 @@ package unlv.erc.partiubalada.model;
 public class User {
 
     private String name;
-    private int age;
+    private String age;
     private String idUser;
     private String gender;
     private String email;
@@ -14,7 +14,7 @@ public class User {
     public User() {
     }
 
-    public User(String name, int age, String idUser, String gender, String email, String password, String state, String city) {
+    public User(String name, String age, String idUser, String gender, String email, String password, String state, String city) {
         this.name = name;
         this.age = age;
         this.idUser = idUser;
@@ -33,11 +33,11 @@ public class User {
         this.name = name;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

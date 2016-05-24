@@ -10,7 +10,7 @@ public class NormalUser extends User{
     public NormalUser() {
     }
 
-    public NormalUser(String name, int age, String idUser, String gender, String email, String password, String state, String city) {
+    public NormalUser(String name, String age, String idUser, String gender, String email, String password, String state, String city) {
         super(name, age, idUser, gender, email, password, state, city);
     }
 

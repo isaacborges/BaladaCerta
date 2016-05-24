@@ -68,7 +68,7 @@
 
 
             <TextView
-                android:id="@+id/text_view_phone_number"
+                android:id="@+id/text_view_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -80,7 +80,7 @@
                 android:textStyle="bold|italic" />
 
             <EditText
-                android:id="@+id/edit_text_phone_number"
+                android:id="@+id/edit_text_age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
