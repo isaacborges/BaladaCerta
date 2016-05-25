@@ -84,7 +84,7 @@
                 android:background="@color/colorPrimaryDark"
                 android:onClick="onLoginClicked"
                 android:padding="10dp"
-                android:text="Entra"
+                android:text="Entrar"
                 android:textStyle="bold" />
 
             <Space
@@ -99,7 +99,7 @@
                 android:background="@color/colorPrimary"
                 android:onClick="onSignUpClicked"
                 android:padding="10dp"
-                android:text="Nova usuário? Crie uma conta"
+                android:text="Novo usuário? Crie uma conta"
                 android:textStyle="bold" />
 
         </LinearLayout>
