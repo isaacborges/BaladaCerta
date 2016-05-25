@@ -32,4 +32,7 @@ proguard/
 captures/
 
 #.idea files
-PartiuBalada/.idea/*
+PartiuBalada/.idea/*.xml
+PartiuBalada/.idea/**/*.xml
+.idea/*.xml
+.idea/**.xml

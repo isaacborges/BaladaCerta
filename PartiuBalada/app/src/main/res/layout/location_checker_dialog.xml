@@ -1,37 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="wrap_content"
-              android:layout_height="fill_parent"
-              android:orientation="vertical">
-
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
     <TextView
-        android:id="@+id/rankDialogText1"
+        android:id="@+id/checker_dialog_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Quantas estrelas essa balada merece?"
+        android:text="Muito obrigado por avaliar a balada. Curta muito a festa!"
         android:textAlignment="center"
         android:textColor="#ffffff"
         android:textSize="24dp"/>
 
-    <RatingBar
-        android:id="@+id/dialogRatingbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:clickable="true"
-        android:isIndicator="false"
-        android:numStars="5"
-        android:progressTint="#dde541"
-        android:rating="2.5"
-        android:stepSize="0.5"
-        android:secondaryProgressTint="#1c1c17"/>
-
     <Button
-        android:id="@+id/rankDialogButton"
+        android:id="@+id/rank_dialog_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -40,7 +23,7 @@
         android:background="@drawable/round_rect_button"
         android:padding="20dp"
         android:singleLine="false"
-        android:text="Enviar"
+        android:text="OK"
         android:textColor="#ffffff"
         android:textColorHighlight="#19438a"
         android:textSize="25dp"/>
