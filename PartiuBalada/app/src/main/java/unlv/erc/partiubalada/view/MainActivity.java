@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getDataFromFB() {
-        Log.i("Getting data", "From firebase");
         Firebase partiesReference = new Firebase("https://baladacerta.firebaseio.com/Parties");
 
         partiesReference.addValueEventListener(new ValueEventListener() {
