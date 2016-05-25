@@ -34,10 +34,9 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_signup);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        //Creates a reference for  your Firebase database
+
         myFirebaseRef =  new Firebase("https://baladacerta.firebaseio.com/");
     }
 

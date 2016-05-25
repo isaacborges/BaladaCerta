@@ -141,8 +141,4 @@ public class PartyInfo extends AppCompatActivity {
         partyImage.setScaleType(ImageView.ScaleType.FIT_XY);
     }
 
-    public void abrelogin(View view) {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
 }
