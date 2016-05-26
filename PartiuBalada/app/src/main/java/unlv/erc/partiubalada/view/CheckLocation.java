@@ -1,16 +1,23 @@
 package unlv.erc.partiubalada.view;
 
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
+import android.os.Build;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -24,6 +31,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.location.LocationServices;
 
+
+import java.util.ArrayList;
+import java.util.List;
 
 import helper.GPSTracker;
 
@@ -61,6 +71,11 @@ public class CheckLocation extends FragmentActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            checkPermissions();
+        }
+
         map = googleMap;
         map.setMyLocationEnabled(true);
 
@@ -149,6 +164,20 @@ public class CheckLocation extends FragmentActivity implements OnMapReadyCallbac
     protected void onStop() {
         mGoogleApiClient.disconnect();
         super.onStop();
+    }
+
+    @SuppressLint("NewApi")
+    private void checkPermissions() {
+        final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+
+        List<String> permissions = new ArrayList<>();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+        if (!permissions.isEmpty()) {
+            String[] params = permissions.toArray(new String[permissions.size()]);
+            requestPermissions(params, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+        } // else: We already have permissions, so handle as normal
     }
 
 }

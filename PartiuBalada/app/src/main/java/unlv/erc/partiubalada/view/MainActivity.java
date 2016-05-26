@@ -31,6 +31,7 @@ import com.firebase.client.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import unlv.erc.partiubalada.Controller.PartyController;
 import unlv.erc.partiubalada.R;
 import unlv.erc.partiubalada.model.Party;
 import unlv.erc.partiubalada.model.User;
@@ -65,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("There are " + snapshot.getChildrenCount() + " parties");
 
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
+//                    Party party = PartyController.getParties();
+
                     Party party = postSnapshot.getValue(Party.class);
                     parties.add(party);
                 }
