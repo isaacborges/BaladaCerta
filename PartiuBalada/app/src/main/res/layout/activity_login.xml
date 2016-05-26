@@ -36,7 +36,7 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp" android:layout_marginTop="100dp" android:autoText="false"
             android:hint="@string/email_hint" android:inputType="textEmailAddress"
-            android:textColorHint="#dad3d3"/>
+            android:textColorHint="#dad3d3" android:textColor="#dad3d3"/>
 
 
         <EditText
@@ -47,7 +47,7 @@
             android:layout_margin="25dp"
             android:hint="@string/password_hint"
             android:inputType="textPassword"
-            android:textColorHint="#dad3d3"/>
+            android:textColorHint="#dad3d3" android:textColor="#dad3d3"/>
 
 
         <Button

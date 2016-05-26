@@ -18,11 +18,17 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
 public class LoginActivity extends AppCompatActivity {
+    EditText userEmail;
+    EditText userPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Firebase.setAndroidContext(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        userEmail = (EditText) findViewById(R.id.edit_text_email_id);
+        userPassword = (EditText) findViewById(R.id.edit_text_password);
     }
 
     public void onSignUpClicked(View view) {
@@ -31,7 +37,29 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onLoginClicked(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+
+        Firebase myFirebaseRef =  new Firebase("https://baladacerta.firebaseio.com/");
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar_login);
+
+        progressBar.setVisibility(View.VISIBLE);
+
+        myFirebaseRef.authWithPassword(String.valueOf(userEmail.getText()), String.valueOf(userPassword.getText()),
+                new Firebase.AuthResultHandler() {
+                    @Override
+                    public void onAuthenticated(AuthData authData) {
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onAuthenticationError(FirebaseError firebaseError) {
+                        showError();
+                    }
+                });
+
+    }
+
+    private void showError () {
+        userPassword.setError("Nome de usuário e/ou senha estão incorretos!");
     }
 }
