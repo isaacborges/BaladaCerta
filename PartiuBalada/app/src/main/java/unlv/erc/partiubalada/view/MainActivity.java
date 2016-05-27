@@ -31,6 +31,7 @@ import com.firebase.client.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import unlv.erc.partiubalada.Controller.PartyController;
 import unlv.erc.partiubalada.R;
 import unlv.erc.partiubalada.model.Party;
 import unlv.erc.partiubalada.model.User;
@@ -53,35 +54,30 @@ public class MainActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        getDataFromFB();
+        getParties();
     }
 
-    public void getDataFromFB() {
+
+
+    public void getParties() {
+
+        PartyController partyC = new PartyController();
+
         Firebase partiesReference = new Firebase("https://baladacerta.firebaseio.com/Parties");
 
-        partiesReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                System.out.println("There are " + snapshot.getChildrenCount() + " parties");
+        ValueEventListener event = partyC.getParties();
+        parties = partyC.getPatiesArray();
 
-                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                    Party party = postSnapshot.getValue(Party.class);
-                    parties.add(party);
-                }
+        partiesReference.addValueEventListener(event);
 
-                setPartiesOnView();
+        setPartiesOnView();
 
-                setOnPartyClickAction();
-            }
+        setOnPartyClickAction();
 
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                System.out.println("The read failed: " + firebaseError.getMessage());
-            }
-        });
     }
 
-    private void setOnPartyClickAction() {
+
+    public void setOnPartyClickAction() {
         ((MyRecyclerViewAdapter) mAdapter).setOnItemClickListener(new MyRecyclerViewAdapter
                 .MyClickListener() {
             @Override
@@ -99,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setPartiesOnView() {
+    public void setPartiesOnView() {
         mAdapter = new MyRecyclerViewAdapter(parties, MainActivity.this);
         mRecyclerView.setAdapter(mAdapter);
     }
