@@ -1,34 +1,13 @@
 package unlv.erc.partiubalada.DAO;
 
-import android.view.View;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-
-import java.util.Map;
-
-import unlv.erc.partiubalada.Controller.UserController;
-import android.widget.ProgressBar;
-
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-
-import unlv.erc.partiubalada.Controller.UserController;
-import unlv.erc.partiubalada.R;
 
 import java.util.Map;
 
 import unlv.erc.partiubalada.model.NormalUser;
-import unlv.erc.partiubalada.view.MainActivity;
 import unlv.erc.partiubalada.view.SignUpActivity;
 
 /**
@@ -36,34 +15,33 @@ import unlv.erc.partiubalada.view.SignUpActivity;
  */
 public class NormalUserDAO {
 
+    private Firebase myFirebaseRef;
 
-    public void saveUserOnFireBase(final UserController user, final SignUpActivity activity) {
+    public void saveUserOnFireBase(final SignUpActivity activity, final NormalUser user) {
 
-        //this.pbar = pbar;
-
-        final Firebase myFirebaseRef =  new Firebase("https://baladacerta.firebaseio.com/");
+        myFirebaseRef =  new Firebase("https://baladacerta.firebaseio.com/");
 
         myFirebaseRef.createUser(
-                user.getUser().getEmail(),
-                user.getUser().getPassword(),
+                user.getEmail(),
+                user.getPassword(),
                 new Firebase.ValueResultHandler<Map<String, Object>>() {
                     @Override
                     public void onSuccess(Map<String, Object> stringObjectMap) {
-                        user.getUser().setIdUser(stringObjectMap.get("uid").toString());
-                        user.getUser().saveUser();
+                        user.setIdUser(stringObjectMap.get("uid").toString());
+                        user.saveUser();
                         myFirebaseRef.unauth();
-
+                        Toast.makeText(activity.getApplicationContext(), "Your Account has been Created", Toast.LENGTH_LONG).show();
+                        Toast.makeText(activity.getApplicationContext(), "Please Login With your Email and Password", Toast.LENGTH_LONG).show();
+                        //activity.progressBar.setVisibility(View.GONE);
+                        activity.finish();
                     }
 
                     @Override
                     public void onError(FirebaseError firebaseError) {
-                        //Toast.makeText(activity.getApplicationContext(), "" + firebaseError.getMessage(), Toast.LENGTH_LONG).show();
-                        //pbar.setVisibility(View.GONE);
+                        Toast.makeText(activity.getApplicationContext(), "" + firebaseError.getMessage(), Toast.LENGTH_LONG).show();
+                        //activity.progressBar.setVisibility(View.GONE);
                     }
                 }
         );
-
-
-
     }
 }
