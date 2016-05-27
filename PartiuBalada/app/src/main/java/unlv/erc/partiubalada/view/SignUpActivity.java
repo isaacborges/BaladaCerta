@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
+import unlv.erc.partiubalada.Controller.UserController;
 import unlv.erc.partiubalada.R;
 
 import java.util.Map;
@@ -20,7 +21,7 @@ import unlv.erc.partiubalada.model.NormalUser;
 public class SignUpActivity extends AppCompatActivity {
 
     private Firebase myFirebaseRef;
-    private NormalUser user;
+    private UserController userController;
     private EditText name;
     private EditText age;
     private EditText gender;
@@ -38,6 +39,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         myFirebaseRef =  new Firebase("https://baladacerta.firebaseio.com/");
+
     }
 
     @Override
@@ -55,45 +57,25 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     protected void setUpUser(){
-        user = new NormalUser();
-        user.setName(name.getText().toString());
-        user.setAge(age.getText().toString());
-        user.setGender(gender.getText().toString());
-        user.setCity(city.getText().toString());
-        user.setState(state.getText().toString());
-        user.setEmail(email.getText().toString());
-        user.setPassword(password.getText().toString());
+        userController = new UserController();
+        userController.getUser().setName(name.getText().toString());
+        userController.getUser().setAge(age.getText().toString());
+        userController.getUser().setGender(gender.getText().toString());
+        userController.getUser().setCity(city.getText().toString());
+        userController.getUser().setState(state.getText().toString());
+        userController.getUser().setEmail(email.getText().toString());
+        userController.getUser().setPassword(password.getText().toString());
     }
 
     public void onSignUpClicked(View view){
-        progressBar.setVisibility(View.VISIBLE);
-        setUpUser();
-        //createUser method creates a new user account with the given email and password.
-        //Parameters are :
-        // email - The email for the account to be created
-        // password - The password for the account to be created
-        // handler - A handler which is called with the result of the operation
-        myFirebaseRef.createUser(
-                user.getEmail(),
-                user.getPassword(),
-                new Firebase.ValueResultHandler<Map<String, Object>>() {
-                    @Override
-                    public void onSuccess(Map<String, Object> stringObjectMap) {
-                        user.setIdUser(stringObjectMap.get("uid").toString());
-                        user.saveUser();
-                        myFirebaseRef.unauth();
-                        Toast.makeText(getApplicationContext(), "Your Account has been Created", Toast.LENGTH_LONG).show();
-                        Toast.makeText(getApplicationContext(), "Please Login With your Email and Password", Toast.LENGTH_LONG).show();
-                        progressBar.setVisibility(View.GONE);
-                        finish();
-                    }
 
-                    @Override
-                    public void onError(FirebaseError firebaseError) {
-                        Toast.makeText(getApplicationContext(), "" + firebaseError.getMessage(), Toast.LENGTH_LONG).show();
-                        progressBar.setVisibility(View.GONE);
-                    }
-                }
-        );
+        setUpUser();
+
+        userController.saveUser(userController, SignUpActivity.this);
+
+        Toast.makeText(getApplicationContext(), "Your Account has been Created", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Please Login With your Email and Password", Toast.LENGTH_LONG).show();
+        finish();
+
     }
 }

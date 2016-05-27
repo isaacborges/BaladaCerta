@@ -16,9 +16,12 @@ import com.firebase.client.ValueEventListener;
 public class PartyController {
 
     PartyDAO partyDAO;
+    Party party;
+    public  final static String PARTY_SERIALIZABLE_KEY=Party.PARTY_SERIALIZABLE_KEY;
 
     public PartyController(){
         partyDAO = new PartyDAO();
+        party = new Party();
     }
 
     public ValueEventListener getParties() {
@@ -34,6 +37,14 @@ public class PartyController {
 
         return parties;
 
+    }
+
+    public Party getParty() {
+        return party;
+    }
+
+    public void setParty(Party party) {
+        this.party = party;
     }
 
 }
