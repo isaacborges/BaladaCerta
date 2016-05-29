@@ -32,7 +32,6 @@ public class NormalUserDAO {
                         myFirebaseRef.unauth();
                         Toast.makeText(activity.getApplicationContext(), "Your Account has been Created", Toast.LENGTH_LONG).show();
                         Toast.makeText(activity.getApplicationContext(), "Please Login With your Email and Password", Toast.LENGTH_LONG).show();
-                        //activity.progressBar.setVisibility(View.GONE);
                         activity.finish();
                     }
 

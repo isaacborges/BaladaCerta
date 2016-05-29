@@ -10,6 +10,7 @@ public class User {
     private String password;
     private String state;
     private String city;
+    private Preferences preferences[];
 
     public User() {
     }

@@ -1,6 +1,7 @@
 package unlv.erc.partiubalada.Controller;
 
 
+        import android.content.Intent;
         import android.view.View;
         import android.widget.EditText;
         import android.widget.ProgressBar;
@@ -10,6 +11,7 @@ package unlv.erc.partiubalada.Controller;
         import unlv.erc.partiubalada.DAO.NormalUserDAO;
         import unlv.erc.partiubalada.R;
         import unlv.erc.partiubalada.model.NormalUser;
+        import unlv.erc.partiubalada.view.LoginActivity;
         import unlv.erc.partiubalada.view.MainActivity;
         import unlv.erc.partiubalada.view.SignUpActivity;
 
@@ -66,10 +68,14 @@ public class NormalUserController {
         user.setPassword(password.getText().toString());
     }
 
+    protected void openLogin(){
+        Intent intent = new Intent(activity,LoginActivity.class);
+        activity.startActivity(intent);
+
+    }
+
 
     public void saveUser(){
-
-        //progressBar.setVisibility(View.VISIBLE);
 
         setUpUser();
 
@@ -77,7 +83,7 @@ public class NormalUserController {
 
         userDAO.saveUserOnFireBase(activity,user);
 
-
+        openLogin();
     }
 
 
