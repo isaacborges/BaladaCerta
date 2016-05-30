@@ -29,6 +29,13 @@ public class PartyDAO {
 
     }
 
+    private Firebase connectToDB() {
+
+        Firebase connection = FactoryConnection.establishConnection();
+
+        return connection;
+    }
+
 
     public ValueEventListener getPartiesFromFB() {
 

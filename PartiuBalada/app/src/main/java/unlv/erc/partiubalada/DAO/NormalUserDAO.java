@@ -19,9 +19,9 @@ public class NormalUserDAO {
 
     private Firebase connectToDB() {
 
-        Firebase connection = FactoryConnection.establishConnection();
+        Firebase connectionFirebase = FactoryConnection.establishConnection();
 
-        return connection;
+        return connectionFirebase;
     }
 
 

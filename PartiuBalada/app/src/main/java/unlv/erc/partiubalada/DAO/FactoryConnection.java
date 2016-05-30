@@ -10,6 +10,7 @@ import com.firebase.client.Firebase;
 
 public class FactoryConnection {
 
+
     private static FactoryConnection instance;
 
 
@@ -27,7 +28,7 @@ public class FactoryConnection {
             instance = new FactoryConnection();
         }
         else{
-
+            //Do nothing!
         }
 
         return instance;
