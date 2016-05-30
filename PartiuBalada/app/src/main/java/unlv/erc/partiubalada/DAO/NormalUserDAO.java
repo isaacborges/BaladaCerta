@@ -15,11 +15,19 @@ import unlv.erc.partiubalada.view.SignUpActivity;
  */
 public class NormalUserDAO {
 
-    private Firebase myFirebaseRef;
+
+
+    private Firebase connectToDB() {
+
+        Firebase connection = FactoryConnection.establishConnection();
+
+        return connection;
+    }
+
 
     public void saveUserOnFireBase(final SignUpActivity activity, final NormalUser user) {
 
-        myFirebaseRef =  new Firebase("https://baladacerta.firebaseio.com/");
+        final Firebase myFirebaseRef =  connectToDB();
 
         myFirebaseRef.createUser(
                 user.getEmail(),
