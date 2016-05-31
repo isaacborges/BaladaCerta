@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void getParties() {
-
         PartyController partyController = new PartyController(MainActivity.this, mAdapter, mRecyclerView);
 
         Firebase partiesReference = new Firebase("https://baladacerta.firebaseio.com/Parties");
@@ -68,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
         parties = partyController.getPatiesArray();
 
         partiesReference.addValueEventListener(event);
-
-
     }
 
 }

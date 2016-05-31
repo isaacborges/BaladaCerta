@@ -76,14 +76,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Não possui conta?"
-            android:id="@+id/textView3" android:textColor="#f1e8e8" android:textSize="20dp"
+            android:id="@+id/doYouHaveAccount" android:textColor="#f1e8e8" android:textSize="20dp"
             android:textIsSelectable="true"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/signup"
-            android:id="@+id/textView4"
+            android:id="@+id/signUp"
             android:textColor="#f1e8e8"
             android:textStyle="bold|italic"
             android:textSize="20dp"
