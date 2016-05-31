@@ -1,9 +1,6 @@
 package unlv.erc.partiubalada.model;
 import com.firebase.client.Firebase;
 
-/**
- * Created by dandaraaranha on 23/05/16.
- */
 public class NormalUser extends User{
 
 

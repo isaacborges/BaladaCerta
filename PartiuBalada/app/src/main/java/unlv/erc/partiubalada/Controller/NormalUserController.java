@@ -1,23 +1,19 @@
 package unlv.erc.partiubalada.Controller;
 
 
-        import android.content.Intent;
-        import android.view.View;
-        import android.widget.EditText;
-        import android.widget.ProgressBar;
+import android.content.Intent;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 
-        import com.firebase.client.Firebase;
+import com.firebase.client.Firebase;
 
-        import unlv.erc.partiubalada.DAO.NormalUserDAO;
-        import unlv.erc.partiubalada.R;
-        import unlv.erc.partiubalada.model.NormalUser;
-        import unlv.erc.partiubalada.view.LoginActivity;
-        import unlv.erc.partiubalada.view.MainActivity;
-        import unlv.erc.partiubalada.view.SignUpActivity;
-
-/**
- * Created by goliveira on 5/8/16.
- */
+import unlv.erc.partiubalada.DAO.NormalUserDAO;
+import unlv.erc.partiubalada.R;
+import unlv.erc.partiubalada.model.NormalUser;
+import unlv.erc.partiubalada.view.LoginActivity;
+import unlv.erc.partiubalada.view.MainActivity;
+import unlv.erc.partiubalada.view.SignUpActivity;
 
 public class NormalUserController {
 
@@ -33,7 +29,7 @@ public class NormalUserController {
     NormalUserDAO userDAO;
     SignUpActivity activity;
 
-    public NormalUserController(SignUpActivity activity){
+    public NormalUserController(SignUpActivity activity) {
         this.activity = activity;
     }
 
@@ -48,16 +44,16 @@ public class NormalUserController {
     public void startComponents() {
 
         name = (EditText) activity.findViewById(R.id.edit_text_username);
-        age=(EditText) activity.findViewById(R.id.edit_text_age);
-        gender= (EditText) activity.findViewById(R.id.edit_text_sex);
-        city=(EditText) activity.findViewById(R.id.edit_text_city);
-        state=(EditText) activity.findViewById(R.id.edit_text_state);
+        age = (EditText) activity.findViewById(R.id.edit_text_age);
+        gender = (EditText) activity.findViewById(R.id.edit_text_sex);
+        city = (EditText) activity.findViewById(R.id.edit_text_city);
+        state = (EditText) activity.findViewById(R.id.edit_text_state);
         email = (EditText) activity.findViewById(R.id.edit_text_new_email);
-        password = (EditText) activity.findViewById( R.id.edit_text_new_password);
+        password = (EditText) activity.findViewById(R.id.edit_text_new_password);
         progressBar = (ProgressBar) activity.findViewById(R.id.progress_bar_sign_up);
     }
 
-    protected void setUpUser(){
+    protected void setUpUser() {
         user = new NormalUser();
         user.setName(name.getText().toString());
         user.setAge(age.getText().toString());
@@ -68,24 +64,23 @@ public class NormalUserController {
         user.setPassword(password.getText().toString());
     }
 
-    protected void openLogin(){
-        Intent intent = new Intent(activity,LoginActivity.class);
+    protected void openLogin() {
+        Intent intent = new Intent(activity, LoginActivity.class);
         activity.startActivity(intent);
 
     }
 
 
-    public void saveUser(){
+    public void saveUser() {
 
         setUpUser();
 
         userDAO = new NormalUserDAO();
 
-        userDAO.saveUserOnFireBase(activity,user);
+        userDAO.saveUserOnFireBase(activity, user);
 
         openLogin();
     }
-
 
 
 }

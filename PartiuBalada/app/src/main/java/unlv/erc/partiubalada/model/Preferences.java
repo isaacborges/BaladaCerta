@@ -1,8 +1,5 @@
 package unlv.erc.partiubalada.model;
 
-/**
- * Created by Dandara on 03/04/2016.
- */
 public class Preferences {
 
     private String favoritePartyStyle;

@@ -1,6 +1,5 @@
 package unlv.erc.partiubalada.view;
 
-
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;

@@ -2,12 +2,6 @@ package unlv.erc.partiubalada.DAO;
 
 import com.firebase.client.Firebase;
 
-
-/**
- * Created by dandaraaranha on 29/05/16.
- */
-
-
 public class FactoryConnection {
 
 

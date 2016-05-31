@@ -10,9 +10,6 @@ import java.util.Map;
 import unlv.erc.partiubalada.model.NormalUser;
 import unlv.erc.partiubalada.view.SignUpActivity;
 
-/**
- * Created by goliveira on 5/8/16.
- */
 public class NormalUserDAO {
 
 
