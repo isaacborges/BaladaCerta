@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private static String LOG_TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void getParties() {
 
-        PartyController partyController = new PartyController();
+        PartyController partyController = new PartyController(MainActivity.this, mAdapter, mRecyclerView);
 
         Firebase partiesReference = new Firebase("https://baladacerta.firebaseio.com/Parties");
 
@@ -70,33 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         partiesReference.addValueEventListener(event);
 
-        setPartiesOnView();
-
-        setOnPartyClickAction();
 
     }
 
-
-    private void setOnPartyClickAction() {
-        ((MyRecyclerViewAdapter) mAdapter).setOnItemClickListener(new MyRecyclerViewAdapter
-                .MyClickListener() {
-            @Override
-            public void onItemClick(int position, View v) {
-                Log.i(LOG_TAG, " Clicked on Item " + position);
-                Party party = parties.get(position);
-
-                Intent intent = new Intent(MainActivity.this, PartyInfo.class);
-                Bundle mBundle = new Bundle();
-                mBundle.putSerializable(Party.PARTY_SERIALIZABLE_KEY, party);
-                intent.putExtras(mBundle);
-
-                startActivity(intent);
-            }
-        });
-    }
-
-    public void setPartiesOnView() {
-        mAdapter = new MyRecyclerViewAdapter(parties, MainActivity.this);
-        mRecyclerView.setAdapter(mAdapter);
-    }
 }
