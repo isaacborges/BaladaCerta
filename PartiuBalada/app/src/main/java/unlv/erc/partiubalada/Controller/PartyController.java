@@ -4,13 +4,15 @@ import unlv.erc.partiubalada.model.Party;
 import unlv.erc.partiubalada.DAO.PartyDAO;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.DatabaseReference;
+
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.ValueEventListener;
+
 
 public class PartyController {
     public  final static String PARTY_SERIALIZABLE_KEY=Party.PARTY_SERIALIZABLE_KEY;

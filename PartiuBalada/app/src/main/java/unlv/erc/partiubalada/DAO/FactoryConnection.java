@@ -1,6 +1,6 @@
 package unlv.erc.partiubalada.DAO;
 
-import com.firebase.client.Firebase;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class FactoryConnection {
 
@@ -8,9 +8,9 @@ public class FactoryConnection {
     private static FactoryConnection instance;
 
 
-    public static Firebase establishConnection() {
+    public static FirebaseDatabase establishConnection() {
 
-        Firebase connection = getInstance().getConnection();
+        FirebaseDatabase connection = getInstance().getConnection();
 
         return connection;
     }
@@ -29,13 +29,11 @@ public class FactoryConnection {
     }
 
 
-    private Firebase getConnection() {
+    private FirebaseDatabase getConnection() {
 
-        DataBaseConfig database = new DataBaseConfig();
+        FirebaseDatabase connection;
 
-        Firebase connection;
-
-        connection =  new Firebase(database.getLocal());
+        connection =  FirebaseDatabase.getInstance();
 
         return connection;
     }

@@ -2,17 +2,12 @@ package unlv.erc.partiubalada.Controller;
 
 
 import android.content.Intent;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-
-import com.firebase.client.Firebase;
 
 import unlv.erc.partiubalada.DAO.NormalUserDAO;
 import unlv.erc.partiubalada.R;
 import unlv.erc.partiubalada.model.NormalUser;
 import unlv.erc.partiubalada.view.LoginActivity;
-import unlv.erc.partiubalada.view.MainActivity;
 import unlv.erc.partiubalada.view.SignUpActivity;
 
 public class NormalUserController {
@@ -25,7 +20,6 @@ public class NormalUserController {
     private EditText password;
     private EditText city;
     private EditText state;
-    private ProgressBar progressBar;
     NormalUserDAO userDAO;
     SignUpActivity activity;
 
@@ -50,7 +44,6 @@ public class NormalUserController {
         state = (EditText) activity.findViewById(R.id.edit_text_state);
         email = (EditText) activity.findViewById(R.id.edit_text_new_email);
         password = (EditText) activity.findViewById(R.id.edit_text_new_password);
-        progressBar = (ProgressBar) activity.findViewById(R.id.progress_bar_sign_up);
     }
 
     protected void setUpUser() {

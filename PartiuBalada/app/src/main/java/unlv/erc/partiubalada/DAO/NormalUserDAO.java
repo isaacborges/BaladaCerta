@@ -1,22 +1,26 @@
 package unlv.erc.partiubalada.DAO;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.Toast;
-
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-
-import java.util.Map;
 
 import unlv.erc.partiubalada.model.NormalUser;
 import unlv.erc.partiubalada.view.SignUpActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.auth.FirebaseAuth;
+
+
 public class NormalUserDAO {
+    private static final String TAG = "EmailPassword";
+    private FirebaseAuth mAuth;
 
+    private FirebaseDatabase connectToDB() {
 
-
-    private Firebase connectToDB() {
-
-        Firebase connectionFirebase = FactoryConnection.establishConnection();
+        FirebaseDatabase connectionFirebase = FactoryConnection.establishConnection();
 
         return connectionFirebase;
     }
@@ -24,28 +28,28 @@ public class NormalUserDAO {
 
     public void saveUserOnFireBase(final SignUpActivity activity, final NormalUser user) {
 
-        final Firebase myFirebaseRef =  connectToDB();
+        mAuth = FirebaseAuth.getInstance();
 
-        myFirebaseRef.createUser(
-                user.getEmail(),
-                user.getPassword(),
-                new Firebase.ValueResultHandler<Map<String, Object>>() {
+        mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
+                .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onSuccess(Map<String, Object> stringObjectMap) {
-                        user.setIdUser(stringObjectMap.get("uid").toString());
-                        user.saveUser();
-                        myFirebaseRef.unauth();
-                        Toast.makeText(activity.getApplicationContext(), "Your Account has been Created", Toast.LENGTH_LONG).show();
-                        Toast.makeText(activity.getApplicationContext(), "Please Login With your Email and Password", Toast.LENGTH_LONG).show();
-                        activity.finish();
-                    }
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
 
-                    @Override
-                    public void onError(FirebaseError firebaseError) {
-                        Toast.makeText(activity.getApplicationContext(), "" + firebaseError.getMessage(), Toast.LENGTH_LONG).show();
-                        //activity.progressBar.setVisibility(View.GONE);
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+
+                        if(task.isSuccessful()) {
+                            Toast.makeText(activity.getApplicationContext(), "Your Account has been Created", Toast.LENGTH_LONG).show();
+                            Toast.makeText(activity.getApplicationContext(), "Please Login With your Email and Password", Toast.LENGTH_LONG).show();
+                            activity.finish();
+                        }  {
+                            Toast.makeText(activity, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
                     }
-                }
-        );
+                });
     }
 }

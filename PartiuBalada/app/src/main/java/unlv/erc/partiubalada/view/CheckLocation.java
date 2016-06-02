@@ -45,7 +45,8 @@ import unlv.erc.partiubalada.R;
 import unlv.erc.partiubalada.model.Party;
 
 public class CheckLocation extends FragmentActivity implements LocationListener,
-        OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+        OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient
+                .OnConnectionFailedListener {
 
     private static final int INITIAL_ZOOM_LEVEL = 12;
     private GoogleMap map = null;
@@ -96,6 +97,8 @@ public class CheckLocation extends FragmentActivity implements LocationListener,
         circle.setFillColor(Color.argb(30, 102, 163, 194));
         circle.setStrokeColor(Color.argb(30, 0, 0, 0));
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(eventLocation, INITIAL_ZOOM_LEVEL));
+
+
 
         this.map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
             @Override
@@ -241,4 +244,5 @@ public class CheckLocation extends FragmentActivity implements LocationListener,
     public void onProviderDisabled(String provider) {
 
     }
+
 }
