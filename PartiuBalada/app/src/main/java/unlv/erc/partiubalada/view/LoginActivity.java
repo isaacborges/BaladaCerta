@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         Button buttonSignIn = (Button) findViewById(R.id.button_sign_in);
         TextView doYouHaveAccount = (TextView) findViewById(R.id.doYouHaveAccount);
         TextView signUp = (TextView) findViewById(R.id.signUp);
+        TextView bannerTittle = (TextView) findViewById(R.id.bannerTittle);
 
         Typeface openSans = Typeface.createFromAsset(getAssets(), "OpenSans-CondLight.ttf");
         Typeface openSansBold = Typeface.createFromAsset(getAssets(), "OpenSans-CondBold.ttf");
@@ -54,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         buttonSignIn.setTypeface(openSans);
         doYouHaveAccount.setTypeface(openSansBold);
         signUp.setTypeface(openSansBold);
+        bannerTittle.setTypeface(openSans);
     }
 
     public void onSignUpClicked(View view) {
