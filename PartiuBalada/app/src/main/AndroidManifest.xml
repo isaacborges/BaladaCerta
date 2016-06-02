@@ -43,10 +43,6 @@
         </activity>
         <activity android:name=".view.SignUpActivity">
         </activity>
-        <activity
-            android:name=".view.TestLocation"
-            android:label="@string/title_activity_test_location">
-        </activity>
     </application>
 
 </manifest>

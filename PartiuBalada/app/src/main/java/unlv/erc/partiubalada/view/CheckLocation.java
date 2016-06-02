@@ -6,11 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
-import android.location.LocationListener;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -32,27 +29,21 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.location.LocationServices;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
-
 
 import unlv.erc.partiubalada.R;
 import unlv.erc.partiubalada.model.Party;
 
-public class CheckLocation extends FragmentActivity implements LocationListener,
-        OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient
-                .OnConnectionFailedListener {
+public class CheckLocation extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private static final int INITIAL_ZOOM_LEVEL = 12;
     private GoogleMap map = null;
     private Circle circle = null;
     private GoogleApiClient mGoogleApiClient = null;
-
+    private Location mLastLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,22 +55,31 @@ public class CheckLocation extends FragmentActivity implements LocationListener,
 
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) this)
-                    .addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener) this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API)
                     .build();
         }
     }
 
+    protected void onStart() {
+        mGoogleApiClient.connect();
+        super.onStart();
+    }
+
+    protected void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
+    }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onConnected(Bundle connectionHint) {
+        Log.i("onConnected", "ENTROOOOOU");
+
         // Request permissions to support Android Marshmallow and above devices
         if (Build.VERSION.SDK_INT >= 23) {
             checkPermissions();
         }
-
-        map = googleMap;
 
         Intent intent = getIntent();
         Party party = (Party) intent.getSerializableExtra(Party.PARTY_SERIALIZABLE_KEY);
@@ -98,57 +98,62 @@ public class CheckLocation extends FragmentActivity implements LocationListener,
         circle.setStrokeColor(Color.argb(30, 0, 0, 0));
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(eventLocation, INITIAL_ZOOM_LEVEL));
 
+        if (mLastLocation != null) {
+            String userLatitude = String.valueOf(mLastLocation.getLatitude());
 
+            Log.i("LATITUDEEEE", userLatitude);
+            Toast.makeText(this, userLatitude, Toast.LENGTH_LONG).show();
 
-        this.map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
-            @Override
-            public void onMyLocationChange(Location usrLocation) {
-                float[] distance = new float[2];
+            float[] distance = new float[2];
 
-                Location.distanceBetween(usrLocation.getLatitude(), usrLocation.getLongitude(),
-                        circle.getCenter().latitude, circle.getCenter().longitude, distance);
+            Location.distanceBetween(mLastLocation.getLatitude(), mLastLocation.getLongitude(),
+                    circle.getCenter().latitude, circle.getCenter().longitude, distance);
 
-                Dialog locationDialog = new Dialog(CheckLocation.this, R.style.FullHeightDialog);
+            Dialog locationDialog = new Dialog(CheckLocation.this, R.style.FullHeightDialog);
 
-                locationDialog = new Dialog(CheckLocation.this, R.style.FullHeightDialog);
-                locationDialog.setContentView(R.layout.location_checker_dialog);
-                locationDialog.setCancelable(true);
-                TextView text = (TextView) locationDialog.findViewById(R.id.checker_dialog_text);
+            locationDialog = new Dialog(CheckLocation.this, R.style.FullHeightDialog);
+            locationDialog.setContentView(R.layout.location_checker_dialog);
+            locationDialog.setCancelable(true);
+            TextView text = (TextView) locationDialog.findViewById(R.id.checker_dialog_text);
 
-                if (distance[0] <= circle.getRadius()) {
-                    text.setText("Successfully rated. Have an awesome party! ");
-                } else {
-                    text.setText("You need to be inside the party to rank it.");
-                }
-
-                Button updateButton = (Button) locationDialog.findViewById(R.id.rank_dialog_button);
-                final Dialog finalRankDialog = locationDialog;
-                updateButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        finalRankDialog.dismiss();
-
-                        Intent intent = new Intent(CheckLocation.this, MainActivity.class);
-                        startActivity(intent);
-                    }
-                });
-
-                locationDialog.show();
+            if (distance[0] <= circle.getRadius()) {
+                text.setText("Successfully rated. Have an awesome party! ");
+            } else {
+                text.setText("You need to be inside the party to rank it.");
             }
-        });
+
+            Button updateButton = (Button) locationDialog.findViewById(R.id.rank_dialog_button);
+            final Dialog finalRankDialog = locationDialog;
+            updateButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finalRankDialog.dismiss();
+
+                    Intent intent = new Intent(CheckLocation.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            locationDialog.show();
+        } else {
+            Toast.makeText(this, "Habilite sua localização, não foi possível verificá-la", Toast.LENGTH_LONG).show();
+        }
     }
 
+    @Override
+    public void onConnectionSuspended(int i) {
 
-    protected void onStart() {
-        mGoogleApiClient.connect();
-        super.onStart();
     }
 
-    protected void onStop() {
-        mGoogleApiClient.disconnect();
-        super.onStop();
-    }
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        // Request permissions to support Android Marshmallow and above devices
+        if (Build.VERSION.SDK_INT >= 23) {
+            checkPermissions();
+        }
 
+        map = googleMap;
+    }
 
     // START PERMISSION CHECK
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
@@ -167,17 +172,19 @@ public class CheckLocation extends FragmentActivity implements LocationListener,
         if (!permissions.isEmpty()) {
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             String[] params = permissions.toArray(new String[permissions.size()]);
-            requestPermissions(params, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(params, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+            }
         } // else: We already have permissions, so handle as normal
 
-//        map.setMyLocationEnabled(true);
-
+        this.mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
-            case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS:	{
+            case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
                 Map<String, Integer> perms = new HashMap<>();
                 // Initial
                 perms.put(Manifest.permission.ACCESS_FINE_LOCATION, PackageManager.PERMISSION_GRANTED);
@@ -194,7 +201,7 @@ public class CheckLocation extends FragmentActivity implements LocationListener,
                 } else if (location) {
                     Toast.makeText(this, "Storage permission is required to store map tiles to reduce data usage and for offline usage.", Toast.LENGTH_LONG).show();
                 } else if (storage) {
-                    Toast.makeText(this,"Location permission is required to show the user's location on map.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Location permission is required to show the user's location on map.", Toast.LENGTH_LONG).show();
                 } else { // !location && !storage case
                     // Permission Denied
                     Toast.makeText(CheckLocation.this, "Storage permission is required to store map tiles " +
@@ -207,42 +214,11 @@ public class CheckLocation extends FragmentActivity implements LocationListener,
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
-    // END PERMISSION CHECK
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        Log.i("location.getLatitude()",location.getLatitude()+"");
-        Log.i("location.getLongitude()",location.getLongitude()+"");
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
-    }
+    // END PERMISSION CHECK
 
 }
