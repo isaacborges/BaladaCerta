@@ -84,7 +84,6 @@ public class MyRecyclerViewAdapter extends RecyclerView
                 "OpenSans-CondLight" +
                         ".ttf");
 
-//        Log.i("Party Name", mDataset.get(position).getPartyName());
         holder.partyName.setText(mDataset.get(position).getPartyName());
         holder.partyName.setTypeface(openSans);
 
@@ -100,11 +99,6 @@ public class MyRecyclerViewAdapter extends RecyclerView
 //        int imageID = holder.itemView.getResources().getIdentifier(background, "drawable", "unlv.erc.partiubalada");
 //        holder.partyImage.setImageResource(imageID);
 //        holder.partyImage.setScaleType(ImageView.ScaleType.FIT_XY);
-
-//        String background = party.getPartyImage();
-//        int imageID = getResources().getIdentifier(background, "drawable", "unlv.erc.partiubalada");
-//        partyImage.setImageResource(imageID);
-//        partyImage.setScaleType(ImageView.ScaleType.FIT_XY);
 
         setAnimation(view, position);
     }
