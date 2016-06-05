@@ -1,253 +1,314 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="unlv.erc.partiubalada.view.PartyInfo">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/partyMenu">
 
-        <FrameLayout
-            android:id="@+id/eventlistlayout"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="wrap_content"
-            android:layout_height="224dp">
-
-            <ImageView
-                android:id="@+id/partyImage"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"/>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shadow"/>
-
-            <RatingBar
-                android:id="@+id/partyRating"
-                style="?android:attr/ratingBarStyleIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|bottom|right"
-                android:layout_marginBottom="15dp"
-                android:layout_marginRight="9dp"
-                android:focusableInTouchMode="false"
-                android:nestedScrollingEnabled="true"
-                android:numStars="5"
-                android:progressTint="#e1c23d"
-                android:rating="5"/>
-
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/partyName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/eventlistlayout"
-            android:layout_marginRight="9dp"
-            android:text="Party Name"
-            android:textColor="#0b0b0b"
-            android:textSize="32dp"/>
-
-        <TextView
-            android:id="@+id/partyLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/partyName"
-            android:layout_alignRight="@+id/partyName"
-            android:layout_below="@+id/partyName"
-            android:text="Party Location"
-            android:textColor="#171616"
-            android:textSize="28dp"
-            />
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/partyLocation"
-            android:layout_centerHorizontal="true"
-            android:orientation="vertical"
-            android:paddingLeft="10dp"
-            >
+            android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/evaluateParty"
+            <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/eventlistlayout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/round_rect_button"
-                android:singleLine="false"
-                android:text="Avaliar Balada"
-                android:textSize="25dp"
-                android:padding="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:textColor="#ffffff"
-                android:textColorHighlight="#19438a"/>
-
-            <TextView
-                android:id="@+id/partyLocationTittle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/partyLocation"
-                android:text="Local:"
-                android:textSize="24dp"/>
-
-
-            <TextView
-                android:id="@+id/partyLocationDesciption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/partyLocationTittle"
-                android:layout_marginTop="5dp"
-                android:singleLine="true"
-                android:text="Location description"
-                android:textColor="#000000"
-                android:textSize="24dp"/>
-
-            <TextView
-                android:id="@+id/partyLineUpTittle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/partyLocationTittle"
-                android:layout_marginTop="25dp"
-                android:singleLine="true"
-                android:text="Atrações:"
-                android:textSize="24dp"/>
-
-            <TextView
-                android:id="@+id/partyLineUp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/partyLocationTittle"
-                android:layout_marginTop="5dp"
-                android:singleLine="true"
-                android:text="Atração 1\nAtração 2\nAtração 3"
-                android:textColor="#000000"
-                android:textSize="24dp"/>
-
-            <TextView
-                android:id="@+id/partyTicketsTittle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/partyLocationTittle"
-                android:layout_marginTop="25dp"
-                android:singleLine="true"
-                android:text="Ingressos:"
-                android:textSize="24dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/partyTicketFemaleTittle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Feminino: "
-                    android:textColor="#000000"
-                    android:textSize="24dp"/>
-
-                <TextView
-                    android:id="@+id/partyTicketFemalePrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="R$ 40,00"
-                    android:textColor="#000000"
-                    android:textSize="24dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/partyTicketMaleTittle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Masculino: "
-                    android:textColor="#000000"
-                    android:textSize="24dp"/>
-
-                <TextView
-                    android:id="@+id/partyTicketMalePrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="R$ 60,00"
-                    android:textColor="#000000"
-                    android:textSize="24dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
+                android:layout_height="224dp">
 
                 <ImageView
-                    android:id="@+id/sybomFemale"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:src="@drawable/symbolfemale"
-                    />
+                    android:id="@+id/partyImage"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
 
-                <TextView
-                    android:id="@+id/textView"
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shadow" />
+
+                <RatingBar
+                    android:id="@+id/partyRating"
+                    style="?android:attr/ratingBarStyleIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom|right"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginRight="9dp"
+                    android:focusableInTouchMode="false"
+                    android:nestedScrollingEnabled="true"
+                    android:numStars="5"
+                    android:progressTint="#e1c23d"
+                    android:rating="5" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/partyName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/eventlistlayout"
+                android:layout_marginRight="9dp"
+                android:text="Party Name"
+                android:textColor="#0b0b0b"
+                android:textSize="32dp" />
+
+            <TextView
+                android:id="@+id/partyLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/partyName"
+                android:layout_alignRight="@+id/partyName"
+                android:layout_below="@+id/partyName"
+                android:text="Party Location"
+                android:textColor="#171616"
+                android:textSize="28dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/partyLocation"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical"
+                android:paddingLeft="10dp">
+
+                <Button
+                    android:id="@+id/evaluateParty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:background="@drawable/round_rect_shape"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/round_rect_button"
+                    android:padding="20dp"
                     android:singleLine="false"
-                    android:text="546"
-                    android:textSize="25dp"
-                    />
-
-                <ImageView
-                    android:id="@+id/sybomMale"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginLeft="100dp"
-                    android:src="@drawable/symbolmale"/>
+                    android:text="Avaliar Balada"
+                    android:textColor="#ffffff"
+                    android:textColorHighlight="#19438a"
+                    android:textSize="25dp" />
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/partyLocationTittle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:background="@drawable/round_rect_shape"
-                    android:singleLine="false"
-                    android:text="200"
-                    android:textSize="25dp"/>
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/partyLocation"
+                    android:text="Local:"
+                    android:textSize="24dp" />
+
+
+                <TextView
+                    android:id="@+id/partyLocationDesciption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/partyLocationTittle"
+                    android:layout_marginTop="5dp"
+                    android:singleLine="true"
+                    android:text="Location description"
+                    android:textColor="#000000"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/partyLineUpTittle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/partyLocationTittle"
+                    android:layout_marginTop="25dp"
+                    android:singleLine="true"
+                    android:text="Atrações:"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/partyLineUp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/partyLocationTittle"
+                    android:layout_marginTop="5dp"
+                    android:singleLine="true"
+                    android:text="Atração 1\nAtração 2\nAtração 3"
+                    android:textColor="#000000"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/partyTicketsTittle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/partyLocationTittle"
+                    android:layout_marginTop="25dp"
+                    android:singleLine="true"
+                    android:text="Ingressos:"
+                    android:textSize="24dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/partyTicketFemaleTittle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Feminino: "
+                        android:textColor="#000000"
+                        android:textSize="24dp" />
+
+                    <TextView
+                        android:id="@+id/partyTicketFemalePrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="R$ 40,00"
+                        android:textColor="#000000"
+                        android:textSize="24dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/partyTicketMaleTittle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Masculino: "
+                        android:textColor="#000000"
+                        android:textSize="24dp" />
+
+                    <TextView
+                        android:id="@+id/partyTicketMalePrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="R$ 60,00"
+                        android:textColor="#000000"
+                        android:textSize="24dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/sybomFemale"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/symbolfemale" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/round_rect_shape"
+                        android:singleLine="false"
+                        android:text="546"
+                        android:textSize="25dp" />
+
+                    <ImageView
+                        android:id="@+id/sybomMale"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="100dp"
+                        android:src="@drawable/symbolmale" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/round_rect_shape"
+                        android:singleLine="false"
+                        android:text="200"
+                        android:textSize="25dp" />
+                </LinearLayout>
+
             </LinearLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-    </RelativeLayout>
-</ScrollView>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/partyMenu"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/homeButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/nearbyButton"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1"
+            android:background="#BECAED"
+            android:clickable="false"
+            android:src="@drawable/ic_local_bar_black_24dp" />
+
+
+        <ImageButton
+            android:id="@+id/searchButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/listButton"
+            android:layout_toEndOf="@+id/listButton"
+            android:layout_toRightOf="@+id/listButton"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:clickable="true"
+            android:src="@drawable/ic_search_black_24dp" />
+
+
+        <ImageButton
+            android:id="@+id/nearbyButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/activityButton"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:clickable="true"
+            android:src="@drawable/ic_place_black_24dp" />
+
+
+        <ImageButton
+            android:id="@+id/activityButton"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/nearbyButton"
+            android:layout_toRightOf="@+id/nearbyButton"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:clickable="true"
+            android:src="@drawable/ic_face_black_24dp"
+            android:text="Activity" />
+
+    </LinearLayout>
+</RelativeLayout>

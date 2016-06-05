@@ -38,7 +38,7 @@
             android:layout_alignBottom="@+id/nearbyButton"
             android:layout_weight="1"
             android:src="@drawable/ic_local_bar_black_24dp"
-            android:background="#FFFFFF"/>
+            android:background="#BECAED"/>
 
 
         <ImageButton
@@ -71,7 +71,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="Activity"
-            android:id="@+id/activityButton"
+            android:id="@+id/accountButton"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/nearbyButton"
             android:layout_toEndOf="@+id/nearbyButton"
