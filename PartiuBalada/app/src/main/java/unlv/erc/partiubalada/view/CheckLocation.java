@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -78,8 +79,27 @@ public class CheckLocation extends FragmentActivity implements OnMapReadyCallbac
 
         // Request permissions to support Android Marshmallow and above devices
         if (Build.VERSION.SDK_INT >= 23) {
-            checkPermissions();
+            List<String> permissions = new ArrayList<>();
+            String message = "osmdroid permissions:";
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+                message += "\nLocation to show user location.";
+            }
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                message += "\nStorage access to store map tiles.";
+            }
+            if (!permissions.isEmpty()) {
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                String[] params = permissions.toArray(new String[permissions.size()]);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    requestPermissions(params, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+                }
+            }
         }
+
+        this.mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
 
         Intent intent = getIntent();
         Party party = (Party) intent.getSerializableExtra(Party.PARTY_SERIALIZABLE_KEY);
