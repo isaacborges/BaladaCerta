@@ -36,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
         getParties();
     }
 
-
-
     public void getParties() {
         PartyController partyController = new PartyController(MainActivity.this, mAdapter, mRecyclerView);
 
@@ -48,5 +46,4 @@ public class MainActivity extends AppCompatActivity {
 
         partiesReference.addValueEventListener(event);
     }
-
 }

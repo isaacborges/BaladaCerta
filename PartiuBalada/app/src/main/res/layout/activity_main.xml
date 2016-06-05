@@ -1,25 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.MainActivity"
-    android:background="@android:color/background_dark">
-
+    android:background="@android:color/background_dark"
+    tools:context=".view.MainActivity">
     <LinearLayout
         android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_above="@+id/mainMenu">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/my_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical" />
 
     </LinearLayout>
 
-</ScrollView>
+    <LinearLayout
+        android:id="@+id/mainMenu"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/homeButton"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:clickable="false"
+            android:layout_alignBottom="@+id/nearbyButton"
+            android:layout_weight="1"
+            android:src="@drawable/ic_local_bar_black_24dp"
+            android:background="#FFFFFF"/>
+
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/searchButton"
+            android:clickable="true"
+            android:layout_alignTop="@+id/listButton"
+            android:layout_toRightOf="@+id/listButton"
+            android:layout_toEndOf="@+id/listButton"
+            android:layout_weight="1"
+            android:src="@drawable/ic_search_black_24dp"
+            android:background="#FFFFFF" />
+
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/nearbyButton"
+            android:clickable="true"
+            android:layout_alignTop="@+id/activityButton"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:src="@drawable/ic_place_black_24dp"
+            android:background="#FFFFFF" />
+
+
+        <ImageButton
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Activity"
+            android:id="@+id/activityButton"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/nearbyButton"
+            android:layout_toEndOf="@+id/nearbyButton"
+            android:clickable="true"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:src="@drawable/ic_face_black_24dp" />
+
+    </LinearLayout>
+</RelativeLayout>
