@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_account"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="unlv.erc.partiubalada.view.AccountActivity">
+
+    <RelativeLayout
+        android:id="@+id/profileBanner"
+        android:layout_width="match_parent"
+        android:layout_height="220dp">
+
+        <ImageView
+            android:id="@+id/profileImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/default_avatar" />
+
+        <TextView
+            android:id="@+id/usersName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="55dp"
+            android:text="User's name"
+            android:textSize="25dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/partyMenu"
+        android:layout_below="@+id/profileBanner"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/linearLayout3">
+
+            <TextView
+                android:id="@+id/usersAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="23 years old"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/usersState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Distrito Federal"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/usersCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Brasilia"
+                android:textSize="20dp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_sign_in"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onCreatePartyClicked"
+            android:background="@drawable/round_rect_button"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="35dp"
+            android:padding="10dp"
+            android:text="Criar Balada"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="25dp"
+            android:elevation="10dp"
+            android:layout_below="@+id/linearLayout3"
+            android:layout_centerHorizontal="true" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/partyMenu"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/homeButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/nearbyButton"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:clickable="false"
+            android:src="@drawable/ic_local_bar_black_24dp" />
+
+
+        <ImageButton
+            android:id="@+id/searchButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/listButton"
+            android:layout_toEndOf="@+id/listButton"
+            android:layout_toRightOf="@+id/listButton"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:clickable="true"
+            android:src="@drawable/ic_search_black_24dp" />
+
+
+        <ImageButton
+            android:id="@+id/nearbyButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/activityButton"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:clickable="true"
+            android:src="@drawable/ic_place_black_24dp" />
+
+
+        <ImageButton
+            android:id="@+id/activityButton"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/nearbyButton"
+            android:layout_toRightOf="@+id/nearbyButton"
+            android:layout_weight="1"
+            android:background="#BECAED"
+            android:clickable="true"
+            android:src="@drawable/ic_face_black_24dp"
+            android:text="Activity" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
