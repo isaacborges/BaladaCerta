@@ -2,6 +2,7 @@ package unlv.erc.partiubalada.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import unlv.erc.partiubalada.R;
 
@@ -11,5 +12,9 @@ public class AccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+    }
+
+    public void onPartiesClicked(View view) {
+
     }
 }
