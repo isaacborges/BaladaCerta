@@ -16,5 +16,6 @@
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_check_location">Map</string>
     <string name="title_activity_test_location">Map</string>
+    <string name="title_activity_party_crud">PartyCRUDActivity</string>
 
 </resources>

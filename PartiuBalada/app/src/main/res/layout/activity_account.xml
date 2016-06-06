@@ -90,7 +90,7 @@
                 android:layout_marginTop="15dp"
                 android:background="@drawable/round_rect_button"
                 android:elevation="10dp"
-                android:onClick="onPartiesClicked"
+                android:onClick="onPartiesButtonClicked"
                 android:padding="10dp"
                 android:text="Baladas"
                 android:textColor="#ffffff"
@@ -116,8 +116,9 @@
             android:layout_alignParentStart="true"
             android:layout_weight="1"
             android:background="#FFFFFF"
-            android:clickable="false"
-            android:src="@drawable/ic_local_bar_black_24dp" />
+            android:clickable="true"
+            android:src="@drawable/ic_local_bar_black_24dp"
+            android:onClick="onPartiesClicked" />
 
 
         <ImageButton
@@ -160,6 +161,5 @@
             android:text="Activity" />
 
     </LinearLayout>
-
 
 </RelativeLayout>

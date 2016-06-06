@@ -39,9 +39,12 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".view.CheckLocation"
-            android:label="@string/title_activity_check_location"></activity>
-        <activity android:name=".view.SignUpActivity"></activity>
-        <activity android:name=".view.AccountActivity"></activity>
+            android:label="@string/title_activity_check_location" />
+        <activity android:name=".view.SignUpActivity" />
+        <activity android:name=".view.AccountActivity" />
+        <activity
+            android:name=".view.PartyCRUDActivity"
+            android:label="@string/title_activity_party_crud"/>
     </application>
 
 </manifest>

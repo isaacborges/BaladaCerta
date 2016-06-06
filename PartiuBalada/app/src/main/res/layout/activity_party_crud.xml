@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="unlv.erc.partiubalada.view.PartyCRUDActivity">
+
+    <LinearLayout
+        android:id="@+id/partyMenu"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/homeButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/nearbyButton"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:clickable="true"
+            android:src="@drawable/ic_local_bar_black_24dp"
+            android:onClick="onPartiesClicked" />
+
+
+        <ImageButton
+            android:id="@+id/searchButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/listButton"
+            android:layout_toEndOf="@+id/listButton"
+            android:layout_toRightOf="@+id/listButton"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:clickable="true"
+            android:src="@drawable/ic_search_black_24dp" />
+
+
+        <ImageButton
+            android:id="@+id/nearbyButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/activityButton"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:clickable="true"
+            android:src="@drawable/ic_place_black_24dp" />
+
+
+        <ImageButton
+            android:id="@+id/activityButton"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/nearbyButton"
+            android:layout_toRightOf="@+id/nearbyButton"
+            android:layout_weight="1"
+            android:background="#BECAED"
+            android:clickable="true"
+            android:src="@drawable/ic_face_black_24dp"
+            android:text="Activity" />
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@android:drawable/ic_menu_add"
+        app:elevation="10dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="22dp"
+        android:layout_marginEnd="14dp"
+        android:layout_above="@+id/partyMenu"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>
