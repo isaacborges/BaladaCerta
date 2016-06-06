@@ -6,7 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@android:color/background_dark"
     tools:context="unlv.erc.partiubalada.view.PartyCRUDActivity">
+    <LinearLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_above="@+id/partyMenu">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/partyMenu"
@@ -75,13 +90,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:src="@android:drawable/ic_menu_add"
+        android:src="@drawable/ic_add_black_24dp"
         app:elevation="10dp"
         android:layout_marginRight="14dp"
         android:layout_marginBottom="22dp"
         android:layout_marginEnd="14dp"
         android:layout_above="@+id/partyMenu"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        app:backgroundTint="#FFFFFF"
+        app:rippleColor="?attr/actionMenuTextColor" />
 
 </RelativeLayout>

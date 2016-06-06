@@ -54,7 +54,6 @@ public class PartyDAO {
         return connectionFirebase;
     }
 
-
     public ValueEventListener getPartiesFromFB() {
         partiesReference = FirebaseDatabase.getInstance().getReference();
 
