@@ -29,6 +29,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="55dp"
             android:text="User's name"
+            android:textColor="#000000"
             android:textSize="25dp" />
     </RelativeLayout>
 
@@ -41,19 +42,20 @@
         android:layout_marginTop="15dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/linearLayout3">
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/usersAge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="23 years old"
+                android:textColor="#000000"
                 android:textSize="20dp" />
 
             <TextView
@@ -62,6 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:text="Distrito Federal"
+                android:textColor="#000000"
                 android:textSize="20dp" />
 
             <TextView
@@ -70,29 +73,30 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:text="Brasilia"
+                android:textColor="#000000"
                 android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/button_sign_in"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/linearLayout3"
+                android:layout_below="@+id/usersCity"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/round_rect_button"
+                android:elevation="10dp"
+                android:onClick="onCreatePartyClicked"
+                android:padding="10dp"
+                android:text="Criar Balada"
+                android:textColor="#ffffff"
+                android:textSize="25dp"
+                android:textStyle="bold" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/button_sign_in"
-            style="?android:textAppearanceSmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onCreatePartyClicked"
-            android:background="@drawable/round_rect_button"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="35dp"
-            android:layout_marginLeft="35dp"
-            android:padding="10dp"
-            android:text="Criar Balada"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:textColor="#ffffff"
-            android:textSize="25dp"
-            android:elevation="10dp"
-            android:layout_below="@+id/linearLayout3"
-            android:layout_centerHorizontal="true" />
-
 
     </RelativeLayout>
 

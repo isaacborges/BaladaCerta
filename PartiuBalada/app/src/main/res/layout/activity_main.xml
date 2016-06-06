@@ -78,7 +78,8 @@
             android:clickable="true"
             android:layout_weight="1"
             android:background="#FFFFFF"
-            android:src="@drawable/ic_face_black_24dp" />
+            android:src="@drawable/ic_face_black_24dp"
+            android:onClick="onAccountClicked"/>
 
     </LinearLayout>
 </RelativeLayout>
