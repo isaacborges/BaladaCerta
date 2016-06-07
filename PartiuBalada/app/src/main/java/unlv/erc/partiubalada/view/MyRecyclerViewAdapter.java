@@ -25,12 +25,14 @@ import unlv.erc.partiubalada.model.Party;
 public class MyRecyclerViewAdapter extends RecyclerView
         .Adapter<MyRecyclerViewAdapter
         .DataObjectHolder> {
+    public static final String MAIN_ACTIVITY = "unlv.erc.partiubalada.view.MainActivity";
     private static String LOG_TAG = "MyRecyclerViewAdapter";
     private ArrayList<Party> mDataset;
     private static MyClickListener myClickListener;
     private Context context;
     private int lastPosition = -1;
     private View view;
+    private String callingActivity;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder
             implements View
@@ -40,14 +42,23 @@ public class MyRecyclerViewAdapter extends RecyclerView
         ImageView partyImage;
         RatingBar partyRating;
         LinearLayout cardRoot;
+        String callingActivity;
 
-        public DataObjectHolder(View itemView) {
+        public DataObjectHolder(View itemView, String callingActivity) {
             super(itemView);
+            this.callingActivity = callingActivity;
+
             partyName = (TextView) itemView.findViewById(R.id.partyName);
             partyLocation = (TextView) itemView.findViewById(R.id.partyLocation);
-            partyRating = (RatingBar) itemView.findViewById(R.id.partyRating);
             partyImage = (ImageView) itemView.findViewById(R.id.partyImage);
             cardRoot = (LinearLayout) itemView.findViewById(R.id.card_root);
+
+            if(callingActivity.equalsIgnoreCase(MAIN_ACTIVITY)){
+                partyRating = (RatingBar) itemView.findViewById(R.id.partyRating);
+            } else {
+                //nothing to do
+            }
+
 
             Log.i(LOG_TAG, "Adding Listener");
             itemView.setOnClickListener(this);
@@ -64,16 +75,19 @@ public class MyRecyclerViewAdapter extends RecyclerView
     }
 
     public MyRecyclerViewAdapter(ArrayList<Party> myDataset, Context context) {
-        mDataset = myDataset;
+        this.mDataset = myDataset;
         this.context = context;
+        this.callingActivity = context.getClass().getName();
+
+        Log.i(LOG_TAG, "Setting list on: " + context.getClass().getName());
     }
 
     @Override
     public DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_view_row, parent, false);
 
-        DataObjectHolder dataObjectHolder = new DataObjectHolder(view);
+        verifyCallerActivity(parent);
+
+        DataObjectHolder dataObjectHolder = new DataObjectHolder(view, callingActivity);
 
         return dataObjectHolder;
     }
@@ -90,7 +104,11 @@ public class MyRecyclerViewAdapter extends RecyclerView
         holder.partyLocation.setText(mDataset.get(position).getLocality());
         holder.partyLocation.setTypeface(openSans);
 
-        holder.partyRating.setRating(mDataset.get(position).getAmountOfStars());
+        if (callingActivity.equalsIgnoreCase(MAIN_ACTIVITY)) {
+            holder.partyRating.setRating(mDataset.get(position).getAmountOfStars());
+        } else {
+            //nothing to do
+        }
 
         String background = mDataset.get(position).getPartyImage();
 
@@ -103,6 +121,10 @@ public class MyRecyclerViewAdapter extends RecyclerView
         setAnimation(view, position);
     }
 
+    @Override
+    public int getItemCount() {
+        return mDataset.size();
+    }
 
     public void addItem(Party dataObj, int index) {
         mDataset.add(index, dataObj);
@@ -114,17 +136,22 @@ public class MyRecyclerViewAdapter extends RecyclerView
         notifyItemRemoved(index);
     }
 
-    @Override
-    public int getItemCount() {
-        return mDataset.size();
+
+    private void verifyCallerActivity(ViewGroup parent) {
+        if (callingActivity.equalsIgnoreCase(MAIN_ACTIVITY)) {
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.card_view_row, parent, false);
+        } else {
+            view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.card_view_row_crud, parent, false);
+        }
     }
 
     public interface MyClickListener {
         public void onItemClick(int position, View v);
     }
 
-    private void setAnimation(View viewToAnimate, int position)
-    {
+    private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
