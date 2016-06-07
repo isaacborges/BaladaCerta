@@ -1,0 +1,15 @@
+package unlv.erc.partiubalada.view;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+import unlv.erc.partiubalada.R;
+
+public class PartyCreateAcitivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_party_create_acitivity);
+    }
+}

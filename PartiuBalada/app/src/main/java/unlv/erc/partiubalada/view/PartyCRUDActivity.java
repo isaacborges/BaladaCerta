@@ -36,10 +36,11 @@ public class PartyCRUDActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(PartyCRUDActivity.this, PartyCreateAcitivity.class);
+                startActivity(intent);
             }
         });
+
         database = FirebaseDatabase.getInstance();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
