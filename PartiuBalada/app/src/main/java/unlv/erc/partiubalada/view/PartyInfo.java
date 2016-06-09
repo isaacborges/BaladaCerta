@@ -145,4 +145,15 @@ public class PartyInfo extends AppCompatActivity {
         partyImage.setScaleType(ImageView.ScaleType.FIT_XY);
     }
 
+    public void onPartiesButtonClicked(View view) {
+        Intent intent = new Intent(PartyInfo.this, PartyCRUDActivity.class);
+        startActivity(intent);
+    }
+
+    public void onPartiesClicked(View view) {
+        Intent intent = new Intent(PartyInfo.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+
 }

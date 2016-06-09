@@ -20,12 +20,11 @@ public class Party implements Serializable{
 
     public Party() {}
 
-    public Party(String partyName, String partyImage, int idParty, float latitude,
+    public Party(String partyName, String partyImage, float latitude,
                  float longitude, String type, float price, String startTime, String endTime,
                  String locality, float amountOfStars) {
         this.setPartyName(partyName);
         this.setPartyImage(partyImage);
-        this.setIdParty(idParty);
         this.setLatitude(latitude);
         this.setLongitude(longitude);
         this.setType(type);

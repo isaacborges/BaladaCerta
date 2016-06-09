@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -35,6 +36,13 @@ public class PartyCreateAcitivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference storageRef;
     private ImageView partyBanner;
+    private EditText editTextPartyName;
+    private EditText editTextLocation;
+    private EditText editTextPartyLatitude;
+    private EditText editTextPartyLongitude;
+    private EditText editTextPartyPrice;
+    private EditText editTextPartyInitialTime;
+    private EditText editTextPartyEndTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +51,28 @@ public class PartyCreateAcitivity extends AppCompatActivity {
 
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReferenceFromUrl("gs://project-8420821685282639830.appspot.com");
+
+        startComponents();
+
+        String partyName = editTextPartyName.getText().toString();
+        String partyLocation = editTextLocation.getText().toString();
+        String partyLatitude = editTextPartyLatitude.getText().toString();
+        String partyLongitude = editTextPartyLongitude.getText().toString();
+        String partyPrice = editTextPartyPrice.getText().toString();
+        String partyInitialTime = editTextPartyInitialTime.getText().toString();
+        String partyEndTime = editTextPartyEndTime.getText().toString();
+
+
+    }
+
+    private void startComponents() {
+        editTextPartyName = (EditText) findViewById(R.id.editTextPartyName);
+        editTextLocation = (EditText) findViewById(R.id.editTextLocation);
+        editTextPartyLatitude = (EditText) findViewById(R.id.editTextPartyLatitude);
+        editTextPartyLongitude = (EditText) findViewById(R.id.editTextPartyLongitude);
+        editTextPartyPrice = (EditText) findViewById(R.id.editTextPartyPrice);
+        editTextPartyInitialTime = (EditText) findViewById(R.id.editTextPartyInitialTime);
+        editTextPartyEndTime = (EditText) findViewById(R.id.editTextPartyEndTime);
     }
 
     @Override
@@ -60,7 +90,7 @@ public class PartyCreateAcitivity extends AppCompatActivity {
 
     private void uploadImageOnFirebase(String picturePath) {
         Uri file = Uri.fromFile(new File(picturePath));
-        StorageReference partyImagesRef = storageRef.child("images/"+file.getLastPathSegment());
+        StorageReference partyImagesRef = storageRef.child("images/" + file.getLastPathSegment());
         UploadTask uploadTask = partyImagesRef.putFile(file);
 
         // Register observers to listen for when the download is done or if it fails
@@ -75,14 +105,14 @@ public class PartyCreateAcitivity extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                Log.i("Upload","Success");
+                Log.i("Upload", "Success");
             }
         });
     }
 
     private String chooseImageFromGallery(Intent data) {
         Uri selectedImage = data.getData();
-        String[] filePathColumn = { MediaStore.Images.Media.DATA };
+        String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
         Cursor cursor = getContentResolver().query(selectedImage,
                 filePathColumn, null, null, null);
@@ -126,7 +156,7 @@ public class PartyCreateAcitivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int item) {
                 if (options[item].equals(CHOOSE_FROM_GALLERY)) {
 
-                    Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(i, RESULT_LOAD_IMAGE);
 
                 } else if (options[item].equals(CANCEL)) {
@@ -135,5 +165,15 @@ public class PartyCreateAcitivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    public void onPartiesButtonClicked(View view) {
+        Intent intent = new Intent(PartyCreateAcitivity.this, PartyCRUDActivity.class);
+        startActivity(intent);
+    }
+
+    public void onPartiesClicked(View view) {
+        Intent intent = new Intent(PartyCreateAcitivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }

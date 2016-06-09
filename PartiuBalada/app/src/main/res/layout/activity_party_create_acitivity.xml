@@ -100,7 +100,7 @@
                     android:layout_height="match_parent">
 
                     <EditText
-                        android:id="@+id/editTextLocationLatitude"
+                        android:id="@+id/editTextPartyLatitude"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -130,7 +130,7 @@
                     android:layout_height="match_parent">
 
                     <EditText
-                        android:id="@+id/editTextLocationLongitude"
+                        android:id="@+id/editTextPartyLongitude"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -160,7 +160,7 @@
                     android:layout_height="match_parent">
 
                     <EditText
-                        android:id="@+id/editTextPrice"
+                        android:id="@+id/editTextPartyPrice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -190,7 +190,7 @@
                     android:layout_height="match_parent">
 
                     <EditText
-                        android:id="@+id/editTextInitialTime"
+                        android:id="@+id/editTextPartyInitialTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -220,7 +220,7 @@
                     android:layout_height="match_parent">
 
                     <EditText
-                        android:id="@+id/editTextInitialTime"
+                        android:id="@+id/editTextPartyEndTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
