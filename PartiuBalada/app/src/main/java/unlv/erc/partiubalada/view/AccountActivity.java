@@ -21,6 +21,11 @@ public class AccountActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onPromotionButtonClicked(View view) {
+        Intent intent = new Intent(AccountActivity.this, PromotionCreateActivity.class);
+        startActivity(intent);
+    }
+
     public void onPartiesClicked(View view) {
         Intent intent = new Intent(AccountActivity.this, MainActivity.class);
         startActivity(intent);

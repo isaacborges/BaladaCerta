@@ -4,7 +4,7 @@ public class Promotion {
 
     private int promotionCode;
     private String type;
-    private Party party;
+    private String idParty;
     private String promotionDescription;
 
 
@@ -31,12 +31,12 @@ public class Promotion {
         this.type = type;
     }
 
-    public Party getParty() {
-        return party;
+    public String getPartyId() {
+        return idParty;
     }
 
-    public void setParty(Party party) {
-        this.party = party;
+    public void setPartyId(String partyId) {
+        this.idParty = partyId;
     }
 
     public String getPromotionDescription() {

@@ -14,6 +14,7 @@ import unlv.erc.partiubalada.model.NormalUser;
 import unlv.erc.partiubalada.model.Promotion;
 import unlv.erc.partiubalada.view.PromotionCreateActivity;
 import unlv.erc.partiubalada.view.SignUpActivity;
+import com.google.firebase.database.DatabaseReference;
 
 public class PromotionDAO {
 
@@ -28,6 +29,14 @@ public class PromotionDAO {
 
     public void savePromotionOnFireBase(final PromotionCreateActivity activity, final Promotion promotion) {
 
+
+        DatabaseReference mDatabase;
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.child("promotions").setValue(promotion);
+
+        Toast.makeText(activity.getApplicationContext(), "Your Promotion has been Created", Toast.LENGTH_LONG).show();
 
 
     }

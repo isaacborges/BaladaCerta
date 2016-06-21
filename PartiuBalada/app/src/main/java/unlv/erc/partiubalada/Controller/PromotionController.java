@@ -2,6 +2,7 @@ package unlv.erc.partiubalada.Controller;
 
 import android.content.Intent;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import unlv.erc.partiubalada.DAO.PromotionDAO;
 import unlv.erc.partiubalada.R;
@@ -13,7 +14,7 @@ public class PromotionController {
 
     private Promotion promotion;
     private EditText idParty;
-    private EditText promotionType;
+    private Spinner typePromotion;
     private EditText promotionDescription;
     PromotionDAO promotionDAO;
     PromotionCreateActivity activity;
@@ -32,10 +33,19 @@ public class PromotionController {
 
     public void startComponents() {
 
+        idParty = (EditText) activity.findViewById(R.id.editTextPartyId);
+        promotionDescription = (EditText) activity.findViewById(R.id.editTextDescription);
+        typePromotion = (Spinner) activity.findViewById(R.id.spinnerTypePromotion);
+
     }
 
     protected void setUpPromotion() {
+
         promotion = new Promotion();
+
+        promotion.setPartyId(idParty.getText().toString());
+        promotion.setPromotionDescription(promotionDescription.getText().toString());
+        promotion.setType(typePromotion.getSelectedItem().toString());
 
     }
 
