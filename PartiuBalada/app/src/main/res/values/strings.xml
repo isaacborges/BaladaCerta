@@ -18,4 +18,14 @@
     <string name="title_activity_test_location">Map</string>
     <string name="title_activity_party_crud">PartyCRUDActivity</string>
 
+    <string name="typePromotions_prompt">Tipos Sanguíneos</string>
+    <string-array name="typePromotion">
+        <item>Desconto em Ingresso</item>
+        <item>Desconto em Bebida</item>
+        <item>Outro</item>
+    </string-array>
+
+
+
+
 </resources>
