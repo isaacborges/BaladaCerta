@@ -5,6 +5,10 @@ public class Promotion {
     private int promotionCode;
     private String type;
     private Party party;
+    private String promotionDescription;
+
+
+    public Promotion(){}
 
     public Promotion(int promotionCode, String type) {
         this.promotionCode = promotionCode;
@@ -25,5 +29,21 @@ public class Promotion {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Party getParty() {
+        return party;
+    }
+
+    public void setParty(Party party) {
+        this.party = party;
+    }
+
+    public String getPromotionDescription() {
+        return promotionDescription;
+    }
+
+    public void setPromotionDescription(String promotionDescription) {
+        this.promotionDescription = promotionDescription;
     }
 }
