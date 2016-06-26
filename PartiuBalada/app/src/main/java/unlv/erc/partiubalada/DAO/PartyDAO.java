@@ -113,11 +113,7 @@ public class PartyDAO {
     public void deletePartyOnFirebase(Party party) {
         String partyId = party.getIdParty();
 
-        DatabaseReference partyReference = partiesReference.child(partyId);
-        partyReference.removeValue();
-        Log.i("PartyDAO id", partyId);
-        Log.i("PartyDAO name", party.getPartyName());
-        Log.i(TAG, "Deletando a balada...");
+        partiesReference.child(partyId).setValue(null);
     }
 
     public void setPartiesOnView() {

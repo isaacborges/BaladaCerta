@@ -91,6 +91,21 @@ public class PartyEditOrDeleteActivity extends AppCompatActivity {
         PartyController partyController = new PartyController(PartyEditOrDeleteActivity.this);
         partyController.updateParty(party);
 
+        String dialogText = "A balada foi atualizada com sucesso!";
+
+        showDialog(dialogText);
+    }
+
+    public void onDeletePartyClicked(View view) {
+        PartyController partyController = new PartyController(PartyEditOrDeleteActivity.this);
+        partyController.deleteParty(party);
+
+        String dialogText = "A balada foi deletada com sucesso!";
+
+        showDialog(dialogText);
+    }
+
+    private void showDialog(String dialogText) {
         Dialog updatePartyDialog = new Dialog(PartyEditOrDeleteActivity.this, R.style.FullHeightDialog);
 
         updatePartyDialog = new Dialog(PartyEditOrDeleteActivity.this, R.style.FullHeightDialog);
@@ -98,7 +113,7 @@ public class PartyEditOrDeleteActivity extends AppCompatActivity {
         updatePartyDialog.setCancelable(true);
         TextView text = (TextView) updatePartyDialog.findViewById(R.id.normalDialogText);
 
-        text.setText("A balada foi atualizada com sucesso!");
+        text.setText(dialogText);
 
         Button updateButton = (Button) updatePartyDialog.findViewById(R.id.rank_dialog_button);
         final Dialog finalRankDialog = updatePartyDialog;
@@ -113,9 +128,5 @@ public class PartyEditOrDeleteActivity extends AppCompatActivity {
         });
 
         updatePartyDialog.show();
-    }
-
-    public void onDeletePartyClicked(View view) {
-
     }
 }
