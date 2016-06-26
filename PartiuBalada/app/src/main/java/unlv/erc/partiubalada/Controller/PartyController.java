@@ -29,24 +29,24 @@ public class PartyController {
         this.mRecyclerView = mRecyclerView;
     }
 
-    public PartyController(){
-
+    public PartyController(Context context){
+        this.context = context;
     }
 
     public void createParty(Party party) {
-        PartyDAO partyDAO = new PartyDAO();
+        PartyDAO partyDAO = new PartyDAO(context);
 
         partyDAO.createPartyOnFirebase(party);
     }
 
     public void updateParty(Party party){
-        PartyDAO partyDAO = new PartyDAO();
+        PartyDAO partyDAO = new PartyDAO(context);
 
         partyDAO.updatePartyOnFirebase(party);
     }
 
     public void deleteParty(Party party){
-        PartyDAO partyDAO = new PartyDAO();
+        PartyDAO partyDAO = new PartyDAO(context);
 
         partyDAO.deletePartyOnFirebase(party);
     }
@@ -65,6 +65,4 @@ public class PartyController {
     public void setParty(Party party) {
         this.party = party;
     }
-
-
 }

@@ -176,28 +176,16 @@ public class PartyCreateAcitivity extends AppCompatActivity {
 
     public void onSendPartyClicked(View view) {
         getEditTextInformations();
-
+        setPartyInformations();
         sendPartyToFirebase();
 
         Toast.makeText(PartyCreateAcitivity.this, "Festa adicionada", Toast.LENGTH_LONG).show();
     }
 
     private void sendPartyToFirebase() {
-        PartyController partyController = new PartyController();
+        PartyController partyController = new PartyController(PartyCreateAcitivity.this);
 
-//        partyController.createParty(party);
-
-        String partyId = mDatabase.child("Parties").push().getKey();
-        Log.i("Creating id", partyId);
-        party.setIdParty(partyId);
-        setPartyInformations();
-
-        Map<String, Object> partyValues = party.toMap();
-
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/Parties/" + partyId, partyValues);
-
-        mDatabase.updateChildren(childUpdates);
+        partyController.createParty(party);
     }
 
     @NonNull

@@ -35,14 +35,16 @@ public class PartyDAO {
     private DatabaseReference partiesReference;
     private boolean alreadySetParties = false;
 
-    public PartyDAO() {
-        this.context = mRecyclerView.getContext();
+    public PartyDAO(Context context) {
+        this.context = context;
+        this.partiesReference = FirebaseDatabase.getInstance().getReference().child("Parties");
     }
 
     public PartyDAO(Context context, RecyclerView.Adapter mAdapter, RecyclerView mRecyclerView) {
         this.context = context;
         this.mAdapter = mAdapter;
         this.mRecyclerView = mRecyclerView;
+        this.partiesReference = FirebaseDatabase.getInstance().getReference().child("Parties");
     }
 
     public ArrayList<Party> getPartiesArray(){
@@ -55,24 +57,21 @@ public class PartyDAO {
 
         return connectionFirebase;
     }
+
     public void createPartyOnFirebase(Party party) {
+        String partyId = partiesReference.push().getKey();
+        Log.i("Creating id", partyId);
+        party.setIdParty(partyId);
 
-//        String partyId = mDatabase.child("Parties").push().getKey();
-//        Log.i("Creating id", partyId);
-//        party.setIdParty(partyId);
-//        setPartyInformations();
-//
-//        Map<String, Object> partyValues = party.toMap();
-//
-//        Map<String, Object> childUpdates = new HashMap<>();
-//        childUpdates.put("/Parties/" + partyId, partyValues);
-//
-//        mDatabase.updateChildren(childUpdates);
+        Map<String, Object> partyValues = party.toMap();
 
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/"+partyId, partyValues);
+
+        partiesReference.updateChildren(childUpdates);
     }
 
     public ValueEventListener getPartiesFromFB() {
-        partiesReference = FirebaseDatabase.getInstance().getReference().child("Parties");
 
         ValueEventListener partiesListener = new ValueEventListener() {
             @Override
