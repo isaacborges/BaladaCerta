@@ -46,17 +46,6 @@ public class PartyDAO {
         this.partiesReference = FirebaseDatabase.getInstance().getReference().child("Parties");
     }
 
-    public ArrayList<Party> getPartiesArray() {
-        return parties;
-    }
-
-    private FirebaseDatabase connectToDB() {
-
-        FirebaseDatabase connectionFirebase = FactoryConnection.establishConnection();
-
-        return connectionFirebase;
-    }
-
     public void createPartyOnFirebase(Party party) {
         String partyId = partiesReference.push().getKey();
         party.setIdParty(partyId);
