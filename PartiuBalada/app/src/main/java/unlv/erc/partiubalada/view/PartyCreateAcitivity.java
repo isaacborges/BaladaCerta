@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import unlv.erc.partiubalada.Controller.PartyController;
 import unlv.erc.partiubalada.R;
 import unlv.erc.partiubalada.model.Party;
 
@@ -182,6 +183,10 @@ public class PartyCreateAcitivity extends AppCompatActivity {
     }
 
     private void sendPartyToFirebase() {
+        PartyController partyController = new PartyController();
+
+//        partyController.createParty(party);
+
         String partyId = mDatabase.child("Parties").push().getKey();
         Log.i("Creating id", partyId);
         party.setIdParty(partyId);

@@ -21,6 +21,8 @@ import unlv.erc.partiubalada.view.PartyEditOrDeleteActivity;
 import unlv.erc.partiubalada.view.PartyInfo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PartyDAO {
     private static final String MAIN_ACTIVITY = "unlv.erc.partiubalada.view.MainActivity";
@@ -31,11 +33,9 @@ public class PartyDAO {
     private ArrayList<Party> parties = new ArrayList<Party>();
     private FirebaseAuth mAuth;
     private DatabaseReference partiesReference;
+    private boolean alreadySetParties = false;
 
     public PartyDAO() {
-        partiesReference = FirebaseDatabase.getInstance().getReference();
-        partiesReference.child("Party");
-
         this.context = mRecyclerView.getContext();
     }
 
@@ -43,25 +43,11 @@ public class PartyDAO {
         this.context = context;
         this.mAdapter = mAdapter;
         this.mRecyclerView = mRecyclerView;
-
-        partiesReference = FirebaseDatabase.getInstance().getReference();
-        partiesReference.child("Party");
-    }
-
-    public void deletePartyFromFirebase(Party party){
-        String partyId = party.getIdParty();
-
-        DatabaseReference partyReference = partiesReference.child(partyId);
-        partyReference.removeValue();
-        Log.i("PartyDAO id", partyId);
-        Log.i("PartyDAO name", party.getPartyName());
-        Log.i(TAG, "Deletando a balada...");
     }
 
     public ArrayList<Party> getPartiesArray(){
         return parties;
     }
-
 
     private FirebaseDatabase connectToDB() {
 
@@ -69,12 +55,29 @@ public class PartyDAO {
 
         return connectionFirebase;
     }
+    public void createPartyOnFirebase(Party party) {
+
+//        String partyId = mDatabase.child("Parties").push().getKey();
+//        Log.i("Creating id", partyId);
+//        party.setIdParty(partyId);
+//        setPartyInformations();
+//
+//        Map<String, Object> partyValues = party.toMap();
+//
+//        Map<String, Object> childUpdates = new HashMap<>();
+//        childUpdates.put("/Parties/" + partyId, partyValues);
+//
+//        mDatabase.updateChildren(childUpdates);
+
+    }
 
     public ValueEventListener getPartiesFromFB() {
+        partiesReference = FirebaseDatabase.getInstance().getReference().child("Parties");
 
         ValueEventListener partiesListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 System.out.println("There are " + dataSnapshot.getChildrenCount() + " parties");
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
@@ -99,9 +102,29 @@ public class PartyDAO {
         return partiesListener;
     }
 
+    public void updatePartyOnFirebase(Party party) {
+
+    }
+
+    public void deletePartyOnFirebase(Party party){
+        String partyId = party.getIdParty();
+
+        DatabaseReference partyReference = partiesReference.child(partyId);
+        partyReference.removeValue();
+        Log.i("PartyDAO id", partyId);
+        Log.i("PartyDAO name", party.getPartyName());
+        Log.i(TAG, "Deletando a balada...");
+    }
+
     public void setPartiesOnView() {
-        mAdapter = new MyRecyclerViewAdapter(parties, context);
-        mRecyclerView.setAdapter(mAdapter);
+
+        if(alreadySetParties == false) {
+            mAdapter = new MyRecyclerViewAdapter(parties, context);
+            mRecyclerView.setAdapter(mAdapter);
+            alreadySetParties = true;
+        } else {
+            //nothing to do
+        }
     }
 
     private void setOnPartyClickAction() {

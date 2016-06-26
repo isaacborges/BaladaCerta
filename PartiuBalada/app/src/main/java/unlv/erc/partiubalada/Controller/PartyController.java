@@ -33,10 +33,22 @@ public class PartyController {
 
     }
 
+    public void createParty(Party party) {
+        PartyDAO partyDAO = new PartyDAO();
+
+        partyDAO.createPartyOnFirebase(party);
+    }
+
+    public void updateParty(Party party){
+        PartyDAO partyDAO = new PartyDAO();
+
+        partyDAO.updatePartyOnFirebase(party);
+    }
+
     public void deleteParty(Party party){
         PartyDAO partyDAO = new PartyDAO();
 
-        partyDAO.deletePartyFromFirebase(party);
+        partyDAO.deletePartyOnFirebase(party);
     }
 
     public ValueEventListener getParties() {
@@ -46,13 +58,6 @@ public class PartyController {
         return event;
     }
 
-    public ArrayList<Party> getPatiesArray(){
-
-        ArrayList<Party> parties = this.partyDAO.getPartiesArray();
-
-        return parties;
-    }
-
     public Party getParty() {
         return party;
     }
@@ -60,5 +65,6 @@ public class PartyController {
     public void setParty(Party party) {
         this.party = party;
     }
+
 
 }

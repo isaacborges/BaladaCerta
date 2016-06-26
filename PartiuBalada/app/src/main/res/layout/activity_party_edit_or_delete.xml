@@ -275,7 +275,7 @@
                 android:id="@+id/partyBanner" android:visibility="gone"/>
 
             <Button
-                android:id="@+id/button_send"
+                android:id="@+id/button_update"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -284,9 +284,9 @@
                 android:layout_marginRight="50dp"
                 android:background="@drawable/round_rect_button_blue"
                 android:elevation="0dp"
-                android:onClick="onSendPartyClicked"
+                android:onClick="onUpdatePartyClicked"
                 android:padding="10dp"
-                android:text="Enviar"
+                android:text="Atualizar"
                 android:textColor="#ffffff"
                 android:textSize="28dp"
                 android:textStyle="bold" android:layout_marginTop="10dp"/>
