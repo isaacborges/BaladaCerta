@@ -1,7 +1,7 @@
 package unlv.erc.partiubalada.model;
 
 public class Promotion {
-
+    public  final static String PROMOTION_SERIALIZABLE_KEY = "promotion_key";
     private String promotionCode;
     private String type;
     private String idParty;

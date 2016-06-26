@@ -52,7 +52,8 @@
             android:name=".view.PartyCRUDActivity"
             android:label="@string/title_activity_party_crud" />
         <activity android:name=".view.PartyCreateAcitivity" />
-        <activity android:name=".view.PromotionCreateActivity"></activity>
+        <activity android:name=".view.PromotionCreateActivity" />
+        <activity android:name=".view.PromotionCRUDActivity"></activity>
     </application>
 
 </manifest>

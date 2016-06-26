@@ -9,18 +9,42 @@ import unlv.erc.partiubalada.R;
 import unlv.erc.partiubalada.model.Promotion;
 import unlv.erc.partiubalada.view.LoginActivity;
 import unlv.erc.partiubalada.view.PromotionCreateActivity;
+import java.util.ArrayList;
+
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.DatabaseReference;
+
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+
 
 public class PromotionController {
 
+    public  final static String PROMOTION_SERIALIZABLE_KEY=Promotion.PROMOTION_SERIALIZABLE_KEY;
     private Promotion promotion;
     private EditText idParty;
     private Spinner typePromotion;
     private EditText promotionDescription;
     PromotionDAO promotionDAO;
     PromotionCreateActivity activity;
+    private Context context;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView mRecyclerView;
 
     public PromotionController(PromotionCreateActivity activity) {
         this.activity = activity;
+    }
+
+
+    public PromotionController(Context context, RecyclerView.Adapter mAdapter, RecyclerView mRecyclerView){
+
+        this.promotionDAO = new PromotionDAO(context, mAdapter, mRecyclerView);
+        this.promotion = new Promotion();
+        this.context = context;
+        this.mAdapter = mAdapter;
+        this.mRecyclerView = mRecyclerView;
+
     }
 
     public Promotion getPromotion() {
@@ -61,6 +85,18 @@ public class PromotionController {
     }
 
 
+    public ValueEventListener getPromotions() {
 
+        ValueEventListener event = this.promotionDAO.getPromotionsFromFB();
+
+        return event;
+    }
+
+    public ArrayList<Promotion> getPromotionsArray(){
+
+        ArrayList<Promotion> promotions = this.promotionDAO.getPromotionsArray();
+
+        return promotions;
+    }
 
 }
