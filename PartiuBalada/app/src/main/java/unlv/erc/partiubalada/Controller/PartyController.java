@@ -12,8 +12,6 @@ import com.google.firebase.database.DatabaseReference;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
-
-
 public class PartyController {
     public  final static String PARTY_SERIALIZABLE_KEY=Party.PARTY_SERIALIZABLE_KEY;
     private PartyDAO partyDAO;

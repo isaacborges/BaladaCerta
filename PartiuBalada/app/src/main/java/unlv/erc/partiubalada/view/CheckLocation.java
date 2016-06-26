@@ -38,7 +38,8 @@ import java.util.Map;
 import unlv.erc.partiubalada.R;
 import unlv.erc.partiubalada.model.Party;
 
-public class CheckLocation extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class CheckLocation extends FragmentActivity implements OnMapReadyCallback,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private static final int INITIAL_ZOOM_LEVEL = 12;
     private GoogleMap map = null;
@@ -104,8 +105,8 @@ public class CheckLocation extends FragmentActivity implements OnMapReadyCallbac
         Intent intent = getIntent();
         Party party = (Party) intent.getSerializableExtra(Party.PARTY_SERIALIZABLE_KEY);
 
-        float latitude = party.getLatitude();
-        float longitude = party.getLongitude();
+        float latitude = Float.parseFloat(party.getLatitude());
+        float longitude = Float.parseFloat(party.getLongitude());
         String name = party.getPartyName();
         LatLng eventLocation = new LatLng(latitude, longitude);
 

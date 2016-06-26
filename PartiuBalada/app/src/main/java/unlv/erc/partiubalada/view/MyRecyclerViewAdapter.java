@@ -105,12 +105,12 @@ public class MyRecyclerViewAdapter extends RecyclerView
         holder.partyLocation.setTypeface(openSans);
 
         if (callingActivity.equalsIgnoreCase(MAIN_ACTIVITY)) {
-            holder.partyRating.setRating(mDataset.get(position).getAmountOfStars());
+            holder.partyRating.setRating(Float.parseFloat(mDataset.get(position).getAmountOfStars()));
         } else {
             //nothing to do
         }
 
-        String background = mDataset.get(position).getPartyImage();
+//        String background = mDataset.get(position).getPartyImage();
 
 //        Log.i("Adapter background", background);
 

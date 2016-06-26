@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         partiesReference.addValueEventListener(event);
     }
 
-    public void onAccountClicked(View view) {
+        public void onAccountClicked(View view) {
         Intent intent = new Intent(MainActivity.this, AccountActivity.class);
         startActivity(intent);
     }

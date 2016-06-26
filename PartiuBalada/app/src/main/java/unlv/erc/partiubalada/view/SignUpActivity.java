@@ -11,9 +11,8 @@ import unlv.erc.partiubalada.Controller.NormalUserController;
 import unlv.erc.partiubalada.R;
 
 public class SignUpActivity extends AppCompatActivity {
-    NormalUserController userController;
+    private NormalUserController userController;
     private FirebaseDatabase database;
-    public ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

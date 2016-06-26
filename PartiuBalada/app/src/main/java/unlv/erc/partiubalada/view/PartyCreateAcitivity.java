@@ -16,9 +16,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -26,8 +29,11 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import unlv.erc.partiubalada.R;
+import unlv.erc.partiubalada.model.Party;
 
 public class PartyCreateAcitivity extends AppCompatActivity {
     public static final String CHOOSE_FROM_GALLERY = "Escolher banner";
@@ -35,6 +41,8 @@ public class PartyCreateAcitivity extends AppCompatActivity {
     private static int RESULT_LOAD_IMAGE = 1;
     private FirebaseStorage storage;
     private StorageReference storageRef;
+    private DatabaseReference mDatabase;
+    private Party party;
     private ImageView partyBanner;
     private EditText editTextPartyName;
     private EditText editTextLocation;
@@ -43,6 +51,13 @@ public class PartyCreateAcitivity extends AppCompatActivity {
     private EditText editTextPartyPrice;
     private EditText editTextPartyInitialTime;
     private EditText editTextPartyEndTime;
+    private String partyName;
+    private String partyLocation;
+    private String partyLatitude;
+    private String partyLongitude;
+    private String partyPrice;
+    private String partyInitialTime;
+    private String partyEndTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,28 +66,11 @@ public class PartyCreateAcitivity extends AppCompatActivity {
 
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReferenceFromUrl("gs://project-8420821685282639830.appspot.com");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        party = new Party();
 
         startComponents();
-
-        String partyName = editTextPartyName.getText().toString();
-        String partyLocation = editTextLocation.getText().toString();
-        String partyLatitude = editTextPartyLatitude.getText().toString();
-        String partyLongitude = editTextPartyLongitude.getText().toString();
-        String partyPrice = editTextPartyPrice.getText().toString();
-        String partyInitialTime = editTextPartyInitialTime.getText().toString();
-        String partyEndTime = editTextPartyEndTime.getText().toString();
-
-
-    }
-
-    private void startComponents() {
-        editTextPartyName = (EditText) findViewById(R.id.editTextPartyName);
-        editTextLocation = (EditText) findViewById(R.id.editTextLocation);
-        editTextPartyLatitude = (EditText) findViewById(R.id.editTextPartyLatitude);
-        editTextPartyLongitude = (EditText) findViewById(R.id.editTextPartyLongitude);
-        editTextPartyPrice = (EditText) findViewById(R.id.editTextPartyPrice);
-        editTextPartyInitialTime = (EditText) findViewById(R.id.editTextPartyInitialTime);
-        editTextPartyEndTime = (EditText) findViewById(R.id.editTextPartyEndTime);
     }
 
     @Override
@@ -105,6 +103,8 @@ public class PartyCreateAcitivity extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                party.setPartyImage(downloadUrl);
+
                 Log.i("Upload", "Success");
             }
         });
@@ -127,7 +127,6 @@ public class PartyCreateAcitivity extends AppCompatActivity {
         try {
             bmp = getBitmapFromUri(selectedImage);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -175,5 +174,58 @@ public class PartyCreateAcitivity extends AppCompatActivity {
     public void onPartiesClicked(View view) {
         Intent intent = new Intent(PartyCreateAcitivity.this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void onSendPartyClicked(View view) {
+        getEditTextInformations();
+
+        sendPartyToFirebase();
+
+        Toast.makeText(PartyCreateAcitivity.this, "Festa adicionada", Toast.LENGTH_LONG).show();
+    }
+
+    private void sendPartyToFirebase() {
+        String partyId = mDatabase.child("Parties").push().getKey();
+        setPartyInformations();
+
+        Map<String, Object> partyValues = party.toMap();
+
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/Parties/" + partyId, partyValues);
+
+
+
+        mDatabase.updateChildren(childUpdates);
+    }
+
+    @NonNull
+    private void setPartyInformations() {
+        party.setPartyName(partyName);
+        party.setLocality(partyLocation);
+//        party.setLatitude(Float.parseFloat(partyLatitude));
+//        party.setLongitude(Float.parseFloat(partyLongitude));
+//        party.setPrice(Float.parseFloat(partyPrice));
+        party.setStartTime(partyInitialTime);
+        party.setEndTime(partyEndTime);
+    }
+
+    private void getEditTextInformations() {
+        partyName = editTextPartyName.getText().toString();
+        partyLocation = editTextLocation.getText().toString();
+        partyLatitude = editTextPartyLatitude.getText().toString();
+        partyLongitude = editTextPartyLongitude.getText().toString();
+        partyPrice = editTextPartyPrice.getText().toString();
+        partyInitialTime = editTextPartyInitialTime.getText().toString();
+        partyEndTime = editTextPartyEndTime.getText().toString();
+    }
+
+    private void startComponents() {
+        editTextPartyName = (EditText) findViewById(R.id.editTextPartyName);
+        editTextLocation = (EditText) findViewById(R.id.editTextLocation);
+        editTextPartyLatitude = (EditText) findViewById(R.id.editTextPartyLatitude);
+        editTextPartyLongitude = (EditText) findViewById(R.id.editTextPartyLongitude);
+        editTextPartyPrice = (EditText) findViewById(R.id.editTextPartyPrice);
+        editTextPartyInitialTime = (EditText) findViewById(R.id.editTextPartyInitialTime);
+        editTextPartyEndTime = (EditText) findViewById(R.id.editTextPartyEndTime);
     }
 }
