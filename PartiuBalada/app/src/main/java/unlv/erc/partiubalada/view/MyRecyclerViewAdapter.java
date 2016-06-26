@@ -1,10 +1,7 @@
 package unlv.erc.partiubalada.view;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,11 +14,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import unlv.erc.partiubalada.Controller.PartyController;
 import unlv.erc.partiubalada.R;
 import unlv.erc.partiubalada.model.Party;
 
@@ -64,23 +59,6 @@ public class MyRecyclerViewAdapter extends RecyclerView
             } else {
                 deleteParty = (ImageButton) itemView.findViewById(R.id.deleteParty);
                 editParty = (ImageButton) itemView.findViewById(R.id.editParty);
-
-//                editParty.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Log.i("editParty", String.valueOf(partyName.getText()));
-//                    }
-//                });
-//
-//                deleteParty.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        PartyController partyController = new PartyController();
-//
-//                        partyController.deleteParty(party);
-//                        Toast.makeText(context, "Deletando a balada..."+party.getIdParty(), Toast.LENGTH_LONG).show();
-//                    }
-//                });
             }
 
             Log.i(LOG_TAG, "Adding Listener");

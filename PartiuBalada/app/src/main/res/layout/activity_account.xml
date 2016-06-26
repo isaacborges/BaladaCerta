@@ -88,7 +88,7 @@
                 android:layout_marginLeft="35dp"
                 android:layout_marginRight="35dp"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/round_rect_button"
+                android:background="@drawable/round_rect_button_blue"
                 android:elevation="10dp"
                 android:onClick="onPartiesButtonClicked"
                 android:padding="10dp"
