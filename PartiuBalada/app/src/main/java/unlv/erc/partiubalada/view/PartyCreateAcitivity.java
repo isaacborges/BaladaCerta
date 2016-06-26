@@ -88,20 +88,17 @@ public class PartyCreateAcitivity extends AppCompatActivity {
 
     private void uploadImageOnFirebase(String picturePath) {
         Uri file = Uri.fromFile(new File(picturePath));
-        StorageReference partyImagesRef = storageRef.child("images/" + file.getLastPathSegment());
+        StorageReference partyImagesRef = storageRef.child("images/" + partyName);
         UploadTask uploadTask = partyImagesRef.putFile(file);
 
-        // Register observers to listen for when the download is done or if it fails
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
                 Log.e("Upload", "it was not possible to upload the image");
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 party.setPartyImage(downloadUrl);
 
@@ -186,14 +183,14 @@ public class PartyCreateAcitivity extends AppCompatActivity {
 
     private void sendPartyToFirebase() {
         String partyId = mDatabase.child("Parties").push().getKey();
+        Log.i("Creating id", partyId);
+        party.setIdParty(partyId);
         setPartyInformations();
 
         Map<String, Object> partyValues = party.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/Parties/" + partyId, partyValues);
-
-
 
         mDatabase.updateChildren(childUpdates);
     }
@@ -202,9 +199,9 @@ public class PartyCreateAcitivity extends AppCompatActivity {
     private void setPartyInformations() {
         party.setPartyName(partyName);
         party.setLocality(partyLocation);
-//        party.setLatitude(Float.parseFloat(partyLatitude));
-//        party.setLongitude(Float.parseFloat(partyLongitude));
-//        party.setPrice(Float.parseFloat(partyPrice));
+        party.setLatitude(partyLatitude);
+        party.setLongitude(partyLongitude);
+        party.setPrice(partyPrice);
         party.setStartTime(partyInitialTime);
         party.setEndTime(partyEndTime);
     }

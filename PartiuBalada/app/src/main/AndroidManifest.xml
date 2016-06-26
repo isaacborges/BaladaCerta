@@ -10,8 +10,10 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -49,7 +51,8 @@
         <activity
             android:name=".view.PartyCRUDActivity"
             android:label="@string/title_activity_party_crud" />
-        <activity android:name=".view.PartyCreateAcitivity"></activity>
+        <activity android:name=".view.PartyCreateAcitivity" />
+        <activity android:name=".view.PartyEditOrDeleteActivity"></activity>
     </application>
 
 </manifest>

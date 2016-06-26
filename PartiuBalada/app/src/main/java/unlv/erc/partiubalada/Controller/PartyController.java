@@ -22,13 +22,21 @@ public class PartyController {
 
 
     public PartyController(Context context, RecyclerView.Adapter mAdapter, RecyclerView mRecyclerView){
-
         this.partyDAO = new PartyDAO(context, mAdapter, mRecyclerView);
         this.party = new Party();
         this.context = context;
         this.mAdapter = mAdapter;
         this.mRecyclerView = mRecyclerView;
+    }
 
+    public PartyController(){
+
+    }
+
+    public void deleteParty(Party party){
+        PartyDAO partyDAO = new PartyDAO();
+
+        partyDAO.deletePartyFromFirebase(party);
     }
 
     public ValueEventListener getParties() {

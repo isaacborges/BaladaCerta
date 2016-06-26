@@ -73,18 +73,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@android:drawable/ic_menu_edit"
-                    android:id="@+id/imageButton"
+                    android:id="@+id/editParty"
                     android:background="@android:color/transparent"
-                    android:layout_gravity="center_vertical|center_horizontal" />
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:clickable="false" />
 
                 <ImageButton
                     android:src="@android:drawable/ic_menu_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/imageButton3"
+                    android:id="@+id/deleteParty"
                     android:background="@android:color/transparent"
                     android:layout_gravity="center_vertical|center_horizontal|center"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:clickable="false" />
 
             </LinearLayout>
 

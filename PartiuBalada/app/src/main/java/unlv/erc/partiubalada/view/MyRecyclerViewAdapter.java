@@ -12,27 +12,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import unlv.erc.partiubalada.Controller.PartyController;
 import unlv.erc.partiubalada.R;
 import unlv.erc.partiubalada.model.Party;
 
 public class MyRecyclerViewAdapter extends RecyclerView
         .Adapter<MyRecyclerViewAdapter
         .DataObjectHolder> {
-    public static final String MAIN_ACTIVITY = "unlv.erc.partiubalada.view.MainActivity";
+    private static final String MAIN_ACTIVITY = "unlv.erc.partiubalada.view.MainActivity";
     private static String LOG_TAG = "MyRecyclerViewAdapter";
     private ArrayList<Party> mDataset;
     private static MyClickListener myClickListener;
-    private Context context;
+    private static Context context;
     private int lastPosition = -1;
     private View view;
     private String callingActivity;
+    private static Party party;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder
             implements View
@@ -40,6 +44,8 @@ public class MyRecyclerViewAdapter extends RecyclerView
         TextView partyName;
         TextView partyLocation;
         ImageView partyImage;
+        ImageButton deleteParty;
+        ImageButton editParty;
         RatingBar partyRating;
         LinearLayout cardRoot;
         String callingActivity;
@@ -53,12 +59,29 @@ public class MyRecyclerViewAdapter extends RecyclerView
             partyImage = (ImageView) itemView.findViewById(R.id.partyImage);
             cardRoot = (LinearLayout) itemView.findViewById(R.id.card_root);
 
-            if(callingActivity.equalsIgnoreCase(MAIN_ACTIVITY)){
+            if (callingActivity.equalsIgnoreCase(MAIN_ACTIVITY)) {
                 partyRating = (RatingBar) itemView.findViewById(R.id.partyRating);
             } else {
-                //nothing to do
-            }
+                deleteParty = (ImageButton) itemView.findViewById(R.id.deleteParty);
+                editParty = (ImageButton) itemView.findViewById(R.id.editParty);
 
+//                editParty.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Log.i("editParty", String.valueOf(partyName.getText()));
+//                    }
+//                });
+//
+//                deleteParty.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        PartyController partyController = new PartyController();
+//
+//                        partyController.deleteParty(party);
+//                        Toast.makeText(context, "Deletando a balada..."+party.getIdParty(), Toast.LENGTH_LONG).show();
+//                    }
+//                });
+            }
 
             Log.i(LOG_TAG, "Adding Listener");
             itemView.setOnClickListener(this);
@@ -98,19 +121,21 @@ public class MyRecyclerViewAdapter extends RecyclerView
                 "OpenSans-CondLight" +
                         ".ttf");
 
-        holder.partyName.setText(mDataset.get(position).getPartyName());
+
+        party = mDataset.get(position);
+        holder.partyName.setText(party.getPartyName());
         holder.partyName.setTypeface(openSans);
 
-        holder.partyLocation.setText(mDataset.get(position).getLocality());
+        holder.partyLocation.setText(party.getLocality());
         holder.partyLocation.setTypeface(openSans);
 
         if (callingActivity.equalsIgnoreCase(MAIN_ACTIVITY)) {
-            holder.partyRating.setRating(Float.parseFloat(mDataset.get(position).getAmountOfStars()));
+            holder.partyRating.setRating(Float.parseFloat(party.getAmountOfStars()));
         } else {
             //nothing to do
         }
 
-//        String background = mDataset.get(position).getPartyImage();
+//        String background = party.getPartyImage();
 
 //        Log.i("Adapter background", background);
 
@@ -135,7 +160,6 @@ public class MyRecyclerViewAdapter extends RecyclerView
         mDataset.remove(index);
         notifyItemRemoved(index);
     }
-
 
     private void verifyCallerActivity(ViewGroup parent) {
         if (callingActivity.equalsIgnoreCase(MAIN_ACTIVITY)) {
