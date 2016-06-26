@@ -82,6 +82,20 @@ public class PromotionDAO {
 
     }
 
+    public void updatePromotionOnFireBase(final PromotionCreateActivity activity, final Promotion promotion) {
+
+
+        DatabaseReference mDatabase;
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.child("promotions").child(promotion.getPartyName()).setValue(promotion);
+
+        Toast.makeText(activity.getApplicationContext(), "Your Promotion has been Updated", Toast.LENGTH_LONG).show();
+
+
+    }
+
 
     public ArrayList<Promotion> getPromotionsArray(){
         return promotions;

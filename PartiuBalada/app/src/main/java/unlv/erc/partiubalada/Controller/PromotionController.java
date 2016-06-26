@@ -9,6 +9,7 @@ import unlv.erc.partiubalada.R;
 import unlv.erc.partiubalada.model.Promotion;
 import unlv.erc.partiubalada.view.LoginActivity;
 import unlv.erc.partiubalada.view.PromotionCreateActivity;
+import unlv.erc.partiubalada.view.PromotionEditActivity;
 import java.util.ArrayList;
 
 import com.google.firebase.database.ValueEventListener;
@@ -28,12 +29,16 @@ public class PromotionController {
     private EditText promotionDescription;
     PromotionDAO promotionDAO;
     PromotionCreateActivity activity;
+    PromotionEditActivity activityEdit;
     private Context context;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView mRecyclerView;
 
     public PromotionController(PromotionCreateActivity activity) {
         this.activity = activity;
+    }
+    public PromotionController(PromotionEditActivity activity) {
+        this.activityEdit = activity;
     }
 
 
@@ -81,6 +86,16 @@ public class PromotionController {
         promotionDAO = new PromotionDAO();
 
         promotionDAO.savePromotionOnFireBase(activity, promotion);
+
+    }
+
+    public void updatePromotion(Promotion promotion) {
+
+        setUpPromotion();
+
+        promotionDAO = new PromotionDAO();
+
+        promotionDAO.updatePromotionOnFireBase(activity, promotion);
 
     }
 

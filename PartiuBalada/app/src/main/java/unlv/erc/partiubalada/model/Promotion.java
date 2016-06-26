@@ -1,6 +1,8 @@
 package unlv.erc.partiubalada.model;
 
-public class Promotion {
+import java.io.Serializable;
+
+public class Promotion implements Serializable {
     public  final static String PROMOTION_SERIALIZABLE_KEY = "promotion_key";
     private String promotionCode;
     private String type;

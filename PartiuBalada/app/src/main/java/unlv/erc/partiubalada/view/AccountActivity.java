@@ -22,7 +22,7 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     public void onPromotionButtonClicked(View view) {
-        Intent intent = new Intent(AccountActivity.this, PromotionCreateActivity.class);
+        Intent intent = new Intent(AccountActivity.this, PromotionCRUDActivity.class);
         startActivity(intent);
     }
 
