@@ -4,7 +4,7 @@ public class Promotion {
     public  final static String PROMOTION_SERIALIZABLE_KEY = "promotion_key";
     private String promotionCode;
     private String type;
-    private String idParty;
+    private String partyName;
     private String promotionDescription;
 
 
@@ -32,12 +32,12 @@ public class Promotion {
         this.type = type;
     }
 
-    public String getPartyId() {
-        return idParty;
+    public String getPartyName() {
+        return partyName;
     }
 
-    public void setPartyId(String partyId) {
-        this.idParty = partyId;
+    public void setPartyName(String partyId) {
+        this.partyName = partyId;
     }
 
     public String getPromotionDescription() {

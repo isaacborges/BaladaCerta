@@ -23,7 +23,7 @@ public class PromotionController {
 
     public  final static String PROMOTION_SERIALIZABLE_KEY=Promotion.PROMOTION_SERIALIZABLE_KEY;
     private Promotion promotion;
-    private EditText idParty;
+    private EditText nameParty;
     private Spinner typePromotion;
     private EditText promotionDescription;
     PromotionDAO promotionDAO;
@@ -57,7 +57,7 @@ public class PromotionController {
 
     public void startComponents() {
 
-        idParty = (EditText) activity.findViewById(R.id.editTextPartyId);
+        nameParty = (EditText) activity.findViewById(R.id.editTextPartyId);
         promotionDescription = (EditText) activity.findViewById(R.id.editTextDescription);
         typePromotion = (Spinner) activity.findViewById(R.id.spinnerTypePromotion);
 
@@ -67,7 +67,7 @@ public class PromotionController {
 
         promotion = new Promotion();
 
-        promotion.setPartyId(idParty.getText().toString());
+        promotion.setPartyName(nameParty.getText().toString());
         promotion.setPromotionDescription(promotionDescription.getText().toString());
         promotion.setType(typePromotion.getSelectedItem().toString());
 

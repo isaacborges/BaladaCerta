@@ -33,7 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import unlv.erc.partiubalada.model.Party;
 import unlv.erc.partiubalada.model.User;
-import unlv.erc.partiubalada.view.MyRecyclerViewAdapter;
+import unlv.erc.partiubalada.view.PromotionAdapter;
 import unlv.erc.partiubalada.view.PartyInfo;
 
 import java.util.ArrayList;
@@ -75,14 +75,12 @@ public class PromotionDAO {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mDatabase.child("promotions").child(promotion.getPartyId()).setValue(promotion);
+        mDatabase.child("promotions").child(promotion.getPartyName()).setValue(promotion);
 
         Toast.makeText(activity.getApplicationContext(), "Your Promotion has been Created", Toast.LENGTH_LONG).show();
 
 
     }
-
-
 
 
     public ArrayList<Promotion> getPromotionsArray(){
@@ -108,6 +106,7 @@ public class PromotionDAO {
                 }
 
                 setPromotionsOnView();
+                setOnPartyClickAction();
 
             }
 
@@ -123,11 +122,31 @@ public class PromotionDAO {
     }
 
     public void setPromotionsOnView() {
-        //mAdapter = new MyRecyclerViewAdapter(promotions, context);
+        mAdapter = new PromotionAdapter(promotions, context);
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    private void setOnPartyClickAction() {
+        ((PromotionAdapter) mAdapter).setOnItemClickListener(new PromotionAdapter
+                .MyClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                Log.i("Promotions list", " Clicked on Item " + position);
 
+                String callingActivity = context.getClass().getName();
+                Promotion promotion = promotions.get(position);
+                Intent intent = null;
+
+
+
+                Bundle mBundle = new Bundle();
+                //mBundle.putSerializable(Promotion.PROMOTION_SERIALIZABLE_KEY, promotion);
+                intent.putExtras(mBundle);
+
+                context.startActivity(intent);
+            }
+        });
+    }
 
 
 
