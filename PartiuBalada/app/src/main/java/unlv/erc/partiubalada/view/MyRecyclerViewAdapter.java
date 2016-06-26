@@ -121,18 +121,23 @@ public class MyRecyclerViewAdapter extends RecyclerView
                 "OpenSans-CondLight" +
                         ".ttf");
 
-
         party = mDataset.get(position);
-        holder.partyName.setText(party.getPartyName());
-        holder.partyName.setTypeface(openSans);
 
-        holder.partyLocation.setText(party.getLocality());
-        holder.partyLocation.setTypeface(openSans);
+        if(partyExists() == true) {
 
-        if (callingActivity.equalsIgnoreCase(MAIN_ACTIVITY)) {
-            holder.partyRating.setRating(Float.parseFloat(party.getAmountOfStars()));
-        } else {
-            //nothing to do
+            holder.partyName.setText(party.getPartyName());
+            holder.partyName.setTypeface(openSans);
+
+            holder.partyLocation.setText(party.getLocality());
+            holder.partyLocation.setTypeface(openSans);
+
+            if (callingActivity.equalsIgnoreCase(MAIN_ACTIVITY)) {
+                holder.partyRating.setRating(Float.parseFloat(party.getAmountOfStars()));
+            } else {
+                //nothing to do
+            }
+        }else{
+            view.setVisibility(View.GONE);
         }
 
 //        String background = party.getPartyImage();
@@ -144,6 +149,22 @@ public class MyRecyclerViewAdapter extends RecyclerView
 //        holder.partyImage.setScaleType(ImageView.ScaleType.FIT_XY);
 
         setAnimation(view, position);
+    }
+
+    /*
+     * verifying if the party existis using its name. It was needed because the application is
+     * setting items on the view without any information and that are not on Firebase.
+     */
+    private boolean partyExists() {
+        boolean exists = false;
+
+        if(party.getPartyName().length() > 0) {
+            exists = true;
+        } else {
+            exists = false;
+        }
+
+        return exists;
     }
 
     @Override
