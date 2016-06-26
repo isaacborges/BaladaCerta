@@ -34,7 +34,7 @@ public class PromotionDAO {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mDatabase.child("promotions").setValue(promotion);
+        mDatabase.child("promotions").child(promotion.getPartyId()).setValue(promotion);
 
         Toast.makeText(activity.getApplicationContext(), "Your Promotion has been Created", Toast.LENGTH_LONG).show();
 

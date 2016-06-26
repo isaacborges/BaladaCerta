@@ -2,24 +2,25 @@ package unlv.erc.partiubalada.model;
 
 public class Promotion {
 
-    private int promotionCode;
+    private String promotionCode;
     private String type;
     private String idParty;
     private String promotionDescription;
 
 
-    public Promotion(){}
+    public Promotion(){
+    }
 
-    public Promotion(int promotionCode, String type) {
+    public Promotion(String promotionCode, String type) {
         this.promotionCode = promotionCode;
         this.type = type;
     }
 
-    public int getPromotionCode() {
+    public String getPromotionCode() {
         return promotionCode;
     }
 
-    public void setPromotionCode(int promotionCode) {
+    public void setPromotionCode(String promotionCode) {
         this.promotionCode = promotionCode;
     }
 
