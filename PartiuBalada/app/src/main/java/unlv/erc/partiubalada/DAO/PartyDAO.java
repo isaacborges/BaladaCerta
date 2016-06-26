@@ -26,14 +26,13 @@ import java.util.Map;
 
 public class PartyDAO {
     private static final String MAIN_ACTIVITY = "unlv.erc.partiubalada.view.MainActivity";
-    private static final String TAG = "PartyDAO" ;
+    private static final String TAG = "PartyDAO";
     private Context context = null;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView mRecyclerView;
     private ArrayList<Party> parties = new ArrayList<Party>();
     private FirebaseAuth mAuth;
     private DatabaseReference partiesReference;
-    private boolean alreadySetParties = false;
 
     public PartyDAO(Context context) {
         this.context = context;
@@ -47,7 +46,7 @@ public class PartyDAO {
         this.partiesReference = FirebaseDatabase.getInstance().getReference().child("Parties");
     }
 
-    public ArrayList<Party> getPartiesArray(){
+    public ArrayList<Party> getPartiesArray() {
         return parties;
     }
 
@@ -60,13 +59,12 @@ public class PartyDAO {
 
     public void createPartyOnFirebase(Party party) {
         String partyId = partiesReference.push().getKey();
-        Log.i("Creating id", partyId);
         party.setIdParty(partyId);
 
         Map<String, Object> partyValues = party.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/"+partyId, partyValues);
+        childUpdates.put("/" + partyId, partyValues);
 
         partiesReference.updateChildren(childUpdates);
     }
@@ -102,10 +100,17 @@ public class PartyDAO {
     }
 
     public void updatePartyOnFirebase(Party party) {
+        String partyId = party.getIdParty();
 
+        Map<String, Object> partyValues = party.toMap();
+
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/" + partyId, partyValues);
+
+        partiesReference.updateChildren(childUpdates);
     }
 
-    public void deletePartyOnFirebase(Party party){
+    public void deletePartyOnFirebase(Party party) {
         String partyId = party.getIdParty();
 
         DatabaseReference partyReference = partiesReference.child(partyId);
@@ -117,13 +122,8 @@ public class PartyDAO {
 
     public void setPartiesOnView() {
 
-        if(alreadySetParties == false) {
-            mAdapter = new MyRecyclerViewAdapter(parties, context);
-            mRecyclerView.setAdapter(mAdapter);
-            alreadySetParties = true;
-        } else {
-            //nothing to do
-        }
+        mAdapter = new MyRecyclerViewAdapter(parties, context);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     private void setOnPartyClickAction() {
@@ -137,7 +137,7 @@ public class PartyDAO {
                 Party party = parties.get(position);
                 Intent intent = null;
 
-                if(callingActivity.equalsIgnoreCase(MAIN_ACTIVITY)) {
+                if (callingActivity.equalsIgnoreCase(MAIN_ACTIVITY)) {
                     intent = new Intent(context, PartyInfo.class);
                 } else {
                     intent = new Intent(context, PartyEditOrDeleteActivity.class);

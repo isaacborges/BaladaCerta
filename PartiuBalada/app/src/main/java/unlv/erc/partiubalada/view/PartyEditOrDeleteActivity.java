@@ -1,12 +1,15 @@
 package unlv.erc.partiubalada.view;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import unlv.erc.partiubalada.Controller.PartyController;
 import unlv.erc.partiubalada.R;
 import unlv.erc.partiubalada.model.Party;
 
@@ -25,6 +28,7 @@ public class PartyEditOrDeleteActivity extends AppCompatActivity {
     private String partyPrice;
     private String partyInitialTime;
     private String partyEndTime;
+    private Party party;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +36,7 @@ public class PartyEditOrDeleteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_party_edit_or_delete);
 
         Intent intent = getIntent();
-        Party party = (Party) intent.getSerializableExtra(Party.PARTY_SERIALIZABLE_KEY);
-
-        Log.i("Party Name", party.getPartyName());
+        party = (Party) intent.getSerializableExtra(Party.PARTY_SERIALIZABLE_KEY);
 
         startComponents();
 
@@ -71,8 +73,46 @@ public class PartyEditOrDeleteActivity extends AppCompatActivity {
         partyEndTime = editTextPartyEndTime.getText().toString();
     }
 
-    public void onUpdatePartyClicked(View view) {
+    private void updatePartyObject() {
         getEditTextInformations();
+
+        party.setPartyName(partyName);
+        party.setLocality(partyLocation);
+        party.setLatitude(partyLatitude);
+        party.setLongitude(partyLongitude);
+        party.setPrice(partyPrice);
+        party.setStartTime(partyInitialTime);
+        party.setEndTime(partyEndTime);
+    }
+
+    public void onUpdatePartyClicked(View view) {
+        updatePartyObject();
+
+        PartyController partyController = new PartyController(PartyEditOrDeleteActivity.this);
+        partyController.updateParty(party);
+
+        Dialog updatePartyDialog = new Dialog(PartyEditOrDeleteActivity.this, R.style.FullHeightDialog);
+
+        updatePartyDialog = new Dialog(PartyEditOrDeleteActivity.this, R.style.FullHeightDialog);
+        updatePartyDialog.setContentView(R.layout.normal_dialog);
+        updatePartyDialog.setCancelable(true);
+        TextView text = (TextView) updatePartyDialog.findViewById(R.id.normalDialogText);
+
+        text.setText("A balada foi atualizada com sucesso!");
+
+        Button updateButton = (Button) updatePartyDialog.findViewById(R.id.rank_dialog_button);
+        final Dialog finalRankDialog = updatePartyDialog;
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finalRankDialog.dismiss();
+
+                Intent intent = new Intent(PartyEditOrDeleteActivity.this, PartyCRUDActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        updatePartyDialog.show();
     }
 
     public void onDeletePartyClicked(View view) {
