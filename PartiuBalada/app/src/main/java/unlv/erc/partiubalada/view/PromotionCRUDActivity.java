@@ -74,6 +74,11 @@ public class PromotionCRUDActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onPartiesClicked(View view) {
+        Intent intent = new Intent(PromotionCRUDActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
     public void onPromotionEditButton(View view) {
         Intent intent = new Intent(PromotionCRUDActivity.this, PromotionEditActivity.class);
         startActivity(intent);
