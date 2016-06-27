@@ -177,6 +177,11 @@ public class PartyInfo extends AppCompatActivity {
         });
     }
 
+    public void onAccountClicked(View view) {
+        Intent intent = new Intent(PartyInfo.this, AccountActivity.class);
+        startActivity(intent);
+    }
+
     public void onPartiesButtonClicked(View view) {
         Intent intent = new Intent(PartyInfo.this, PartyCRUDActivity.class);
         startActivity(intent);
