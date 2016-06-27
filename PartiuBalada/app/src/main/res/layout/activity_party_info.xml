@@ -268,7 +268,8 @@
             android:layout_weight="1"
             android:background="#BECAED"
             android:clickable="false"
-            android:src="@drawable/ic_local_bar_black_24dp" />
+            android:src="@drawable/ic_local_bar_black_24dp"
+            android:onClick="onPartiesClicked" />
 
 
         <ImageButton
