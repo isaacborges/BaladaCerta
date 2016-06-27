@@ -13,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import unlv.erc.partiubalada.model.NormalUser;
 import unlv.erc.partiubalada.model.Promotion;
 import unlv.erc.partiubalada.view.PromotionCreateActivity;
+import unlv.erc.partiubalada.view.PromotionEditActivity;
 import unlv.erc.partiubalada.view.SignUpActivity;
 import com.google.firebase.database.DatabaseReference;
 
@@ -82,7 +83,7 @@ public class PromotionDAO {
 
     }
 
-    public void updatePromotionOnFireBase(final PromotionCreateActivity activity, final Promotion promotion) {
+    public void updatePromotionOnFireBase(final PromotionEditActivity activity, final Promotion promotion) {
 
 
         DatabaseReference mDatabase;
@@ -94,6 +95,13 @@ public class PromotionDAO {
         Toast.makeText(activity.getApplicationContext(), "Your Promotion has been Updated", Toast.LENGTH_LONG).show();
 
 
+    }
+
+    public void deletePromotionOnFirebase(Promotion promotion) {
+
+        String promotionNameParty = promotion.getPartyName();
+
+        promotionsReference.child(promotionNameParty).setValue(null);
     }
 
 
@@ -120,7 +128,7 @@ public class PromotionDAO {
                 }
 
                 setPromotionsOnView();
-                setOnPartyClickAction();
+                setOnPromotionClickAction();
 
             }
 
@@ -140,21 +148,23 @@ public class PromotionDAO {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    private void setOnPartyClickAction() {
+    private void setOnPromotionClickAction() {
         ((PromotionAdapter) mAdapter).setOnItemClickListener(new PromotionAdapter
                 .MyClickListener() {
             @Override
             public void onItemClick(int position, View v) {
-                Log.i("Promotions list", " Clicked on Item " + position);
+                Log.i("Promotion list", " Clicked on Item " + position);
 
                 String callingActivity = context.getClass().getName();
                 Promotion promotion = promotions.get(position);
                 Intent intent = null;
 
 
+                    intent = new Intent(context, PromotionEditActivity.class);
+
 
                 Bundle mBundle = new Bundle();
-                //mBundle.putSerializable(Promotion.PROMOTION_SERIALIZABLE_KEY, promotion);
+                mBundle.putSerializable(Promotion.PROMOTION_SERIALIZABLE_KEY, promotion);
                 intent.putExtras(mBundle);
 
                 context.startActivity(intent);

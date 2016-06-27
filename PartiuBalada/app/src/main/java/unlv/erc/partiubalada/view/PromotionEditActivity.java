@@ -28,15 +28,15 @@ import unlv.erc.partiubalada.model.Promotion;
 
 public class PromotionEditActivity extends AppCompatActivity {
 
-    PromotionController promotionController;
-    private FirebaseDatabase database;
-    public ProgressBar progressBar;
-
-    private EditText nameParty;
+    private EditText editTextPartyName;
+    private EditText editTextDescription;
     private Spinner typePromotion;
-    private EditText promotionDescription;
 
-    Promotion promotion;
+    private String partyName;
+    private String promotionType;
+    private String promotionDescpription;
+
+    private Promotion promotion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,44 +44,90 @@ public class PromotionEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_promotion_edit);
 
         Intent intent = getIntent();
-        promotion = (Promotion) intent.getSerializableExtra(Promotion.PROMOTION_SERIALIZABLE_KEY);
+        promotion = (Promotion)intent.getSerializableExtra(Promotion.PROMOTION_SERIALIZABLE_KEY);
 
-        Log.i("Promotion Name", promotion.getPartyName());
+        /*promotion = new Promotion();
+        promotion.setPartyName("Testando");
+        promotion.setPromotionDescription("Testing");
+        promotion.setType("type");*/
+
 
         startComponents();
 
         setTextOnComponents(promotion);
-
     }
 
 
-    private void startComponents(){
 
-            nameParty = (EditText) findViewById(R.id.editTextPartyIdEdit);
-            promotionDescription = (EditText)findViewById(R.id.editTextDescriptionEdit);
-            typePromotion = (Spinner)findViewById(R.id.spinnerTypePromotionEdit);
+    private void startComponents() {
+        editTextPartyName=(EditText)findViewById(R.id.editTextPartyIdEdit);
+        editTextDescription=(EditText)findViewById(R.id.editTextDescriptionEdit);
 
     }
 
     private void setTextOnComponents(Promotion promotion) {
-        nameParty.setText(promotion.getPartyName());
-        promotionDescription.setText(promotion.getPromotionDescription());
-        typePromotion.setTag(promotion.getType());
+        editTextPartyName.setText(promotion.getPartyName());
+        editTextDescription.setText(promotion.getPromotionDescription());
 
     }
 
-    public void onPromotionEditClicked(View view){
+    private void getEditTextInformations() {
+        partyName = editTextPartyName.getText().toString();
+        promotionDescpription = editTextDescription.getText().toString();
 
-        promotionController = new PromotionController(PromotionEditActivity.this);
+    }
 
-        promotion.setPartyName(nameParty.getText().toString());
-        promotion.setPromotionDescription(promotionDescription.getText().toString());
-        promotion.setType(typePromotion.getSelectedItem().toString());
+    private void updatePromotionObject() {
+        getEditTextInformations();
 
+        promotion.setPartyName(partyName);
+        promotion.setPromotionDescription(promotionDescpription);
 
+    }
+
+    public void onUpdatePromotionClicked(View view) {
+        updatePromotionObject();
+
+        PromotionController promotionController = new PromotionController(PromotionEditActivity.this);
         promotionController.updatePromotion(promotion);
+
+        //String dialogText = "A promoção foi atualizada com sucesso!";
+
+       // showDialog(dialogText);
     }
 
+    public void onDeletePartyClicked(View view) {
+        PromotionController promotionController = new PromotionController(PromotionEditActivity.this);
+       // promotionController.deletePromotion(promotion);
 
+        String dialogText = "A promoção foi deletada com sucesso!";
 
+        //showDialog(dialogText);
+    }
+
+   /*
+    private void showDialog(String dialogText) {
+        Dialog updatePartyDialog = new Dialog(PartyEditOrDeleteActivity.this, R.style.FullHeightDialog);
+
+        updatePartyDialog = new Dialog(PartyEditOrDeleteActivity.this, R.style.FullHeightDialog);
+        updatePartyDialog.setContentView(R.layout.normal_dialog);
+        updatePartyDialog.setCancelable(true);
+        TextView text = (TextView) updatePartyDialog.findViewById(R.id.normalDialogText);
+
+        text.setText(dialogText);
+
+        Button updateButton = (Button) updatePartyDialog.findViewById(R.id.rank_dialog_button);
+        final Dialog finalRankDialog = updatePartyDialog;
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finalRankDialog.dismiss();
+
+                Intent intent = new Intent(PartyEditOrDeleteActivity.this, PartyCRUDActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        updatePartyDialog.show();
+    }*/
 }

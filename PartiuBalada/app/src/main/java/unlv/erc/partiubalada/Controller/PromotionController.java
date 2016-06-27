@@ -91,11 +91,9 @@ public class PromotionController {
 
     public void updatePromotion(Promotion promotion) {
 
-        setUpPromotion();
-
         promotionDAO = new PromotionDAO();
 
-        promotionDAO.updatePromotionOnFireBase(activity, promotion);
+        promotionDAO.updatePromotionOnFireBase(activityEdit, promotion);
 
     }
 

@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class Promotion implements Serializable {
     public  final static String PROMOTION_SERIALIZABLE_KEY = "promotion_key";
-    private String promotionCode;
     private String type;
     private String partyName;
     private String promotionDescription;
@@ -14,18 +13,8 @@ public class Promotion implements Serializable {
     }
 
     public Promotion(String promotionCode, String type) {
-        this.promotionCode = promotionCode;
         this.type = type;
     }
-
-    public String getPromotionCode() {
-        return promotionCode;
-    }
-
-    public void setPromotionCode(String promotionCode) {
-        this.promotionCode = promotionCode;
-    }
-
     public String getType() {
         return type;
     }
@@ -38,8 +27,8 @@ public class Promotion implements Serializable {
         return partyName;
     }
 
-    public void setPartyName(String partyId) {
-        this.partyName = partyId;
+    public void setPartyName(String partyName) {
+        this.partyName = partyName;
     }
 
     public String getPromotionDescription() {

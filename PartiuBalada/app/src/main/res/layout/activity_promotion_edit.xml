@@ -133,12 +133,31 @@
                 android:layout_marginRight="50dp"
                 android:background="@drawable/round_rect_button"
                 android:elevation="0dp"
-                android:onClick="onPromotionEditClicked"
+                android:onClick="onUpdatePromotionClicked"
                 android:padding="10dp"
                 android:text="Atualizar"
                 android:textColor="#ffffff"
                 android:textSize="28dp"
                 android:textStyle="bold" android:layout_marginTop="10dp"/>
+
+
+            <Button
+                android:id="@+id/button_deletePromotion"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/round_rect_button"
+                android:elevation="0dp"
+                android:onClick="onDeletePromotionClicked"
+                android:padding="10dp"
+                android:text="Deletar"
+                android:textColor="#ffffff"
+                android:textSize="28dp"
+                android:textStyle="bold" android:layout_marginTop="10dp"
+                android:backgroundTint="#c53434" />
         </LinearLayout>
     </ScrollView>
     <LinearLayout

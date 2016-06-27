@@ -45,7 +45,7 @@ public class PromotionCRUDActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view_promotion);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);

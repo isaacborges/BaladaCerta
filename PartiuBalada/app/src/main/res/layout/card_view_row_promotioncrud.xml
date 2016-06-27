@@ -86,8 +86,7 @@
                     android:id="@+id/editPromotion"
                     android:background="@android:color/transparent"
                     android:layout_gravity="center_vertical|center_horizontal"
-                    android:clickable="false"
-                    android:onClick="onPromotionEditButton"/>
+                    android:clickable="false" />
 
                 <ImageButton
                     android:src="@android:drawable/ic_menu_delete"
