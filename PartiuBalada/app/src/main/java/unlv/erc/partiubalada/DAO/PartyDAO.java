@@ -112,6 +112,8 @@ public class PartyDAO {
         partiesReference.child(partyId).setValue(null);
     }
 
+    //This block of code needs to be refactored because the DAO classes can not modify view things.
+    //START-OF-THE-BLOCK
     public void setPartiesOnView() {
 
         mAdapter = new MyRecyclerViewAdapter(parties, context);
@@ -143,6 +145,7 @@ public class PartyDAO {
             }
         });
     }
+    //END-OF-THE-BLOCK
 
     public void uploadPartyImage(String picturePath, final Party party) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
