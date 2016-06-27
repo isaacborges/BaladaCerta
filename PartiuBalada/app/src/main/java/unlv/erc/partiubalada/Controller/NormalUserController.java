@@ -20,8 +20,8 @@ public class NormalUserController {
     private EditText password;
     private EditText city;
     private EditText state;
-    NormalUserDAO userDAO;
-    SignUpActivity activity;
+    private NormalUserDAO userDAO;
+    private SignUpActivity activity;
 
     public NormalUserController(SignUpActivity activity) {
         this.activity = activity;

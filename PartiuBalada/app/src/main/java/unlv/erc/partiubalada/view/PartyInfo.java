@@ -137,12 +137,23 @@ public class PartyInfo extends AppCompatActivity {
         partyImage = (ImageView) findViewById(R.id.partyImage);
         partyRating = (RatingBar) findViewById(R.id.partyRating);
 
-        partyRating.setRating(party.getAmountOfStars());
+        partyRating.setRating(Float.parseFloat(party.getAmountOfStars()));
 
-        String background = party.getPartyImage();
-        int imageID = getResources().getIdentifier(background, "drawable", "unlv.erc.partiubalada");
-        partyImage.setImageResource(imageID);
-        partyImage.setScaleType(ImageView.ScaleType.FIT_XY);
+//        String background = party.getPartyImage();
+//        int imageID = getResources().getIdentifier(background, "drawable", "unlv.erc.partiubalada");
+//        partyImage.setImageResource(imageID);
+//        partyImage.setScaleType(ImageView.ScaleType.FIT_XY);
     }
+
+    public void onPartiesButtonClicked(View view) {
+        Intent intent = new Intent(PartyInfo.this, PartyCRUDActivity.class);
+        startActivity(intent);
+    }
+
+    public void onPartiesClicked(View view) {
+        Intent intent = new Intent(PartyInfo.this, MainActivity.class);
+        startActivity(intent);
+    }
+
 
 }

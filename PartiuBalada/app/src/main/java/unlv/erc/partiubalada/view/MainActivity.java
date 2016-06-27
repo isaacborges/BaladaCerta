@@ -46,15 +46,11 @@ public class MainActivity extends AppCompatActivity {
     public void getParties() {
         PartyController partyController = new PartyController(MainActivity.this, mAdapter, mRecyclerView);
 
-        DatabaseReference partiesReference = database.getReference("Parties");
+        partyController.getParties();
 
-        ValueEventListener event = partyController.getParties();
-        parties = partyController.getPatiesArray();
-
-        partiesReference.addValueEventListener(event);
     }
 
-    public void onAccountClicked(View view) {
+        public void onAccountClicked(View view) {
         Intent intent = new Intent(MainActivity.this, AccountActivity.class);
         startActivity(intent);
     }

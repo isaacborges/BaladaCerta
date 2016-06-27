@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
     <TextView
-        android:id="@+id/checker_dialog_text"
+        android:id="@+id/normalDialogText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -11,7 +13,7 @@
         android:text="Muito obrigado por avaliar a balada. Curta muito a festa!"
         android:textAlignment="center"
         android:textColor="#ffffff"
-        android:textSize="24dp"/>
+        android:textSize="24dp" />
 
     <Button
         android:id="@+id/rank_dialog_button"
@@ -20,12 +22,12 @@
         android:layout_gravity="center"
         android:layout_marginBottom="15dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/round_rect_button"
+        android:background="@drawable/round_rect_button_blue"
         android:padding="20dp"
         android:singleLine="false"
         android:text="OK"
         android:textColor="#ffffff"
         android:textColorHighlight="#19438a"
-        android:textSize="25dp"/>
+        android:textSize="25dp" />
 
 </LinearLayout>

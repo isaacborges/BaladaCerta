@@ -95,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onLoginClicked"
-                android:background="@drawable/round_rect_button"
+                android:background="@drawable/round_rect_button_blue"
                 android:padding="10dp"
                 android:text="Entrar"
                 android:textStyle="bold"

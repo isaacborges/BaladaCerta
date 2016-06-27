@@ -14,10 +14,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -25,24 +29,42 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
+import unlv.erc.partiubalada.Controller.PartyController;
 import unlv.erc.partiubalada.R;
+import unlv.erc.partiubalada.model.Party;
 
 public class PartyCreateAcitivity extends AppCompatActivity {
     public static final String CHOOSE_FROM_GALLERY = "Escolher banner";
     public static final String CANCEL = "Cancelar";
     private static int RESULT_LOAD_IMAGE = 1;
-    private FirebaseStorage storage;
-    private StorageReference storageRef;
+    private Party party;
     private ImageView partyBanner;
+    private EditText editTextPartyName;
+    private EditText editTextLocation;
+    private EditText editTextPartyLatitude;
+    private EditText editTextPartyLongitude;
+    private EditText editTextPartyPrice;
+    private EditText editTextPartyInitialTime;
+    private EditText editTextPartyEndTime;
+    private String partyName;
+    private String partyLocation;
+    private String partyLatitude;
+    private String partyLongitude;
+    private String partyPrice;
+    private String partyInitialTime;
+    private String partyEndTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_create_acitivity);
 
-        storage = FirebaseStorage.getInstance();
-        storageRef = storage.getReferenceFromUrl("gs://project-8420821685282639830.appspot.com");
+        party = new Party();
+
+        startComponents();
     }
 
     @Override
@@ -59,30 +81,14 @@ public class PartyCreateAcitivity extends AppCompatActivity {
     }
 
     private void uploadImageOnFirebase(String picturePath) {
-        Uri file = Uri.fromFile(new File(picturePath));
-        StorageReference partyImagesRef = storageRef.child("images/"+file.getLastPathSegment());
-        UploadTask uploadTask = partyImagesRef.putFile(file);
+        PartyController partyController = new PartyController(PartyCreateAcitivity.this);
 
-        // Register observers to listen for when the download is done or if it fails
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-                Log.e("Upload", "it was not possible to upload the image");
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                Log.i("Upload","Success");
-            }
-        });
+        partyController.uploadPartyImage(picturePath, party);
     }
 
     private String chooseImageFromGallery(Intent data) {
         Uri selectedImage = data.getData();
-        String[] filePathColumn = { MediaStore.Images.Media.DATA };
+        String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
         Cursor cursor = getContentResolver().query(selectedImage,
                 filePathColumn, null, null, null);
@@ -97,7 +103,6 @@ public class PartyCreateAcitivity extends AppCompatActivity {
         try {
             bmp = getBitmapFromUri(selectedImage);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -126,7 +131,7 @@ public class PartyCreateAcitivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int item) {
                 if (options[item].equals(CHOOSE_FROM_GALLERY)) {
 
-                    Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(i, RESULT_LOAD_IMAGE);
 
                 } else if (options[item].equals(CANCEL)) {
@@ -135,5 +140,60 @@ public class PartyCreateAcitivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    public void onPartiesButtonClicked(View view) {
+        Intent intent = new Intent(PartyCreateAcitivity.this, PartyCRUDActivity.class);
+        startActivity(intent);
+    }
+
+    public void onPartiesClicked(View view) {
+        Intent intent = new Intent(PartyCreateAcitivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void onSendPartyClicked(View view) {
+        getEditTextInformations();
+        setPartyInformations();
+        sendPartyToFirebase();
+
+        Toast.makeText(PartyCreateAcitivity.this, "Festa adicionada", Toast.LENGTH_LONG).show();
+    }
+
+    private void sendPartyToFirebase() {
+        PartyController partyController = new PartyController(PartyCreateAcitivity.this);
+
+        partyController.updateParty(party);
+    }
+
+    @NonNull
+    private void setPartyInformations() {
+        party.setPartyName(partyName);
+        party.setLocality(partyLocation);
+        party.setLatitude(partyLatitude);
+        party.setLongitude(partyLongitude);
+        party.setPrice(partyPrice);
+        party.setStartTime(partyInitialTime);
+        party.setEndTime(partyEndTime);
+    }
+
+    private void getEditTextInformations() {
+        partyName = editTextPartyName.getText().toString();
+        partyLocation = editTextLocation.getText().toString();
+        partyLatitude = editTextPartyLatitude.getText().toString();
+        partyLongitude = editTextPartyLongitude.getText().toString();
+        partyPrice = editTextPartyPrice.getText().toString();
+        partyInitialTime = editTextPartyInitialTime.getText().toString();
+        partyEndTime = editTextPartyEndTime.getText().toString();
+    }
+
+    private void startComponents() {
+        editTextPartyName = (EditText) findViewById(R.id.editTextPartyName);
+        editTextLocation = (EditText) findViewById(R.id.editTextLocation);
+        editTextPartyLatitude = (EditText) findViewById(R.id.editTextPartyLatitude);
+        editTextPartyLongitude = (EditText) findViewById(R.id.editTextPartyLongitude);
+        editTextPartyPrice = (EditText) findViewById(R.id.editTextPartyPrice);
+        editTextPartyInitialTime = (EditText) findViewById(R.id.editTextPartyInitialTime);
+        editTextPartyEndTime = (EditText) findViewById(R.id.editTextPartyEndTime);
     }
 }

@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -38,7 +37,8 @@ import java.util.Map;
 import unlv.erc.partiubalada.R;
 import unlv.erc.partiubalada.model.Party;
 
-public class CheckLocation extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class CheckLocation extends FragmentActivity implements OnMapReadyCallback,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private static final int INITIAL_ZOOM_LEVEL = 12;
     private GoogleMap map = null;
@@ -104,8 +104,8 @@ public class CheckLocation extends FragmentActivity implements OnMapReadyCallbac
         Intent intent = getIntent();
         Party party = (Party) intent.getSerializableExtra(Party.PARTY_SERIALIZABLE_KEY);
 
-        float latitude = party.getLatitude();
-        float longitude = party.getLongitude();
+        float latitude = Float.parseFloat(party.getLatitude());
+        float longitude = Float.parseFloat(party.getLongitude());
         String name = party.getPartyName();
         LatLng eventLocation = new LatLng(latitude, longitude);
 
@@ -121,7 +121,6 @@ public class CheckLocation extends FragmentActivity implements OnMapReadyCallbac
         if (mLastLocation != null) {
             String userLatitude = String.valueOf(mLastLocation.getLatitude());
 
-            Log.i("LATITUDEEEE", userLatitude);
             Toast.makeText(this, userLatitude, Toast.LENGTH_LONG).show();
 
             float[] distance = new float[2];
@@ -132,14 +131,14 @@ public class CheckLocation extends FragmentActivity implements OnMapReadyCallbac
             Dialog locationDialog = new Dialog(CheckLocation.this, R.style.FullHeightDialog);
 
             locationDialog = new Dialog(CheckLocation.this, R.style.FullHeightDialog);
-            locationDialog.setContentView(R.layout.location_checker_dialog);
+            locationDialog.setContentView(R.layout.normal_dialog);
             locationDialog.setCancelable(true);
-            TextView text = (TextView) locationDialog.findViewById(R.id.checker_dialog_text);
+            TextView text = (TextView) locationDialog.findViewById(R.id.normalDialogText);
 
             if (distance[0] <= circle.getRadius()) {
-                text.setText("Successfully rated. Have an awesome party! ");
+                text.setText("Muito obrigado por avaliar a balada. Curta muito a festa!");
             } else {
-                text.setText("You need to be inside the party to rank it.");
+                text.setText("Você precisa estar dentro da festa para avaliá-la");
             }
 
             Button updateButton = (Button) locationDialog.findViewById(R.id.rank_dialog_button);

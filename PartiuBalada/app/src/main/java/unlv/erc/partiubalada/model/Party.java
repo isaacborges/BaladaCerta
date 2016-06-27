@@ -1,31 +1,35 @@
 package unlv.erc.partiubalada.model;
 
+import android.graphics.Bitmap;
+
+import com.google.firebase.database.Exclude;
+
 import java.io.Serializable;
 import java.lang.String;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Party implements Serializable{
-    public  final static String PARTY_SERIALIZABLE_KEY = "party_key";
-    private String partyName;
-    private String partyImage;
-    private int idParty;
-    private float latitude;
-    private float longitude;
-    private String type;
-    private float price;
-    private String startTime;
-    private String endTime;
-    private float amountOfStars;
-    private String locality;
-    private Promotion[] promotions;
+public class Party implements Serializable {
+    public final static String PARTY_SERIALIZABLE_KEY = "party_key";
+    private String partyName = "";
+    private Bitmap partyImage = null;
+    private String idParty = "0";
+    private String latitude = "0";
+    private String longitude = "0";
+    private String type = "";
+    private String price = "0";
+    private String startTime = "0:00";
+    private String endTime = "0:00";
+    private String amountOfStars = "0";
+    private String locality = "";
+    private Promotion[] promotions = {};
 
-    public Party() {}
+    public Party() {
+    }
 
-    public Party(String partyName, String partyImage, int idParty, float latitude,
-                 float longitude, String type, float price, String startTime, String endTime,
-                 String locality, float amountOfStars) {
+    public Party(String partyName,  String latitude, String longitude, String type, String price,
+                 String startTime, String endTime, String locality, String amountOfStars) {
         this.setPartyName(partyName);
-        this.setPartyImage(partyImage);
-        this.setIdParty(idParty);
         this.setLatitude(latitude);
         this.setLongitude(longitude);
         this.setType(type);
@@ -44,35 +48,35 @@ public class Party implements Serializable{
         this.partyName = partyName;
     }
 
-    public String getPartyImage() {
+    public Bitmap getPartyImage() {
         return partyImage;
     }
 
-    public void setPartyImage(String partyImage) {
+    public void setPartyImage(Bitmap partyImage) {
         this.partyImage = partyImage;
     }
 
-    public int getIdParty() {
+    public String getIdParty() {
         return idParty;
     }
 
-    public void setIdParty(int idParty) {
+    public void setIdParty(String idParty) {
         this.idParty = idParty;
     }
 
-    public float getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
-    public float getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
@@ -84,11 +88,11 @@ public class Party implements Serializable{
         this.type = type;
     }
 
-    public float getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -108,11 +112,11 @@ public class Party implements Serializable{
         this.endTime = endTime;
     }
 
-    public float getAmountOfStars() {
+    public String getAmountOfStars() {
         return amountOfStars;
     }
 
-    public void setAmountOfStars(float amountOfStars) {
+    public void setAmountOfStars(String amountOfStars) {
         this.amountOfStars = amountOfStars;
     }
 
@@ -130,5 +134,23 @@ public class Party implements Serializable{
 
     public void setPromotions(Promotion[] promotions) {
         this.promotions = promotions;
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+
+        result.put("partyName", partyName);
+        result.put("idParty", idParty);
+        result.put("latitude", latitude);
+        result.put("longitude", longitude);
+        result.put("type", type);
+        result.put("price", price);
+        result.put("startTime", startTime);
+        result.put("endTime", endTime);
+        result.put("amountOfStars", amountOfStars);
+        result.put("locality", locality);
+
+        return result;
     }
 }

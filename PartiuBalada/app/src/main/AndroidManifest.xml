@@ -54,8 +54,8 @@
         <activity android:name=".view.PartyCreateAcitivity" />
         <activity android:name=".view.PromotionCreateActivity" />
         <activity android:name=".view.PromotionCRUDActivity" />
-        <activity android:name=".view.MyPromotionAdapter" />
         <activity android:name=".view.PromotionEditActivity"></activity>
+        <activity android:name=".view.PartyEditOrDeleteActivity"></activity>
     </application>
 
 </manifest>

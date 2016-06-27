@@ -203,7 +203,7 @@
                     android:padding="10dp"
                     android:text="Criar Conta"
                     android:textStyle="bold"
-                    android:background="@drawable/round_rect_button"
+                    android:background="@drawable/round_rect_button_blue"
                     android:layout_gravity="center"
                     android:layout_marginLeft="50dp"
                     android:layout_marginRight="50dp"

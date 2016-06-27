@@ -54,12 +54,7 @@ public class PartyCRUDActivity extends AppCompatActivity {
     public void getParties() {
         PartyController partyController = new PartyController(PartyCRUDActivity.this, mAdapter, mRecyclerView);
 
-        DatabaseReference partiesReference = database.getReference("Parties");
-
-        ValueEventListener event = partyController.getParties();
-        parties = partyController.getPatiesArray();
-
-        partiesReference.addValueEventListener(event);
+        partyController.getParties();
     }
 
     public void onAccountClicked(View view) {

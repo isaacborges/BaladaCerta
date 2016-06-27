@@ -1,10 +1,11 @@
 package unlv.erc.partiubalada.view;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,10 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -25,14 +32,15 @@ import unlv.erc.partiubalada.model.Party;
 public class MyRecyclerViewAdapter extends RecyclerView
         .Adapter<MyRecyclerViewAdapter
         .DataObjectHolder> {
-    public static final String MAIN_ACTIVITY = "unlv.erc.partiubalada.view.MainActivity";
+    private static final String MAIN_ACTIVITY = "unlv.erc.partiubalada.view.MainActivity";
     private static String LOG_TAG = "MyRecyclerViewAdapter";
     private ArrayList<Party> mDataset;
     private static MyClickListener myClickListener;
-    private Context context;
+    private static Context context;
     private int lastPosition = -1;
     private View view;
     private String callingActivity;
+    private static Party party;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder
             implements View
@@ -40,6 +48,8 @@ public class MyRecyclerViewAdapter extends RecyclerView
         TextView partyName;
         TextView partyLocation;
         ImageView partyImage;
+        ImageButton deleteParty;
+        ImageButton editParty;
         RatingBar partyRating;
         LinearLayout cardRoot;
         String callingActivity;
@@ -53,12 +63,12 @@ public class MyRecyclerViewAdapter extends RecyclerView
             partyImage = (ImageView) itemView.findViewById(R.id.partyImage);
             cardRoot = (LinearLayout) itemView.findViewById(R.id.card_root);
 
-            if(callingActivity.equalsIgnoreCase(MAIN_ACTIVITY)){
+            if (callingActivity.equalsIgnoreCase(MAIN_ACTIVITY)) {
                 partyRating = (RatingBar) itemView.findViewById(R.id.partyRating);
             } else {
-                //nothing to do
+                deleteParty = (ImageButton) itemView.findViewById(R.id.deleteParty);
+                editParty = (ImageButton) itemView.findViewById(R.id.editParty);
             }
-
 
             Log.i(LOG_TAG, "Adding Listener");
             itemView.setOnClickListener(this);
@@ -93,30 +103,48 @@ public class MyRecyclerViewAdapter extends RecyclerView
     }
 
     @Override
-    public void onBindViewHolder(DataObjectHolder holder, int position) {
+    public void onBindViewHolder(final DataObjectHolder holder, int position) {
         Typeface openSans = Typeface.createFromAsset(context.getAssets(),
                 "OpenSans-CondLight" +
                         ".ttf");
 
-        holder.partyName.setText(mDataset.get(position).getPartyName());
+        party = mDataset.get(position);
+
+        holder.partyName.setText(party.getPartyName());
         holder.partyName.setTypeface(openSans);
 
-        holder.partyLocation.setText(mDataset.get(position).getLocality());
+        holder.partyLocation.setText(party.getLocality());
         holder.partyLocation.setTypeface(openSans);
 
         if (callingActivity.equalsIgnoreCase(MAIN_ACTIVITY)) {
-            holder.partyRating.setRating(mDataset.get(position).getAmountOfStars());
+            holder.partyRating.setRating(Float.parseFloat(party.getAmountOfStars()));
         } else {
             //nothing to do
         }
 
-        String background = mDataset.get(position).getPartyImage();
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReferenceFromUrl("gs://project-8420821685282639830.appspot.com");
 
-//        Log.i("Adapter background", background);
+        StorageReference islandRef = storageRef.child("images/party"+party.getIdParty());
 
-//        int imageID = holder.itemView.getResources().getIdentifier(background, "drawable", "unlv.erc.partiubalada");
-//        holder.partyImage.setImageResource(imageID);
-//        holder.partyImage.setScaleType(ImageView.ScaleType.FIT_XY);
+        final long ONE_MEGABYTE = 1024 * 1024;
+        islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap partyImage = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                party.setPartyImage(partyImage);
+                Log.i("party.getPartyImage", party.getPartyImage().toString());
+
+
+                holder.partyImage.setImageBitmap(party.getPartyImage());
+                holder.partyImage.setScaleType(ImageView.ScaleType.FIT_XY);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.i("Failed to get image", exception.toString());
+            }
+        });
 
         setAnimation(view, position);
     }
@@ -135,7 +163,6 @@ public class MyRecyclerViewAdapter extends RecyclerView
         mDataset.remove(index);
         notifyItemRemoved(index);
     }
-
 
     private void verifyCallerActivity(ViewGroup parent) {
         if (callingActivity.equalsIgnoreCase(MAIN_ACTIVITY)) {
