@@ -1,6 +1,6 @@
 package unlv.erc.partiubalada.model;
 
-import android.net.Uri;
+import android.graphics.Bitmap;
 
 import com.google.firebase.database.Exclude;
 
@@ -12,7 +12,7 @@ import java.util.Map;
 public class Party implements Serializable {
     public final static String PARTY_SERIALIZABLE_KEY = "party_key";
     private String partyName = "";
-    private Uri partyImage = null;
+    private Bitmap partyImage = null;
     private String idParty = "0";
     private String latitude = "0";
     private String longitude = "0";
@@ -48,11 +48,11 @@ public class Party implements Serializable {
         this.partyName = partyName;
     }
 
-    public Uri getPartyImage() {
+    public Bitmap getPartyImage() {
         return partyImage;
     }
 
-    public void setPartyImage(Uri partyImage) {
+    public void setPartyImage(Bitmap partyImage) {
         this.partyImage = partyImage;
     }
 

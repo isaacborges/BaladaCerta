@@ -1,7 +1,11 @@
 package unlv.erc.partiubalada.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +18,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -94,7 +103,7 @@ public class MyRecyclerViewAdapter extends RecyclerView
     }
 
     @Override
-    public void onBindViewHolder(DataObjectHolder holder, int position) {
+    public void onBindViewHolder(final DataObjectHolder holder, int position) {
         Typeface openSans = Typeface.createFromAsset(context.getAssets(),
                 "OpenSans-CondLight" +
                         ".ttf");
@@ -113,13 +122,29 @@ public class MyRecyclerViewAdapter extends RecyclerView
             //nothing to do
         }
 
-//        String background = party.getPartyImage();
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReferenceFromUrl("gs://project-8420821685282639830.appspot.com");
 
-//        Log.i("Adapter background", background);
+        StorageReference islandRef = storageRef.child("images/party"+party.getIdParty());
 
-//        int imageID = holder.itemView.getResources().getIdentifier(background, "drawable", "unlv.erc.partiubalada");
-//        holder.partyImage.setImageResource(imageID);
-//        holder.partyImage.setScaleType(ImageView.ScaleType.FIT_XY);
+        final long ONE_MEGABYTE = 1024 * 1024;
+        islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap partyImage = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                party.setPartyImage(partyImage);
+                Log.i("party.getPartyImage", party.getPartyImage().toString());
+
+
+                holder.partyImage.setImageBitmap(party.getPartyImage());
+                holder.partyImage.setScaleType(ImageView.ScaleType.FIT_XY);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.i("Failed to get image", exception.toString());
+            }
+        });
 
         setAnimation(view, position);
     }

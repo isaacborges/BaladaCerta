@@ -77,7 +77,6 @@ public class PartyDAO {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Party party = postSnapshot.getValue(Party.class);
                     parties.add(party);
-//                    Log.i("Image", party.getPartyImage());
                 }
 
                 setPartiesOnView();
@@ -150,8 +149,7 @@ public class PartyDAO {
         StorageReference storageRef = storage.getReferenceFromUrl("gs://project-8420821685282639830.appspot.com");
 
         Uri file = Uri.fromFile(new File(picturePath));
-        Log.i("upload", "images/" + party.getIdParty());
-        StorageReference partyImagesRef = storageRef.child("images/" + party.getIdParty());
+        StorageReference partyImagesRef = storageRef.child("images/party" + party.getIdParty());
         UploadTask uploadTask = partyImagesRef.putFile(file);
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -163,7 +161,6 @@ public class PartyDAO {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                party.setPartyImage(downloadUrl);
 
                 Log.i("Upload", "Success");
             }
