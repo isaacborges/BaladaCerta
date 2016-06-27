@@ -12,7 +12,6 @@ import java.util.Map;
 public class Party implements Serializable {
     public final static String PARTY_SERIALIZABLE_KEY = "party_key";
     private String partyName = "";
-    private Bitmap partyImage = null;
     private String idParty = "0";
     private String latitude = "0";
     private String longitude = "0";
@@ -46,14 +45,6 @@ public class Party implements Serializable {
 
     public void setPartyName(String partyName) {
         this.partyName = partyName;
-    }
-
-    public Bitmap getPartyImage() {
-        return partyImage;
-    }
-
-    public void setPartyImage(Bitmap partyImage) {
-        this.partyImage = partyImage;
     }
 
     public String getIdParty() {

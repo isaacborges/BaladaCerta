@@ -137,10 +137,8 @@ public class MyRecyclerViewAdapter extends RecyclerView
             @Override
             public void onSuccess(byte[] bytes) {
                 Bitmap partyImage = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                party.setPartyImage(partyImage);
-                Log.i("party.getPartyImage", party.getPartyImage().toString());
 
-                holder.partyImage.setImageBitmap(party.getPartyImage());
+                holder.partyImage.setImageBitmap(partyImage);
                 holder.partyImage.setScaleType(ImageView.ScaleType.FIT_XY);
             }
         }).addOnFailureListener(new OnFailureListener() {

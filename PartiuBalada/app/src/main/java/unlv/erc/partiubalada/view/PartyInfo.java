@@ -156,17 +156,13 @@ public class PartyInfo extends AppCompatActivity {
 
         StorageReference partyImageRef = storageRef.child("images/party"+party.getIdParty());
 
-        partyImage.setImageBitmap(party.getPartyImage());
-
         final long ONE_MEGABYTE = 1024 * 1024;
         partyImageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
                 Bitmap partyImageBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                party.setPartyImage(partyImageBitmap);
-                Log.i("party.getPartyImage", party.getPartyImage().toString());
 
-                partyImage.setImageBitmap(party.getPartyImage());
+                partyImage.setImageBitmap(partyImageBitmap);
                 partyImage.setScaleType(ImageView.ScaleType.FIT_XY);
             }
         }).addOnFailureListener(new OnFailureListener() {

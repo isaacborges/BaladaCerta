@@ -308,7 +308,9 @@
             android:background="#FFFFFF"
             android:clickable="true"
             android:src="@drawable/ic_face_black_24dp"
-            android:text="Activity" />
+            android:text="Activity"
+            android:onClick="onAccountClicked"
+            android:cropToPadding="true" />
 
     </LinearLayout>
 </RelativeLayout>
