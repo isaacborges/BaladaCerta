@@ -108,7 +108,6 @@ public class MyRecyclerViewAdapter extends RecyclerView
         holder.partyLocation.setTypeface(openSans);
 
         if (callingActivity.equalsIgnoreCase(MAIN_ACTIVITY)) {
-            Log.i("getAmountOfStars", party.getAmountOfStars());
             holder.partyRating.setRating(Float.parseFloat(party.getAmountOfStars()));
         } else {
             //nothing to do

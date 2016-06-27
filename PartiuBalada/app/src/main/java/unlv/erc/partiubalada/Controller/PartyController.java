@@ -3,14 +3,22 @@ package unlv.erc.partiubalada.Controller;
 import unlv.erc.partiubalada.model.Party;
 import unlv.erc.partiubalada.DAO.PartyDAO;
 
+import java.io.File;
 import java.util.ArrayList;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 
 import android.content.Context;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 public class PartyController {
     public  final static String PARTY_SERIALIZABLE_KEY=Party.PARTY_SERIALIZABLE_KEY;
@@ -64,5 +72,13 @@ public class PartyController {
 
     public void setParty(Party party) {
         this.party = party;
+    }
+
+    public void uploadPartyImage(String picturePath, Party party) {
+        createParty(party);
+
+        PartyDAO partyDAO = new PartyDAO(context);
+
+        partyDAO.uploadPartyImage(picturePath, party);
     }
 }

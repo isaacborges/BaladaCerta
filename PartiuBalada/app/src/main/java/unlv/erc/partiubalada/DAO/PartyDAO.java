@@ -2,17 +2,24 @@ package unlv.erc.partiubalada.DAO;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import unlv.erc.partiubalada.model.Party;
 import unlv.erc.partiubalada.model.User;
@@ -20,6 +27,7 @@ import unlv.erc.partiubalada.view.MyRecyclerViewAdapter;
 import unlv.erc.partiubalada.view.PartyEditOrDeleteActivity;
 import unlv.erc.partiubalada.view.PartyInfo;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -133,6 +141,31 @@ public class PartyDAO {
                 intent.putExtras(mBundle);
 
                 context.startActivity(intent);
+            }
+        });
+    }
+
+    public void uploadPartyImage(String picturePath, final Party party) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReferenceFromUrl("gs://project-8420821685282639830.appspot.com");
+
+        Uri file = Uri.fromFile(new File(picturePath));
+        Log.i("upload", "images/" + party.getIdParty());
+        StorageReference partyImagesRef = storageRef.child("images/" + party.getIdParty());
+        UploadTask uploadTask = partyImagesRef.putFile(file);
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.e("Upload", "it was not possible to upload the image");
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                party.setPartyImage(downloadUrl);
+
+                Log.i("Upload", "Success");
             }
         });
     }

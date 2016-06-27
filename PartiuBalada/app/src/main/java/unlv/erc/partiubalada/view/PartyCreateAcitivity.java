@@ -40,9 +40,6 @@ public class PartyCreateAcitivity extends AppCompatActivity {
     public static final String CHOOSE_FROM_GALLERY = "Escolher banner";
     public static final String CANCEL = "Cancelar";
     private static int RESULT_LOAD_IMAGE = 1;
-    private FirebaseStorage storage;
-    private StorageReference storageRef;
-    private DatabaseReference mDatabase;
     private Party party;
     private ImageView partyBanner;
     private EditText editTextPartyName;
@@ -65,10 +62,6 @@ public class PartyCreateAcitivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_create_acitivity);
 
-        storage = FirebaseStorage.getInstance();
-        storageRef = storage.getReferenceFromUrl("gs://project-8420821685282639830.appspot.com");
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
         party = new Party();
 
         startComponents();
@@ -88,24 +81,9 @@ public class PartyCreateAcitivity extends AppCompatActivity {
     }
 
     private void uploadImageOnFirebase(String picturePath) {
-        Uri file = Uri.fromFile(new File(picturePath));
-        StorageReference partyImagesRef = storageRef.child("images/" + partyName);
-        UploadTask uploadTask = partyImagesRef.putFile(file);
+        PartyController partyController = new PartyController(PartyCreateAcitivity.this);
 
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Log.e("Upload", "it was not possible to upload the image");
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                party.setPartyImage(downloadUrl);
-
-                Log.i("Upload", "Success");
-            }
-        });
+        partyController.uploadPartyImage(picturePath, party);
     }
 
     private String chooseImageFromGallery(Intent data) {
@@ -185,7 +163,7 @@ public class PartyCreateAcitivity extends AppCompatActivity {
     private void sendPartyToFirebase() {
         PartyController partyController = new PartyController(PartyCreateAcitivity.this);
 
-        partyController.createParty(party);
+        partyController.updateParty(party);
     }
 
     @NonNull
