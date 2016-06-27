@@ -122,19 +122,23 @@ public class MyRecyclerViewAdapter extends RecyclerView
             //nothing to do
         }
 
+        setImageOnView(holder);
+
+        setAnimation(view, position);
+    }
+
+    private void setImageOnView(final DataObjectHolder holder) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReferenceFromUrl("gs://project-8420821685282639830.appspot.com");
-
-        StorageReference islandRef = storageRef.child("images/party"+party.getIdParty());
+        StorageReference partyImageRef = storageRef.child("images/party"+party.getIdParty());
 
         final long ONE_MEGABYTE = 1024 * 1024;
-        islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+        partyImageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
                 Bitmap partyImage = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 party.setPartyImage(partyImage);
                 Log.i("party.getPartyImage", party.getPartyImage().toString());
-
 
                 holder.partyImage.setImageBitmap(party.getPartyImage());
                 holder.partyImage.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -145,8 +149,6 @@ public class MyRecyclerViewAdapter extends RecyclerView
                 Log.i("Failed to get image", exception.toString());
             }
         });
-
-        setAnimation(view, position);
     }
 
     @Override

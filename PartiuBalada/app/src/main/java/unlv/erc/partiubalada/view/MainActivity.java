@@ -47,10 +47,9 @@ public class MainActivity extends AppCompatActivity {
         PartyController partyController = new PartyController(MainActivity.this, mAdapter, mRecyclerView);
 
         partyController.getParties();
-
     }
 
-        public void onAccountClicked(View view) {
+    public void onAccountClicked(View view) {
         Intent intent = new Intent(MainActivity.this, AccountActivity.class);
         startActivity(intent);
     }

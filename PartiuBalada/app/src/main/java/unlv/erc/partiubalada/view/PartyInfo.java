@@ -2,8 +2,11 @@ package unlv.erc.partiubalada.view;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +14,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import unlv.erc.partiubalada.R;
 import unlv.erc.partiubalada.model.Party;
@@ -133,16 +141,40 @@ public class PartyInfo extends AppCompatActivity {
         evaluateParty.setTypeface(openSans);
     }
 
-    private void setPartyFlyer(Party party) {
+    private void setPartyFlyer(final Party party) {
         partyImage = (ImageView) findViewById(R.id.partyImage);
         partyRating = (RatingBar) findViewById(R.id.partyRating);
 
         partyRating.setRating(Float.parseFloat(party.getAmountOfStars()));
 
-//        String background = party.getPartyImage();
-//        int imageID = getResources().getIdentifier(background, "drawable", "unlv.erc.partiubalada");
-//        partyImage.setImageResource(imageID);
-//        partyImage.setScaleType(ImageView.ScaleType.FIT_XY);
+        setImageOnBanner(party);
+    }
+
+    private void setImageOnBanner(final Party party) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReferenceFromUrl("gs://project-8420821685282639830.appspot.com");
+
+        StorageReference partyImageRef = storageRef.child("images/party"+party.getIdParty());
+
+        partyImage.setImageBitmap(party.getPartyImage());
+
+        final long ONE_MEGABYTE = 1024 * 1024;
+        partyImageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap partyImageBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                party.setPartyImage(partyImageBitmap);
+                Log.i("party.getPartyImage", party.getPartyImage().toString());
+
+                partyImage.setImageBitmap(party.getPartyImage());
+                partyImage.setScaleType(ImageView.ScaleType.FIT_XY);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.i("Failed to get image", exception.toString());
+            }
+        });
     }
 
     public void onPartiesButtonClicked(View view) {
@@ -154,6 +186,4 @@ public class PartyInfo extends AppCompatActivity {
         Intent intent = new Intent(PartyInfo.this, MainActivity.class);
         startActivity(intent);
     }
-
-
 }
