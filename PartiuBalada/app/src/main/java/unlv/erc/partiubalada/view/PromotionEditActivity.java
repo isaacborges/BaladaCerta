@@ -96,13 +96,9 @@ public class PromotionEditActivity extends AppCompatActivity {
        // showDialog(dialogText);
     }
 
-    public void onDeletePartyClicked(View view) {
+    public void onDeletePromotionClicked(View view) {
         PromotionController promotionController = new PromotionController(PromotionEditActivity.this);
-       // promotionController.deletePromotion(promotion);
-
-        String dialogText = "A promoção foi deletada com sucesso!";
-
-        //showDialog(dialogText);
+        promotionController.deletePromotion(promotion);
     }
 
    /*

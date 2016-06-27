@@ -97,6 +97,12 @@ public class PromotionController {
 
     }
 
+    public void deletePromotion(Promotion promotion){
+        PromotionDAO partyDAO = new PromotionDAO();
+
+        partyDAO.deletePromotionOnFirebase(activityEdit, promotion);
+    }
+
 
     public ValueEventListener getPromotions() {
 

@@ -97,11 +97,15 @@ public class PromotionDAO {
 
     }
 
-    public void deletePromotionOnFirebase(Promotion promotion) {
+    public void deletePromotionOnFirebase(final PromotionEditActivity activity, Promotion promotion) {
 
-        String promotionNameParty = promotion.getPartyName();
+        DatabaseReference mDatabase;
 
-        promotionsReference.child(promotionNameParty).setValue(null);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.child("promotions").child(promotion.getPartyName()).setValue(null);
+
+        Toast.makeText(activity.getApplicationContext(), "Your Promotion has been Deleted!", Toast.LENGTH_LONG).show();
     }
 
 
