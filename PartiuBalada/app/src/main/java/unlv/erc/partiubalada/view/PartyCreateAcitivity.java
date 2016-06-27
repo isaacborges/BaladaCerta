@@ -152,6 +152,11 @@ public class PartyCreateAcitivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onAccountClicked(View view) {
+        Intent intent = new Intent(PartyCreateAcitivity.this, AccountActivity.class);
+        startActivity(intent);
+    }
+
     public void onSendPartyClicked(View view) {
         getEditTextInformations();
         setPartyInformations();
